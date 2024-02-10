@@ -1,0 +1,144 @@
+@{
+    ViewData["Title"] = "Proforma Invoice";
+}
+
+@model Project.Models.ProformaInvoiceModel[]
+
+<div class="text-center">
+    <div class="d-inline-block mx-4">
+        <h3>
+            <a href="@Url.Action("Index", "Home")"> Home</a>
+        </h3>
+    </div>
+    <div class="d-inline-block mx-4">
+        <h3>
+            <a> Proforma Invoices</a>
+        </h3>
+    </div>
+    <div class="d-inline-block mx-4">
+        <h3>
+            <a href="@Url.Action("PendingIndex", "Pending")"> Pending</a>
+        </h3>
+    </div>
+    <div class="d-inline-block mx-4">
+        <h3>
+            <a href="@Url.Action("Index", "Accounting")"> Invoices</a>
+        </h3>
+    </div>
+    <div class="d-inline-block mx-4">
+        <h3>
+            <a href="@Url.Action("VoucherIndex", "Voucher")"> Vouchers</a>
+        </h3>
+    </div>
+</div>
+
+<h2>Proforma Invoices</h2>
+
+<p>
+    <a href="@Url.Action("CreateProformaInvoicePage", "ProformaInvoice")">Create New Proforma Invoice</a>
+</p>
+
+<div>
+    <form asp-action="Search" method="post">
+        <label for="searchString">Search by Proforma Invoice Number:</label>
+        <input type="text" id="searchString" name="searchString"/>
+        <button type="submit">Search</button>
+    </form>
+</div>
+<div>
+    <form asp-action="SearchByName" method="post">
+        <label for="searchNameString">Search by Name:</label>
+        <input type="text" id="searchNameString" name="searchNameString"/>
+        <button type="submit">Search</button>
+    </form>
+</div>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.First().ProformaInvoiceId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().ProformaInvoiceNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Customer.FullName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Descriptions)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Items[0].Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().GrandTotal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().CreatedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Totals)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Items[0].Total)
+        </th>
+
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProformaInvoiceId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProformaInvoiceNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descriptions)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Items[0].Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GrandTotal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedBy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Totals)
+            </td>
+            <th>
+                @Html.DisplayFor(modelItem => item.Items[0].Total)
+            </th>
+
+            <td>
+                <a href="@Url.Action("EditProformaInvoicePage", "ProformaInvoice", new { id = item.ProformaInvoiceId })">Edit</a>
+                <a href="@Url.Action("DeleteProformaInvoice", "ProformaInvoice", new { id = item.ProformaInvoiceId })" class="delete-link" onclick="return confirmDelete()">Delete</a>
+                <a href="@Url.Action("ShowProformaInvoice", "ProformaInvoice", new { id = item.ProformaInvoiceId })">Show</a>
+            </td>
+            <td>
+                <a href="@Url.Action("RequestCreatePendingPage", "ProformaInvoice", new { id = item.ProformaInvoiceId })">Create Pending</a>
+            </td>
+            <td>
+                <a href="@Url.Action("RequestCreateVoucherPage", "ProformaInvoice", new { id = item.ProformaInvoiceId })">Create Voucher</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+@section scripts {
+    <script>
+        function confirmDelete() {
+                return confirm("Are you sure you want to delete this item?");
+        }
+    </script>
+}

@@ -1,0 +1,55 @@
+﻿@model Project.Models.Bill
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<form asp-action="Edit" method="post">
+    <div class="form-group">
+        <input type="hidden" asp-for="InvoiceId">
+    </div>
+    <div class="form-group">
+        <input type="hidden" asp-for="SignatureString">
+    </div>
+    <div class="form-group">
+        <label asp-for="InvoiceNumber" class="control-label"></label>
+        <input asp-for="InvoiceNumber" class="form-control"/>
+        <span asp-validation-for="InvoiceNumber" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="InvoiceDate" class="control-label"></label>
+        <input asp-for="InvoiceDate" class="form-control"/>
+        <span asp-validation-for="InvoiceDate" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Currency" class="control-label"></label>
+        <input asp-for="Currency" class="form-control"/>
+        <span asp-validation-for="Currency" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="CustomerFullName" class="control-label"></label>
+        <input asp-for="CustomerFullName" class="form-control"/>
+        <span asp-validation-for="CustomerFullName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ContactNumber" class="control-label"></label>
+        <input asp-for="ContactNumber" class="form-control"/>
+        <span asp-validation-for="ContactNumber" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Date" class="control-label"></label>
+        <input asp-for="Date" class="form-control"/>
+        <span asp-validation-for="Date" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DeliveryDate" class="control-label"></label>
+        <input asp-for="DeliveryDate" class="form-control"/>
+        <span asp-validation-for="DeliveryDate" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Edit" class="btn btn-primary"/>
+    </div>
+</form>

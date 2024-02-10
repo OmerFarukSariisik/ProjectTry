@@ -1,0 +1,85 @@
+@{
+    ViewData["Title"] = "Jobs";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NonPrintable Form</title>
+    <h2>NonPrintable Form</h2>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to your external CSS file -->
+    
+    <canvas id="signatureCanvas" width="400" height="200" style="border:1px solid black"></canvas>
+    <button id="saveSignature">Save Signature</button>
+    
+    <script>
+        const canvas = document.getElementById('signatureCanvas');
+        const ctx = canvas.getContext('2d');
+        let isDrawing = false;
+        
+        canvas.addEventListener('mousedown', (e) => {
+            isDrawing = true;
+            ctx.beginPath();
+            ctx.moveTo(e.offsetX, e.offsetY);
+        });
+        
+        canvas.addEventListener('mousemove', (e) => {
+            if (isDrawing) {
+                ctx.lineTo(e.offsetX, e.offsetY);
+                ctx.stroke();
+            }
+        });
+        
+        canvas.addEventListener('mouseup', () => {
+            isDrawing = false;
+        });
+        
+        document.getElementById('saveSignature').addEventListener('click', () => {
+            const dataURL = canvas.toDataURL(); // Get the signature as a data URL
+            // Send dataURL to the server via AJAX or form submission
+            // Example using fetch:
+            fetch('/Signature/SaveSignature', {
+                method: 'POST',
+                body: JSON.stringify({ signatureData: dataURL }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+        });
+    </script>
+
+    
+    
+</head>
+<body>
+<div id="printableForm">
+    <!-- Your form content goes here -->
+    <h1>Printable Form</h1>
+    <form id="myForm">
+        <!-- Form fields -->
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" value="John Doe" disabled>
+        <!-- Add other form fields -->
+    </form>
+    <button onclick="printForm()">Print Form</button>
+</div>
+
+<script>
+        function printForm() {
+            var printContents = document.getElementById('printableForm').innerHTML;
+            var originalContents = document.body.innerHTML;
+            
+            var printWindow = window.open('', '_blank');
+            printWindow.document.open();
+            printWindow.document.write('<html><head><title>Print</title><link rel="stylesheet" href="styles.css"></head><body>');
+            printWindow.document.write(printContents);
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.print();
+            printWindow.close();
+
+            document.body.innerHTML = originalContents;
+        }
+    </script>
+</body>
+</html>

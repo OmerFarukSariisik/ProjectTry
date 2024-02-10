@@ -1,0 +1,527 @@
+@model Project.Models.DocumentPoaModel
+
+@{
+    ViewData["Title"] = "Document Poa Show";
+}
+
+<!DOCTYPE html>
+
+<script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
+<style>
+.canvas-wrapper {
+    border: 1px solid #000;
+    display: inline-block;
+}
+</style>
+
+<html>
+
+<head>
+    <meta http-equiv=Content-Type content="text/html; charset=utf-8">
+    <meta name=Generator content="Microsoft Word 15 (filtered)">
+    <style>
+        <!--
+        /* Font Definitions */
+        
+
+        /* Style Definitions */
+        p.MsoNormal, li.MsoNormal, div.MsoNormal {
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 10.0pt;
+            margin-left: 0in;
+            line-height: 115%;
+            font-size: 11.0pt;
+            font-family: "Calibri", sans-serif;
+        }
+
+        p.MsoNoSpacing, li.MsoNoSpacing, div.MsoNoSpacing {
+            margin: 0in;
+            font-size: 11.0pt;
+            font-family: "Calibri", sans-serif;
+        }
+
+        /* Page Definitions */
+
+        div.WordSection1 {
+            page: WordSection1;
+        }
+
+        -->
+    </style>
+
+</head>
+
+<body lang=EN-US link=blue vlink=purple style='word-wrap:break-word'>
+
+<div class=WordSection1>
+
+<table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0 width=713
+       style='width:534.85pt;border-collapse:collapse;border:none'>
+<tr style='height:56.6pt'>
+    <td width=485 colspan=2 style='width:363.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:56.6pt'>
+        <p class=MsoNormal align=center style='margin-bottom:0in;text-align:center;
+  line-height:normal'>
+            <b>
+                <u>
+                    <span lang=TR style='font-size:18.0pt;font-family:
+  "Times New Roman",serif'>DOCUMENT POA </span>
+                </u>
+            </b>
+        </p>
+        <p class=MsoNormal align=center style='margin-bottom:0in;text-align:center;
+  line-height:normal'>
+            <b>
+                <u>
+                    <span lang=TR style='font-size:18.0pt;font-family:
+  "Times New Roman",serif'>FORM</span>
+                </u>
+            </b>
+        </p>
+        <p class=MsoNormal align=center style='margin-bottom:0in;text-align:center;
+  line-height:normal'>
+            <b>
+                <u>
+                    <span lang=TR style='font-size:14.0pt;font-family:
+  "Times New Roman",serif'>
+                        <span style='text-decoration:none'>&nbsp;</span>
+                    </span>
+                </u>
+            </b>
+        </p>
+    </td>
+    <td width=228 style='width:171.35pt;border:solid windowtext 1.0pt;border-left:
+  none;padding:0in 5.4pt 0in 5.4pt;height:56.6pt'>
+        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
+            <b>
+                <span
+                    lang=TR style='font-size:14.0pt;font-family:"Times New Roman",serif'>
+                    &nbsp;
+                </span>
+            </b>
+        </p>
+        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
+            <b>
+                <span
+                    lang=TR style='font-size:14.0pt;font-family:"Times New Roman",serif'>
+                    Date: @Model.CreateDate
+                </span>
+            </b>
+        </p>
+    </td>
+</tr>
+<tr style='height:46.75pt'>
+    <td width=329 style='width:246.4pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:46.75pt'>
+        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
+            <b>
+                <span
+                    lang=TR style='font-size:14.0pt;font-family:"Times New Roman",serif'>
+                    Reference
+                    number:
+                </span>
+            </b><span dir=RTL></span>
+            <b>
+                <span lang=TR dir=RTL
+                      style='font-size:14.0pt;font-family:"Times New Roman",serif'>
+                    <span
+                        dir=RTL>
+                    </span>
+                </span>
+            </b>
+        </p>
+        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
+            <b>
+                <span
+                    lang=TR style='font-size:14.0pt;font-family:"Times New Roman",serif'>
+                    &nbsp;
+                </span>
+            </b>
+        </p>
+    </td>
+    <td width=385 colspan=2 style='width:288.45pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:46.75pt'>
+        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
+            <span
+                lang=TR style='font-size:14.0pt;font-family:"Times New Roman",serif'>
+                @Model.DocumentPoaId
+            </span>
+        </p>
+    </td>
+</tr>
+<tr style='height:41.75pt'>
+    <td width=329 style='width:246.4pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:41.75pt'>
+        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
+            <b>
+                <span
+                    lang=TR style='font-size:14.0pt;font-family:"Times New Roman",serif'>
+                    &nbsp;
+                </span>
+            </b>
+        </p>
+        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
+            <b>
+                <span
+                    lang=TR style='font-size:14.0pt;font-family:"Times New Roman",serif'>
+                    Applicant’s
+                    name:<span dir=RTL></span>
+                    <span dir=RTL>
+                        <span dir=RTL></span>
+                    </span>
+                </span>
+            </b>
+        </p>
+        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
+            <b>
+                <span
+                    lang=TR style='font-size:14.0pt;font-family:"Times New Roman",serif'>
+                    &nbsp;
+                </span>
+            </b>
+        </p>
+    </td>
+    <td width=385 colspan=2 style='width:288.45pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:41.75pt'>
+        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
+            <span
+                style='font-size:14.0pt;font-family:"Times New Roman",serif'>
+                @Model.FullName
+            </span>
+        </p>
+    </td>
+</tr>
+<tr style='height:42.45pt'>
+    <td width=329 style='width:246.4pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:42.45pt'>
+        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
+            <b>
+                <span
+                    lang=AR-DZ dir=RTL
+                    style='font-size:14.0pt;font-family:"Times New Roman",serif'>
+                    &nbsp;
+                </span>
+            </b>
+        </p>
+        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
+            <b>
+                <span
+                    lang=TR style='font-size:14.0pt;font-family:"Times New Roman",serif'>
+                    Address:
+                </span>
+            </b>
+            <span
+                dir=RTL>
+            </span>
+            <b>
+                <span lang=AR-SA dir=RTL style='font-size:14.0pt;
+  font-family:"Times New Roman",serif'>
+                    <span dir=RTL></span>
+                </span>
+            </b>
+        </p>
+    </td>
+    <td width=385 colspan=2 style='width:288.45pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:42.45pt'>
+        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
+            <span
+                lang=TR style='font-size:14.0pt;font-family:"Times New Roman",serif'>
+                @Model.Address
+            </span>
+        </p>
+    </td>
+</tr>
+<tr style='height:50.95pt'>
+    <td width=329 style='width:246.4pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:50.95pt'>
+        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
+            <b>
+                <span
+                    lang=TR style='font-size:14.0pt;font-family:"Times New Roman",serif'>
+                    &nbsp;
+                </span>
+            </b>
+        </p>
+        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
+            <b>
+                <span
+                    lang=TR style='font-size:14.0pt;font-family:"Times New Roman",serif'>
+                    Mobile
+                    for calls:<span dir=RTL></span>
+                    <span dir=RTL>
+                        <span dir=RTL></span>
+                    </span>
+                </span>
+            </b>
+        </p>
+        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
+            <b>
+                <span
+                    lang=TR style='font-size:14.0pt;font-family:"Times New Roman",serif'>
+                    &nbsp;
+                </span>
+            </b>
+        </p>
+    </td>
+    <td width=385 colspan=2 style='width:288.45pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:50.95pt'>
+        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
+            <span
+                lang=AR-DZ dir=RTL style='font-size:14.0pt;font-family:"Times New Roman",serif'>
+                @Model.MobileNumber
+            </span>
+        </p>
+    </td>
+</tr>
+<tr style='height:48.85pt'>
+    <td width=329 style='width:246.4pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:48.85pt'>
+        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
+            <b>
+                <span
+                    lang=TR style='font-size:14.0pt;font-family:"Times New Roman",serif'>
+                    &nbsp;
+                </span>
+            </b>
+        </p>
+        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
+            <b>
+                <span
+                    lang=TR style='font-size:14.0pt;font-family:"Times New Roman",serif'>
+                    WhatsApp
+                    number:<span dir=RTL></span>
+                    <span dir=RTL>
+                        <span dir=RTL></span>
+                    </span>
+                </span>
+            </b>
+        </p>
+        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
+            <b>
+                <span
+                    lang=TR style='font-size:14.0pt;font-family:"Times New Roman",serif'>
+                    &nbsp;
+                </span>
+            </b>
+        </p>
+    </td>
+    <td width=385 colspan=2 style='width:288.45pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:48.85pt'>
+        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
+            <span
+                lang=AR-DZ dir=RTL style='font-size:14.0pt;font-family:"Times New Roman",serif'>
+                @Model.WhatsAppNumber
+            </span>
+        </p>
+    </td>
+</tr>
+<tr style='height:49.55pt'>
+    <td width=329 style='width:246.4pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:49.55pt'>
+        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
+            <b>
+                <span
+                    lang=TR style='font-size:14.0pt;font-family:"Times New Roman",serif'>
+                    Email:
+                </span>
+            </b>
+            <span
+                dir=RTL>
+            </span>
+        </p>
+    </td>
+    <td width=385 colspan=2 style='width:288.45pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:49.55pt'>
+        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
+            <span
+                lang=TR style='font-size:14.0pt;font-family:"Times New Roman",serif'>
+                @Model.Email
+            </span>
+        </p>
+    </td>
+</tr>
+<tr style='height:49.55pt'>
+    <td width=329 style='width:246.4pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:49.55pt'>
+        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
+            <b>
+                <span
+                    lang=TR style='font-size:14.0pt;font-family:"Times New Roman",serif'>
+                    Subject of required POA
+                </span>
+            </b>
+        </p>
+        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
+            <b>
+                <span
+                    lang=TR style='font-size:14.0pt;font-family:"Times New Roman",serif'>
+                    &nbsp;
+                </span>
+            </b>
+        </p>
+    </td>
+    <td width=385 colspan=2 style='width:288.45pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:49.55pt'>
+        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
+            <span
+                lang=TR style='font-size:14.0pt;font-family:"Times New Roman",serif'>
+                @Model.Subject
+            </span>
+        </p>
+    </td>
+</tr>
+<tr style='height:49.55pt'>
+    <td width=329 style='width:246.4pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:49.55pt'>
+        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
+            <b>
+                <span
+                    lang=TR style='font-size:14.0pt;font-family:"Times New Roman",serif'>
+                    &nbsp;
+                </span>
+            </b>
+        </p>
+        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
+            <b>
+                <span
+                    lang=TR style='font-size:14.0pt;font-family:"Times New Roman",serif'>
+                    Owner's speaking
+                    language
+                </span>
+            </b><span dir=RTL></span>
+        </p>
+        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
+            <b>
+                <u>
+                    <span
+                        lang=TR style='font-size:14.0pt;font-family:"Times New Roman",serif'>
+                        <span
+                            style='text-decoration:none'>
+                            &nbsp;
+                        </span>
+                    </span>
+                </u>
+            </b>
+        </p>
+    </td>
+    <td width=385 colspan=2 style='width:288.45pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:49.55pt'>
+        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
+            <span
+                style='font-size:14.0pt;font-family:"Times New Roman",serif'>
+                @Model.OriginalLanguage
+            </span>
+        </p>
+    </td>
+</tr>
+<tr style='height:48.85pt'>
+    <td width=329 style='width:246.4pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0in 5.4pt 0in 5.4pt;height:48.85pt'>
+        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
+            <b>
+                <span
+                    lang=TR style='font-size:14.0pt;font-family:"Times New Roman",serif'>
+                    &nbsp;
+                </span>
+            </b>
+        </p>
+        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
+            <b>
+                <span
+                    lang=TR style='font-size:14.0pt;font-family:"Times New Roman",serif'>
+                    NOTE:<span dir=RTL></span>
+                    <span dir=RTL>
+                        <span dir=RTL></span>
+                    </span>
+                </span>
+            </b>
+        </p>
+        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
+            <b>
+                <span
+                    lang=TR style='font-size:14.0pt;font-family:"Times New Roman",serif'>
+                    &nbsp;
+                </span>
+            </b>
+        </p>
+    </td>
+    <td width=385 colspan=2 style='width:288.45pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt;height:48.85pt'>
+        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
+            <span
+                lang=TR style='font-size:14.0pt;font-family:"Times New Roman",serif'>
+                @Model.Note
+            </span>
+        </p>
+    </td>
+</tr>
+<tr height=0>
+    <td width=329 style='border:none'></td>
+    <td width=156 style='border:none'></td>
+    <td width=228 style='border:none'></td>
+</tr>
+</table>
+
+<p>
+    <b>
+        <u>
+            <span lang=TR style='font-size:14.0pt;
+line-height:115%;font-family:"Times New Roman",serif'>Signature:</span>
+            
+            <div>
+                <canvas class="displayCanvas" width="100" height="50" data-signaturestring="@Model.SignatureString"></canvas>
+            </div>
+        </u>
+    </b>
+</p>
+
+<p class=MsoNormal>
+    <b>
+        <span lang=TR style='font-size:14.0pt;line-height:115%;
+font-family:"Times New Roman",serif'>
+            Appointment date: @Model.AppointmentDate
+        </span>
+    </b>
+</p>
+
+</div>
+
+</body>
+
+</html>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            // Iterate over each canvas with the 'displayCanvas' class
+            $('.displayCanvas').each(function () {
+                var canvas = this;
+                var signaturePad = new SignaturePad(canvas);
+
+                // Function to load and display the signature
+                function loadAndDisplaySignature(signatureData) {
+                    signaturePad.fromDataURL(signatureData);
+                }
+
+                // Call the function with the signature data from the canvas's data attribute
+                console.log("display:" + $(canvas).data('signaturestring'));
+                loadAndDisplaySignature($(canvas).data('signaturestring'));
+            });
+        });
+        
+        function confirmDelete() {
+                return confirm("Are you sure you want to delete this item?");
+        }
+    </script>
+}

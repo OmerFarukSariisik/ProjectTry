@@ -1,0 +1,88 @@
+﻿@{
+    ViewData["Title"] = "Voucher";
+}
+
+@model Project.Models.Voucher[]
+
+
+<div class="text-center">
+    <div class="d-inline-block mx-4">
+        <h3>
+            <a href="@Url.Action("Index", "Home")"> Home</a>
+        </h3>
+    </div>
+    <div class="d-inline-block mx-4">
+        <h3>
+            <a href="@Url.Action("ProformaInvoiceIndex", "ProformaInvoice")"> Proforma Invoices</a>
+        </h3>
+    </div>
+    <div class="d-inline-block mx-4">
+        <h3>
+            <a href="@Url.Action("PendingIndex", "Pending")"> Pending</a>
+        </h3>
+    </div>
+    <div class="d-inline-block mx-4">
+        <h3>
+            <a href="@Url.Action("Index", "Accounting")"> Invoices</a>
+        </h3>
+    </div>
+    <div class="d-inline-block mx-4">
+        <h3>
+            <a> Vouchers</a>
+        </h3>
+    </div>
+</div>
+
+<h2>Vouchers</h2>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.First().VoucherId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Customer.FullName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().ProformaInvoiceId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Date)
+        </th>
+
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.VoucherId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProformaInvoiceId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+
+            <td>
+                <a href="@Url.Action("EditVoucherPage", "Voucher", new { id = item.VoucherId })">Edit</a>
+                <a href="@Url.Action("DeleteVoucher", "Voucher", new { id = item.VoucherId })">Delete</a>
+                <a href="@Url.Action("ShowVoucherPage", "Voucher", new { id = item.VoucherId })">Show</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

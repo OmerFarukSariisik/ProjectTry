@@ -1,0 +1,116 @@
+@using Project.Services
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model Project.Models.Customer
+
+@{
+    ViewData["Title"] = "CreateCustomerJob";
+}
+
+<!DOCTYPE html>
+
+<h2>Create</h2>
+
+<form asp-action="CreateCustomer" method="post">
+    <div class="form-group">
+        <label asp-for="FullName" class="control-label"></label>
+        <input asp-for="FullName" class="form-control"/>
+        <span asp-validation-for="FullName" class="text-danger"></span>
+    </div>
+    <div class="form-group" id="motherNameGroup" style="display: none;">
+        <label asp-for="MotherName" class="control-label"></label>
+        <input asp-for="MotherName" class="form-control"/>
+        <span asp-validation-for="MotherName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Address" class="control-label"></label>
+        <input asp-for="Address" class="form-control"/>
+        <span asp-validation-for="Address" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Email" class="control-label"></label>
+        <input asp-for="Email" class="form-control"/>
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="MobileNumber" class="control-label"></label>
+        <input asp-for="MobileNumber" class="form-control"/>
+        <span asp-validation-for="MobileNumber" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="WhatsAppNumber" class="control-label"></label>
+        <input asp-for="WhatsAppNumber" class="form-control"/>
+        <span asp-validation-for="WhatsAppNumber" class="text-danger"></span>
+    </div>
+    <div class="form-group" id="DocumentTypeGroup">
+        <label asp-for="DocumentType" class="control-label"></label>
+        <select id="DocumentTypes" asp-for="DocumentType" asp-items="Html.GetEnumSelectList<DocumentType>()" class="form-control">
+            <option value="">Select Document Type</option>
+        </select>
+        <span asp-validation-for="DocumentType" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary"/>
+    </div>
+</form>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $('#MobileNumber').blur(function () {
+                var mobileNumber = $('#MobileNumber').val();
+
+                // Make an AJAX request to check if there is any matching customer data
+                $.ajax({
+                    url: '@Url.Action("GetCustomerByMobileNumber", "CustomerJob")',
+                    type: 'GET',
+                    data: { mobileNumber: mobileNumber },
+                    success: function (data) {
+                        if (data) {
+                            // Populate the form fields with the retrieved customer data
+                            $('#FullName').val(data.fullName);
+                            $('#MotherName').val(data.motherName);
+                            $('#Address').val(data.address);
+                            $('#WhatsAppNumber').val(data.whatsAppNumber);
+                            $('#Email').val(data.email);
+                            // Add more fields as needed
+
+                            // Optionally, disable the MobileNumber field to prevent editing
+                            //$('#MobileNumber').attr('readonly', true);
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            // Function to show/hide MotherName based on DocumentType
+            function toggleMotherNameVisibility() {
+                var selectedDocumentType = $('#DocumentTypes').val();
+                var motherNameGroup = $('#motherNameGroup');
+    
+                // Compare against the enum values
+                if (selectedDocumentType === "4") {
+                    motherNameGroup.show();
+                } else {
+                    motherNameGroup.hide();
+                }
+            }
+    
+            // Initial check on page load
+            toggleMotherNameVisibility();
+    
+            // Event handler for DocumentType change
+            $('#DocumentTypes').change(function () {
+                toggleMotherNameVisibility();
+            });
+    
+            // Rest of your existing code...
+        });
+    </script>
+
+}

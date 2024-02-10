@@ -1,0 +1,567 @@
+@model Project.Models.ProformaInvoiceModel
+
+@{
+    ViewData["Title"] = "Create Proforma Invoice";
+}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>file_1704665555883</title>
+    <style type="text/css"> * {
+        margin: 0;
+        padding: 0;
+        text-indent: 0;
+    }
+
+    h3 {
+        color: black;
+        font-family: Arial, sans-serif;
+        font-style: normal;
+        font-weight: bold;
+        text-decoration: none;
+        font-size: 8.5pt;
+    }
+
+    .s1 {
+        color: black;
+        font-family: "Times New Roman", serif;
+        font-style: normal;
+        font-weight: normal;
+        text-decoration: none;
+        font-size: 8.5pt;
+    }
+
+    p {
+        color: black;
+        font-family: Arial, sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        text-decoration: none;
+        font-size: 9pt;
+        margin: 0pt;
+    }
+
+    .s2 {
+        color: black;
+        font-family: "Times New Roman", serif;
+        font-style: normal;
+        font-weight: normal;
+        text-decoration: none;
+        font-size: 9pt;
+    }
+
+    h1 {
+        color: black;
+        font-family: Arial, sans-serif;
+        font-style: normal;
+        font-weight: bold;
+        text-decoration: none;
+        font-size: 14pt;
+    }
+
+    .s3 {
+        color: black;
+        font-family: "Times New Roman", serif;
+        font-style: normal;
+        font-weight: normal;
+        text-decoration: none;
+        font-size: 14pt;
+    }
+
+    a {
+        color: black;
+        font-family: Arial, sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        text-decoration: none;
+        font-size: 9pt;
+    }
+
+    h2 {
+        color: black;
+        font-family: Arial, sans-serif;
+        font-style: normal;
+        font-weight: bold;
+        text-decoration: none;
+        font-size: 9.5pt;
+    }
+
+    .s4 {
+        color: black;
+        font-family: Arial, sans-serif;
+        font-style: normal;
+        font-weight: bold;
+        text-decoration: none;
+        font-size: 8.5pt;
+    }
+
+    .s5 {
+        color: black;
+        font-family: "Times New Roman", serif;
+        font-style: normal;
+        font-weight: normal;
+        text-decoration: none;
+        font-size: 8.5pt;
+    }
+
+    .s6 {
+        color: black;
+        font-family: Arial, sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        text-decoration: none;
+        font-size: 9pt;
+    }
+
+    .s7 {
+        color: black;
+        font-family: Calibri, sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        text-decoration: none;
+        font-size: 8pt;
+    }
+
+    .s8 {
+        color: black;
+        font-family: "Times New Roman", serif;
+        font-style: normal;
+        font-weight: normal;
+        text-decoration: none;
+        font-size: 9pt;
+    }
+
+    .s9 {
+        color: black;
+        font-family: Arial, sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        text-decoration: none;
+        font-size: 9pt;
+        vertical-align: 1pt;
+    }
+
+    .s10 {
+        color: black;
+        font-family: "Times New Roman", serif;
+        font-style: normal;
+        font-weight: normal;
+        text-decoration: none;
+        font-size: 9pt;
+        vertical-align: 1pt;
+    }
+
+    table, tbody {
+        vertical-align: top;
+        overflow: visible;
+    }
+    </style>
+</head>
+<body>
+<p style="text-indent: 0pt;text-align: left;">
+    <br/>
+</p>
+<p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+    <span>
+        <table border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td>
+                    <img
+                        width="356" height="88"
+                        src="data:image/png;base64,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"/>
+                </td>
+
+                <td>
+                    <p style="padding-top: 3pt;text-indent: 0pt;text-align: right;">
+                        <a href="mailto:info@ankaratranslationservices.com">info@ankaratranslationservices.com</a>
+                    </p>
+                    <p style="padding-top: 1pt;text-indent: 0pt;text-align: right;">
+                        +971<span class="s2"> </span>4<span class="s2"> </span>268
+                        <span
+                            class="s2">
+                        </span>6748<span class="s2"> </span>+971<span class="s2"> </span>50<span class="s2"> </span>464
+                        <span
+                            class="s2">
+                        </span>7194
+                    </p>
+                    <p style="padding-top: 1pt;text-indent: 0pt;text-align: right;">
+                        Sheikh<span class="s2"> </span>Rashid
+                        <span
+                            class="s2">
+                        </span>Tower,<span class="s2"> </span>Dubai<span class="s2"> </span>World<span class="s2"> </span>Trade
+                        <span
+                            class="s2">
+                        </span>Center,<span class="s2"> </span>Floor<span class="s2"> </span>25th,
+                    </p>
+                    <p style="padding-top: 1pt;text-indent: 0pt;text-align: right;">Office<span class="s2"> </span>2501-EO-67-68</p>
+                    <p style="text-indent: 0pt;text-align: left;">
+                        <br/>
+                    </p>
+                    <p style="text-indent: 0pt;text-align: left;">
+                        <br/>
+                    </p>
+                    <div style="display: flex; justify-content: flex-end; align-items: center;">
+                        <p style="padding-top: 7pt; text-indent: 0pt; text-align: right;">SI603</p>
+                        <div style="position: relative; top: -40px;">
+                            <img width="19" height="40" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAABACAYAAAD4SkyVAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAASUlEQVRYhe3MoQ2AQAAEwQkY+m+JXghNwGPe4Ekwe+ZWDQzc82GbPXB578Y6e2CffeJYfLiwsLCwsLCwsLCwsLCwsLCwsLD/sQeh3gsPvAT5WgAAAABJRU5ErkJgggAA"/>
+                            <img width="19" height="40" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAABACAYAAAD4SkyVAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAATUlEQVRYhe3MsQ3AIBBD0U/GZF12iTIBJVBgKQsg0Xx3d7IfwAQ+dhrQ+VOAkc7Ir+ae6ZP9+3AwYmJiYmJiYmJiYmJiYmJiYmJi97EFv0gMBNZtgdIAAAAASUVORK5CYIIA"/>
+                            <img width="19" height="40" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAABACAYAAAD4SkyVAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAASUlEQVRYhe3MsQ0AIAzEQAv2n4pdUKYIFKRgACQau3p9cQALCE4DyPruVv0J9OsbtQOYjYeJiYmJiYmJiYmJiYmJiYmJiYn9xzbgEgu05t/duwAAAABJRU5ErkJgggAA"/>
+                            <img width="19" height="40" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAABACAYAAAD4SkyVAAAABmJLR0QA/wD/AP+gvaeTAAAATUlEQVRYhe3MwQ3AIAwEwSVl0gzFpZeIKoAHJ6UBJD57P/vsAZhAZ+cFRnYAJXPjT00/c0/+v4eDERMTExMTExMTExMTExMTExMTu48t8yELjUq75JMAAAAASUVORK5CYIIA"/>
+                            <img width="19" height="40" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAABACAYAAAD4SkyVAAAABmJLR0QA/wD/AP+gvaeTAAAAS0lEQVRYhe3MsQmAUBAFwdHI/luyF7EKv4EKFiCY7Gb3DgYGdlcrjnuD6b6fnt/A8tp3bLMPCwsLCwsLCwsLCwsLCwsLCwsL+x87AdhUCvealMGAAAAAAElFTkSuQmCC"/>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </span>
+</p>
+<p style="text-indent: 0pt;text-align: left;">
+    <br/>
+</p>
+
+<form asp-action="CreateProformaInvoice" method="post">
+
+<p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+    <span>
+        <table border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td align="left" style="padding-right: 20px;">
+                    <p style="text-indent: 0pt;text-align: left;"/>
+                    <h1 style="padding-top: 12pt;padding-left: 19pt;text-indent: 0pt;text-align: left;">
+                        Tax<span class="s3"> </span>Invoice
+                    </h1>
+                    <p style="text-indent: 0pt;text-align: left;">
+                        <br/>
+                    </p>
+                    <p style="padding-left: 19pt;text-indent: 0pt;text-align: left;">TRN:<span class="s2"> </span>104065877300001</p>
+                    <p style="padding-top: 1pt;padding-left: 19pt;text-indent: 0pt;text-align: left;">
+                        Invoice:<span class="s2"> </span>#SI603
+                    </p>
+                    <p style="padding-top: 1pt;padding-left: 19pt;text-indent: 0pt;line-height: 115%;text-align: left;">
+                        Invoice Date: 
+                        <input asp-for="InvoiceDate" class="form-control"/>
+                        <span asp-validation-for="InvoiceDate" class="text-danger"></span>
+                    </p>
+                    <p style="padding-top: 1pt;padding-left: 19pt;text-indent: 0pt;text-align: left;">
+                        Currency: AED
+                    </p>
+                </td>
+                <td align="right" style="padding-left: 170px;">
+                    <h3 style="padding-top: 6pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">
+                        Invoice<span class="s1"> </span>To
+                    </h3>
+                    <p style="padding-top: 1pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">
+                        <input asp-for="Customer.FullName" class="form-control" readonly="readonly" id="Customer.FullName"/>
+                    </p>
+                    <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">
+                        Contact No :
+                        <input asp-for="Customer.MobileNumber" id="Customer.MobileNumber" data-url="@Url.Action("GetCustomerByMobileNumber", "ProformaInvoice")" />
+                        <span asp-validation-for="Customer.MobileNumber" class="text-danger"></span>
+                    </p>
+                    <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">
+                        TRN : <input asp-for="Customer.TRNNumber" class="form-control" readonly="readonly" id="Customer.TRNNumber"/>
+                    </p>
+                    <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">
+                        Address : <input asp-for="Customer.Address" class="form-control" readonly="readonly" id="Customer.Address"/>
+                    </p>
+                </td>
+            </tr>
+        </table>
+    </span>
+</p>
+
+
+<p style="text-indent: 0pt;text-align: left;">
+    <br/>
+</p>
+<h2 style="padding-top: 4pt;text-indent: 0pt;text-align: center;">Particulars</h2>
+<p style="text-indent: 0pt;text-align: left;">
+    <br/>
+</p>
+<p style="text-indent: 0pt;text-align: left;">
+    <br/>
+</p>
+
+<button id="addRowBtn">Add Row</button>
+<button id="removeRowBtn">Remove Row</button>
+<table style="border-collapse:collapse;margin-left:19pt" cellspacing="0" id="itemTable">
+    <tr style="height:28pt">
+        <td style="width:48pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p class="s4"
+               style="padding-top: 6pt;padding-left: 10pt;padding-right: 9pt;text-indent: 0pt;text-align: center;">
+                SL<span class="s5"> </span>NO
+            </p>
+        </td>
+        <td style="width:143pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p class="s4" style="padding-top: 6pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">Description</p>
+        </td>
+        <td style="width:67pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p class="s4"
+               style="padding-top: 6pt;padding-left: 15pt;padding-right: 8pt;text-indent: 0pt;text-align: center;">
+                Unit<span class="s5"> </span>Price
+            </p>
+            <p class="s6"
+               style="padding-top: 1pt;padding-left: 15pt;padding-right: 8pt;text-indent: 0pt;line-height: 9pt;text-align: center;">
+                (AED)
+            </p>
+        </td>
+        <td style="width:48pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p class="s4" style="padding-top: 6pt;padding-left: 16pt;text-indent: 0pt;text-align: left;">Qty</p>
+        </td>
+        <td style="width:72pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p class="s4"
+               style="padding-top: 6pt;padding-left: 20pt;padding-right: 8pt;text-indent: 0pt;text-align: center;">
+                Sub<span class="s5"> </span>Total
+            </p>
+            <p class="s6"
+               style="padding-top: 1pt;padding-left: 20pt;padding-right: 8pt;text-indent: 0pt;line-height: 9pt;text-align: center;">
+                (AED)
+            </p>
+        </td>
+        <td style="width:72pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p class="s4"
+               style="padding-top: 6pt;padding-left: 9pt;padding-right: 8pt;text-indent: 0pt;text-align: center;">
+                TAX<span class="s5"> </span>Amount
+            </p>
+            <p class="s7"
+               style="padding-top: 1pt;padding-left: 9pt;padding-right: 8pt;text-indent: 0pt;line-height: 9pt;text-align: center;">
+                (AED)
+            </p>
+        </td>
+        <td style="width:83pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:2pt">
+            <p class="s4"
+               style="padding-top: 6pt;padding-left: 33pt;padding-right: 25pt;text-indent: 0pt;text-align: center;">
+                Total
+            </p>
+            <p class="s7"
+               style="padding-top: 1pt;padding-left: 33pt;padding-right: 25pt;text-indent: 0pt;line-height: 9pt;text-align: center;">
+                (AED)
+            </p>
+        </td>
+    </tr>
+    <tr style="height:25pt" class="item-row">
+        <td style="width:48pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p class="s6" style="padding-top: 6pt;text-indent: 0pt;text-align: center;">1</p>
+        </td>
+        <td style="width:143pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p class="s6" style="padding-top: 7pt;text-indent: 0pt;text-align: left;">
+                <input asp-for="Items[0].Description" class="form-control" />
+            </p>
+        </td>
+        <td style="width:67pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p class="s6" style="padding-top: 6pt;padding-left: 23pt;text-indent: 0pt;text-align: left;">
+                <input asp-for="Items[0].UnitPrice" class="form-control" />
+            </p>
+        </td>
+        <td style="width:48pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p class="s6" style="padding-top: 6pt;padding-left: 16pt;text-indent: 0pt;text-align: left;">
+                <input asp-for="Items[0].Qty" class="form-control" />
+            </p>
+        </td>
+        <td style="width:72pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p class="s6" style="padding-top: 6pt;padding-left: 22pt;text-indent: 0pt;text-align: left;">
+                <input asp-for="Items[0].SubTotal" class="form-control" />
+            </p>
+        </td>
+        <td style="width:72pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p class="s6" style="padding-top: 6pt;padding-left: 25pt;text-indent: 0pt;text-align: left;">
+                <input asp-for="Items[0].TaxAmount" class="form-control" />
+            </p>
+        </td>
+        <td style="width:83pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p class="s6" style="padding-top: 6pt;padding-right: 21pt;text-indent: 0pt;text-align: right;">
+                <input asp-for="Items[0].Total" class="form-control" />
+            </p>
+        </td>
+    </tr>
+    <tr style="height:25pt; display: none;" class="item-row-template">
+        <td style="width:48pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p class="s6" style="padding-top: 6pt;text-indent: 0pt;text-align: center;">1</p>
+        </td>
+        <td style="width:143pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p class="s6" style="padding-top: 7pt;text-indent: 0pt;text-align: left;">
+                <input asp-for="Items[0].Description" class="form-control" />
+            </p>
+        </td>
+        <td style="width:67pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p class="s6" style="padding-top: 6pt;padding-left: 23pt;text-indent: 0pt;text-align: left;">
+                <input asp-for="Items[0].UnitPrice" class="form-control" />
+            </p>
+        </td>
+        <td style="width:48pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p class="s6" style="padding-top: 6pt;padding-left: 16pt;text-indent: 0pt;text-align: left;">
+                <input asp-for="Items[0].Qty" class="form-control" />
+            </p>
+        </td>
+        <td style="width:72pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p class="s6" style="padding-top: 6pt;padding-left: 22pt;text-indent: 0pt;text-align: left;">
+                <input asp-for="Items[0].SubTotal" class="form-control" />
+            </p>
+        </td>
+        <td style="width:72pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p class="s6" style="padding-top: 6pt;padding-left: 25pt;text-indent: 0pt;text-align: left;">
+                <input asp-for="Items[0].TaxAmount" class="form-control" />
+            </p>
+        </td>
+        <td style="width:83pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p class="s6" style="padding-top: 6pt;padding-right: 21pt;text-indent: 0pt;text-align: right;">
+                <input asp-for="Items[0].Total" class="form-control" />
+            </p>
+        </td>
+    </tr>
+    <tr style="height:29pt" class="items-finish">
+        <td style="width:450pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+            colspan="6">
+            <p style="text-indent: 0pt;text-align: left;">
+                <br/>
+            </p>
+            <p class="s4" style="padding-right: 5pt;text-indent: 0pt;text-align: right;">
+                Sub<span class="s5"> </span>Total
+            </p>
+        </td>
+        <td style="width:83pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p style="text-indent: 0pt;text-align: left;">
+                <br/>
+            </p>
+            <p class="s4" style="padding-right: 25pt;text-indent: 0pt;text-align: right;"> <input asp-for="SubTotal" class="form-control" /> </p>
+        </td>
+    </tr>
+    <tr style="height:23pt">
+        <td style="width:450pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+            colspan="6">
+            <p class="s4" style="padding-top: 6pt;padding-right: 5pt;text-indent: 0pt;text-align: right;">
+                Total<span class="s5"> </span>Tax<span class="s5"> </span>Amount
+            </p>
+        </td>
+        <td style="width:83pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p class="s4" style="padding-top: 6pt;padding-right: 27pt;text-indent: 0pt;text-align: right;"> <input asp-for="TotalTaxAmount" class="form-control" /> </p>
+        </td>
+    </tr>
+    <tr style="height:24pt">
+        <td style="width:450pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+            colspan="6">
+            <p class="s4" style="padding-top: 6pt;padding-right: 5pt;text-indent: 0pt;text-align: right;">
+                Grand<span class="s5"> </span>Total
+            </p>
+        </td>
+        <td style="width:83pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p class="s4" style="padding-top: 6pt;padding-right: 25pt;text-indent: 0pt;text-align: right;"> <input asp-for="GrandTotal" class="form-control" /> </p>
+        </td>
+    </tr>
+    <tr style="height:22pt">
+        <td style="width:137pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+            colspan="2">
+            <p class="s4" style="padding-top: 6pt;padding-left: 54pt;text-indent: 0pt;text-align: left;">
+                Amount<span class="s5"> </span>in<span class="s5"> </span>words
+            </p>
+        </td>
+        <td style="width:396pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+            colspan="5">
+            <p class="s6" style="padding-top: 5pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">
+                SIX<span class="s8"> </span>HUNDRED<span class="s8"> </span>THIRTY<span class="s8"> </span>AND
+                <span
+                    class="s8">
+                </span>ZERO<span class="s8"> </span>FILS<span class="s8"> </span>ONLY
+            </p>
+        </td>
+    </tr>
+</table>
+<p style="text-indent: 0pt;text-align: left;">
+    <br/>
+</p>
+
+<h3 style="padding-left: 355pt;text-indent: 0pt;line-height: 10pt;text-align: left;">
+    Created
+    <span
+        class="s1">
+    </span>By<span class="s1"> </span>:<span class="s1"> </span>
+    <span
+        class="s10">
+    </span><span class="s9"> <input asp-for="CreatedBy" class="form-control" /> </span>
+</h3>
+
+<div class="form-group">
+    <input type="submit" value="Create" class="btn btn-primary"/>
+</div>
+</form>
+</body>
+</html>
+
+
+
+
+
+@section scripts {
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('[id="Customer.MobileNumber"]').on('blur', function () {
+                var mobileNumber = $(this).val();
+                var url = $(this).data('url');
+        
+                console.log("Before AJAX call");
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    data: { mobileNumber: mobileNumber },
+                    success: function (data) {
+                        if (data) {
+                            // Populate the form fields with the retrieved customer data
+                            $('[id="Customer.FullName"]').val(data.fullName);
+                            $('[id="Customer.MotherName"]').val(data.motherName);
+                            $('[id="Customer.Address"]').val(data.address);
+                            $('[id="Customer.WhatsAppNumber"]').val(data.whatsAppNumber);
+                            $('[id="Customer.Email"]').val(data.email);
+                            // Add more fields as needed
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            });
+        });
+
+    </script>
+    <script>
+            $(document).ready(function () {
+                var currentIndex = 0; // Initialize the index counter
+                console.log("try1");
+                // Add Row button click event
+                $("#addRowBtn").on("click", function () {
+                    event.preventDefault();
+                    console.log("try2");
+                    var newRow = $(".item-row-template").clone().removeClass("item-row-template").addClass("item-row");
+    
+                    updateIndices(newRow, currentIndex);
+                    newRow.css("display", "table-row");
+                    $(".items-finish").first().before(newRow);
+    
+                    newRow.show();
+                    currentIndex++;
+                });
+    
+                // Remove Row button click event
+                $("#removeRowBtn").on("click", function () {
+                    // Find the last visible row and remove it
+                    $(".item-row:visible:last").remove();
+    
+                    // Decrement the index counter
+                    currentIndex--;
+                });
+    
+                // Function to update indices in a row
+                function updateIndices(row, index) {
+                    row.find("input").each(function () {
+                        var name = $(this).attr("name");
+                        // Replace [0] with the current index
+                        name = name.replace(/\[\d\]/g, "[" + index + "]");
+                        $(this).attr("name", name);
+                    });
+                }
+            });
+        </script>
+}

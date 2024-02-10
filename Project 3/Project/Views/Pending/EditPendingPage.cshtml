@@ -1,0 +1,39 @@
+@model Project.Models.PendingModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<form asp-action="EditPending" method="post">
+    <div class="form-group">
+        <input type="hidden" asp-for="PendingId"/>
+    </div>
+    <div class="form-group">
+        <input type="hidden" asp-for="ProformaInvoiceId"/>
+    </div>
+    <div class="form-group">
+        <input type="hidden" asp-for="ProformaInvoice"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="ProformaInvoice.ProformaInvoiceNo" class="control-label"></label>
+        <input asp-for="ProformaInvoice.ProformaInvoiceNo" class="form-control" readonly="readonly"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="ProformaInvoice.Customer.FullName" class="control-label"></label>
+        <input asp-for="ProformaInvoice.Customer.FullName" class="form-control" readonly="readonly"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="ProformaInvoice.Descriptions" class="control-label"></label>
+        <input asp-for="ProformaInvoice.Descriptions" class="form-control" readonly="readonly"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Note" class="control-label"></label>
+        <input asp-for="Note" class="form-control"/>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Edit" class="btn btn-primary"/>
+    </div>
+</form>

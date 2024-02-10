@@ -1,0 +1,33 @@
+@model Project.Models.PendingModel
+
+@{
+    ViewData["Title"] = "CreatePending";
+}
+
+<!DOCTYPE html>
+
+<h2>Create Pending</h2>
+
+<form asp-action="CreatePending" method="post">
+    <div class="form-group">
+        <input type="hidden" asp-for="ProformaInvoiceId">
+    </div>
+    <div class="form-group">
+        Ref No: @Model.ProformaInvoice.ProformaInvoiceNo
+    </div>
+    <div class="form-group">
+        Customer: @Model.ProformaInvoice.Customer.FullName
+    </div>
+    <div class="form-group">
+        Descriptions: @Model.ProformaInvoice.Descriptions
+    </div>
+    <div class="form-group">
+        Note:
+        <input asp-for="Note" class="form-control"/>
+        <span asp-validation-for="Note" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary"/>
+    </div>
+</form>

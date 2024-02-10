@@ -1,0 +1,27 @@
+﻿<Properties StartupConfiguration="{0B0C9CA2-F1CE-47B4-947F-8F204BD0C277}|Default">
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Project/Controllers/AccountingController.cs">
+    <Files>
+      <File FileName="Project/Controllers/AccountingController.cs" Line="23" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Project" expanded="True">
+            <Node name="Project" expanded="True">
+              <Node name="Controllers" expanded="True">
+                <Node name="AccountingController.cs" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.Project PreferredExecutionTarget="/Applications/Google Chrome.app" />
+</Properties>

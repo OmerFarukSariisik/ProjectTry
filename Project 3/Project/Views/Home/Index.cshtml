@@ -1,0 +1,57 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<h2>Main Page</h2>
+
+<body>
+<nav>
+    <ul>
+        <li>
+            <a href="@Url.Action("CreateCustomerJob", "CustomerJob")">Create Customer</a>
+        </li>
+        <li>
+            <a href="@Url.Action("Index", "Accounting")">Accounting</a>
+        </li>
+        <li>
+            <a href="@Url.Action("CustomerIndex", "Customer")">Customer List</a>
+        </li>
+        @*<li style="list-style-position: inside;">
+            <a href="@Url.Action("DocumentTranslationFormPage", "DocumentTranslation")">Document Translation Form</a>
+        </li>
+        <li style="list-style-position: inside;">
+            <a href="@Url.Action("CustomerIndex", "Customer")">Document Approval</a>
+        </li>
+        <li style="list-style-position: inside;">
+            <a href="@Url.Action("CustomerIndex", "Customer")">Notarial Procedures</a>
+        </li>*@
+        <li>
+            <a>Job Tracking</a>
+        </li>
+        <li style="list-style-position: inside;">
+            <a href="@Url.Action("DocumentTranslationTrackPage", "DocumentTranslation")">Document Translation Tracking</a>
+        </li>
+        <li style="list-style-position: inside;">
+            <a href="@Url.Action("DocumentAttestationTrackPage", "DocumentAttestation")">Document Attestation Tracking</a>
+        </li>
+        <li style="list-style-position: inside;">
+            <a href="@Url.Action("DocumentPoaTrackPage", "DocumentPoa")">Document Poa Tracking</a>
+        </li>
+        <li style="list-style-position: inside;">
+            <a href="@Url.Action("SircularyTrackPage", "DocumentSirculary")">Document Sirculary Tracking</a>
+        </li>
+        <li style="list-style-position: inside;">
+            <a href="@Url.Action("InvitationTrackPage", "DocumentInvitation")">Document Invitation Tracking</a>
+        </li>
+        <li style="list-style-position: inside;">
+            <a href="@Url.Action("CommitmentLetterTrackPage", "DocumentCommitmentLetter")">Document Commitment Letter Tracking</a>
+        </li>
+        <li style="list-style-position: inside;">
+            <a href="@Url.Action("ConsentLetterTrackPage", "DocumentConsentLetter")">Document Consent Letter Tracking</a>
+        </li>
+        
+        
+    </ul>
+</nav>
+</body>

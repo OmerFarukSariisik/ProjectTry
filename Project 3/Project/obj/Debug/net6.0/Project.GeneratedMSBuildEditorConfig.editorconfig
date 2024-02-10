@@ -1,0 +1,209 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = Project
+build_property.RootNamespace = Project
+build_property.ProjectDir = /Users/omerfaruk/Downloads/Project 3/Project/
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = /Users/omerfaruk/Downloads/Project 3/Project
+build_property._RazorSourceGeneratorDebug = 
+
+[/Users/omerfaruk/Downloads/Project 3/Project/Areas/Identity/Pages/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvSWRlbnRpdHkvUGFnZXMvX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Downloads/Project 3/Project/Views/Accounting/CreatePage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWNjb3VudGluZy9DcmVhdGVQYWdlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Downloads/Project 3/Project/Views/Accounting/EditPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWNjb3VudGluZy9FZGl0UGFnZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Downloads/Project 3/Project/Views/Accounting/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWNjb3VudGluZy9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Downloads/Project 3/Project/Views/Accounting/ShowInvoice.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWNjb3VudGluZy9TaG93SW52b2ljZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Downloads/Project 3/Project/Views/Customer/CreateCustomerPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ3VzdG9tZXIvQ3JlYXRlQ3VzdG9tZXJQYWdlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Downloads/Project 3/Project/Views/Customer/CustomerIndex.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ3VzdG9tZXIvQ3VzdG9tZXJJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Downloads/Project 3/Project/Views/Customer/EditCustomerPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ3VzdG9tZXIvRWRpdEN1c3RvbWVyUGFnZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Downloads/Project 3/Project/Views/CustomerJob/CreateCustomerJobPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ3VzdG9tZXJKb2IvQ3JlYXRlQ3VzdG9tZXJKb2JQYWdlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Downloads/Project 3/Project/Views/DocumentAttestation/AttestationForm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRG9jdW1lbnRBdHRlc3RhdGlvbi9BdHRlc3RhdGlvbkZvcm0uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Downloads/Project 3/Project/Views/DocumentAttestation/DocumentAttestationShowPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRG9jdW1lbnRBdHRlc3RhdGlvbi9Eb2N1bWVudEF0dGVzdGF0aW9uU2hvd1BhZ2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Downloads/Project 3/Project/Views/DocumentAttestation/DocumentAttestationTrackPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRG9jdW1lbnRBdHRlc3RhdGlvbi9Eb2N1bWVudEF0dGVzdGF0aW9uVHJhY2tQYWdlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Downloads/Project 3/Project/Views/DocumentCommitmentLetter/CommitmentLetterForm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRG9jdW1lbnRDb21taXRtZW50TGV0dGVyL0NvbW1pdG1lbnRMZXR0ZXJGb3JtLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Downloads/Project 3/Project/Views/DocumentCommitmentLetter/CommitmentLetterShowPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRG9jdW1lbnRDb21taXRtZW50TGV0dGVyL0NvbW1pdG1lbnRMZXR0ZXJTaG93UGFnZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Downloads/Project 3/Project/Views/DocumentCommitmentLetter/CommitmentLetterTrackPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRG9jdW1lbnRDb21taXRtZW50TGV0dGVyL0NvbW1pdG1lbnRMZXR0ZXJUcmFja1BhZ2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Downloads/Project 3/Project/Views/DocumentConsentLetter/ConsentLetterForm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRG9jdW1lbnRDb25zZW50TGV0dGVyL0NvbnNlbnRMZXR0ZXJGb3JtLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Downloads/Project 3/Project/Views/DocumentConsentLetter/ConsentLetterShowPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRG9jdW1lbnRDb25zZW50TGV0dGVyL0NvbnNlbnRMZXR0ZXJTaG93UGFnZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Downloads/Project 3/Project/Views/DocumentConsentLetter/ConsentLetterTrackPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRG9jdW1lbnRDb25zZW50TGV0dGVyL0NvbnNlbnRMZXR0ZXJUcmFja1BhZ2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Downloads/Project 3/Project/Views/DocumentInvitation/InvitationForm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRG9jdW1lbnRJbnZpdGF0aW9uL0ludml0YXRpb25Gb3JtLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Downloads/Project 3/Project/Views/DocumentInvitation/InvitationShowPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRG9jdW1lbnRJbnZpdGF0aW9uL0ludml0YXRpb25TaG93UGFnZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Downloads/Project 3/Project/Views/DocumentInvitation/InvitationTrackPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRG9jdW1lbnRJbnZpdGF0aW9uL0ludml0YXRpb25UcmFja1BhZ2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Downloads/Project 3/Project/Views/DocumentPoa/DocumentPoaAbuDhabiForm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRG9jdW1lbnRQb2EvRG9jdW1lbnRQb2FBYnVEaGFiaUZvcm0uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Downloads/Project 3/Project/Views/DocumentPoa/DocumentPoaForm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRG9jdW1lbnRQb2EvRG9jdW1lbnRQb2FGb3JtLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Downloads/Project 3/Project/Views/DocumentPoa/DocumentPoaShowPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRG9jdW1lbnRQb2EvRG9jdW1lbnRQb2FTaG93UGFnZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Downloads/Project 3/Project/Views/DocumentPoa/DocumentPoaTrackPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRG9jdW1lbnRQb2EvRG9jdW1lbnRQb2FUcmFja1BhZ2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Downloads/Project 3/Project/Views/DocumentSirculary/SircularyForm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRG9jdW1lbnRTaXJjdWxhcnkvU2lyY3VsYXJ5Rm9ybS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Downloads/Project 3/Project/Views/DocumentSirculary/SircularyShowPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRG9jdW1lbnRTaXJjdWxhcnkvU2lyY3VsYXJ5U2hvd1BhZ2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Downloads/Project 3/Project/Views/DocumentSirculary/SircularyTrackPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRG9jdW1lbnRTaXJjdWxhcnkvU2lyY3VsYXJ5VHJhY2tQYWdlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Downloads/Project 3/Project/Views/DocumentTranslation/DocumentTranslationFormPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRG9jdW1lbnRUcmFuc2xhdGlvbi9Eb2N1bWVudFRyYW5zbGF0aW9uRm9ybVBhZ2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Downloads/Project 3/Project/Views/DocumentTranslation/DocumentTranslationShowPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRG9jdW1lbnRUcmFuc2xhdGlvbi9Eb2N1bWVudFRyYW5zbGF0aW9uU2hvd1BhZ2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Downloads/Project 3/Project/Views/DocumentTranslation/DocumentTranslationTrackPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRG9jdW1lbnRUcmFuc2xhdGlvbi9Eb2N1bWVudFRyYW5zbGF0aW9uVHJhY2tQYWdlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Downloads/Project 3/Project/Views/DocumentTranslation/TranslationForm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRG9jdW1lbnRUcmFuc2xhdGlvbi9UcmFuc2xhdGlvbkZvcm0uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Downloads/Project 3/Project/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Downloads/Project 3/Project/Views/Job/JobIndex.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSm9iL0pvYkluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Downloads/Project 3/Project/Views/Pending/CreatePendingPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUGVuZGluZy9DcmVhdGVQZW5kaW5nUGFnZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Downloads/Project 3/Project/Views/Pending/EditPendingPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUGVuZGluZy9FZGl0UGVuZGluZ1BhZ2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Downloads/Project 3/Project/Views/Pending/PendingIndex.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUGVuZGluZy9QZW5kaW5nSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Downloads/Project 3/Project/Views/ProformaInvoice/CreateProformaInvoicePage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUHJvZm9ybWFJbnZvaWNlL0NyZWF0ZVByb2Zvcm1hSW52b2ljZVBhZ2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Downloads/Project 3/Project/Views/ProformaInvoice/EditProformaInvoicePage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUHJvZm9ybWFJbnZvaWNlL0VkaXRQcm9mb3JtYUludm9pY2VQYWdlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Downloads/Project 3/Project/Views/ProformaInvoice/ProformaInvoiceIndex.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUHJvZm9ybWFJbnZvaWNlL1Byb2Zvcm1hSW52b2ljZUluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Downloads/Project 3/Project/Views/ProformaInvoice/ShowProformaInvoice.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUHJvZm9ybWFJbnZvaWNlL1Nob3dQcm9mb3JtYUludm9pY2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Downloads/Project 3/Project/Views/Voucher/CreateVoucherPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVm91Y2hlci9DcmVhdGVWb3VjaGVyUGFnZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Downloads/Project 3/Project/Views/Voucher/EditVoucherPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVm91Y2hlci9FZGl0Vm91Y2hlclBhZ2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Downloads/Project 3/Project/Views/Voucher/ShowVoucherPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVm91Y2hlci9TaG93Vm91Y2hlclBhZ2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Downloads/Project 3/Project/Views/Voucher/VoucherIndex.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVm91Y2hlci9Wb3VjaGVySW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Downloads/Project 3/Project/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Downloads/Project 3/Project/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Downloads/Project 3/Project/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-r07nuq4tb0
