@@ -12,6 +12,7 @@ namespace Project.Models
         public string MobileNumber{ get; set; }
         public string WhatsAppNumber{ get; set; }
         public string TRNNumber{ get; set; }
+        public int Satisfaction{ get; set; }
         public DocumentType DocumentType{ get; set; }
     }
 }

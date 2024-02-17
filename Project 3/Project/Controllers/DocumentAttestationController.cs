@@ -88,6 +88,7 @@ public class DocumentAttestationController : Controller
     
     public IActionResult AttestationForm(DocumentAttestationModel documentAttestationModel)
     {
+        documentAttestationModel.CreateDate = DateTime.Now;
         return View(documentAttestationModel);
     }
     

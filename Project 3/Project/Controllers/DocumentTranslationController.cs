@@ -94,6 +94,7 @@ public class DocumentTranslationController : Controller
     
     public IActionResult TranslationForm(DocumentTranslationModel documentTranslationModel)
     {
+        documentTranslationModel.CreateDate = DateTime.Now;
         return View(documentTranslationModel);
     }
 

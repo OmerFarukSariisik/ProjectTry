@@ -48,7 +48,7 @@ public class DocumentTranslationService : IDocumentTranslationService
             string tableExistsSql =
                 "IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'customers') CREATE TABLE customers " +
                 "(CustomerId INT PRIMARY KEY IDENTITY(1,1), FullName NVARCHAR(50) NOT NULL, MotherName NVARCHAR(50), Address NVARCHAR(100), Email NVARCHAR(50), MobileNumber NVARCHAR(20)" +
-                ", WhatsAppNumber NVARCHAR(20), TRNNumber NVARCHAR(20))";
+                ", WhatsAppNumber NVARCHAR(20), TRNNumber NVARCHAR(20), Satisfaction INT)";
 
             using (SqlCommand checkTableCommand = new SqlCommand(tableExistsSql, connection))
             {
@@ -76,6 +76,7 @@ public class DocumentTranslationService : IDocumentTranslationService
                         customer.MobileNumber = reader.GetString(5);
                         customer.WhatsAppNumber = reader.GetString(6);
                         customer.TRNNumber = reader.GetString(7);
+                        customer.Satisfaction = reader.GetInt32(8);
                         
                         Console.WriteLine("Mobile number:" + customer.MobileNumber + "-");
                         if (AllCustomers.All(c => c.CustomerId != customer.CustomerId))
@@ -99,7 +100,8 @@ public class DocumentTranslationService : IDocumentTranslationService
             Email = customer.Email,
             MobileNumber = customer.MobileNumber,
             WhatsAppNumber = customer.WhatsAppNumber,
-            TRNNumber = customer.TRNNumber
+            TRNNumber = customer.TRNNumber,
+            Satisfaction = customer.Satisfaction
         };
 
         var hasCustomer = AllCustomers.Any(c => c.FullName == newCustomer.FullName && c.Email == newCustomer.Email);
@@ -110,8 +112,8 @@ public class DocumentTranslationService : IDocumentTranslationService
         {
             connection.Open();
 
-            string sql = "INSERT INTO customers (FullName, MotherName, Address, Email, MobileNumber, WhatsAppNumber, TRNNumber) " +
-                         "VALUES (@FullName, @MotherName, @Address, @Email, @MobileNumber, @WhatsAppNumber, @TRNNumber) SELECT SCOPE_IDENTITY()";
+            string sql = "INSERT INTO customers (FullName, MotherName, Address, Email, MobileNumber, WhatsAppNumber, TRNNumber, Satisfaction) " +
+                         "VALUES (@FullName, @MotherName, @Address, @Email, @MobileNumber, @WhatsAppNumber, @TRNNumber, @Satisfaction) SELECT SCOPE_IDENTITY()";
 
             using (SqlCommand command = new SqlCommand(sql, connection))
             {
@@ -122,6 +124,7 @@ public class DocumentTranslationService : IDocumentTranslationService
                 command.Parameters.AddWithValue("@MobileNumber", newCustomer.MobileNumber);
                 command.Parameters.AddWithValue("@WhatsAppNumber", newCustomer.WhatsAppNumber);
                 command.Parameters.AddWithValue("@TRNNumber", newCustomer.TRNNumber);
+                command.Parameters.AddWithValue("@Satisfaction", newCustomer.Satisfaction);
                 Console.WriteLine("Execute");
                 newCustomer.CustomerId = Convert.ToInt32(command.ExecuteScalar());
             }

@@ -15,7 +15,7 @@ public class DocumentSircularyModel
     public string OriginalLanguage { get; set; }
     public string Note { get; set; }
     public byte[] Signature { get; set; }
-    public DateTime CreateDate { get; set; }
+    public DateTime CreateDate { get; set; } = DateTime.Now;
     public DateTime AppointmentDate { get; set; }
     
     public string SignatureString { get; set; }

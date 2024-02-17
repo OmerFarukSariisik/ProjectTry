@@ -107,10 +107,9 @@
         </p>
         <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
             <b>
-                <span
-                    lang=TR style='font-size:14.0pt;font-family:"Times New Roman",serif'>
+                <span style="font-size:14.0pt;font-family:'Times New Roman',serif">
                     Date:
-                    <input asp-for="CreateDate" class="form-control"/>
+                    <input asp-for="CreateDate" class="form-control" value="@Model.CreateDate.ToString("yyyy-MM-ddTHH:mm")"/>
                     <span asp-validation-for="CreateDate" class="text-danger"></span>
                 </span>
             </b>
@@ -501,7 +500,7 @@
         <u>
             <span lang=TR style='font-size:14.0pt;
 line-height:115%;font-family:"Times New Roman",serif'>Signature:</span>
-            
+
             <div>
                 <canvas id="signatureCanvas" width="100" height="50" style="border:1px solid black"></canvas>
             </div>
@@ -515,7 +514,7 @@ line-height:115%;font-family:"Times New Roman",serif'>Signature:</span>
         <span lang=TR style='font-size:14.0pt;line-height:115%;
 font-family:"Times New Roman",serif'>
             Appointment date:
-            <input asp-for="AppointmentDate" class="form-control"/>
+            <input asp-for="AppointmentDate" class="form-control" type="date"/>
             <span asp-validation-for="AppointmentDate" class="text-danger"></span>
         </span>
     </b>

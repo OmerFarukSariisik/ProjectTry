@@ -41,7 +41,7 @@
     </div>
     <div class="form-group">
         <label asp-for="DeliveryDate" class="control-label"></label>
-        <input asp-for="DeliveryDate" class="form-control" />
+        <input asp-for="DeliveryDate" class="form-control" type="date"/>
         <span asp-validation-for="DeliveryDate" class="text-danger"></span>
     </div>
 
@@ -83,7 +83,6 @@
             //const compressedData = LZString.compressToEncodedURIComponent(dataURL);
             document.getElementById('signatureInput').value = dataURL; // Set the value in hidden input
         });
-        
     </script>
 
 </form>

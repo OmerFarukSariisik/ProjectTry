@@ -88,6 +88,7 @@ public class DocumentPoaController : Controller
     
     public IActionResult DocumentPoaForm(DocumentPoaModel documentPoaModel)
     {
+        documentPoaModel.CreateDate = DateTime.Now;
         return View(documentPoaModel);
     }
     public IActionResult DocumentPoaAbuDhabiForm(DocumentPoaModel documentPoaModel)

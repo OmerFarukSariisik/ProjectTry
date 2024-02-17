@@ -87,7 +87,16 @@ public class DocumentSircularyController : Controller
     
     public IActionResult SircularyForm(DocumentSircularyModel DocumentSircularyModel)
     {
-        return View(DocumentSircularyModel);
+        var newModel = new DocumentSircularyModel
+        {
+            CreateDate = DateTime.Now,
+            FullName = DocumentSircularyModel.FullName,
+            Address = DocumentSircularyModel.Address,
+            Email = DocumentSircularyModel.Email,
+            MobileNumber = DocumentSircularyModel.MobileNumber,
+            WhatsAppNumber = DocumentSircularyModel.WhatsAppNumber
+        };
+        return View(newModel);
     }
 
     [HttpPost]

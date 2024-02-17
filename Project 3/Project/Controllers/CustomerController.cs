@@ -33,45 +33,9 @@ namespace Project.Controllers
 
         public IActionResult EditCustomerPage(int id)
         {
-            Customer retrievedCustomer = null;
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                connection.Open();
-
-                string sql = "SELECT * FROM customers WHERE CustomerId = @CustomerId";
-
-                using (SqlCommand command = new SqlCommand(sql, connection))
-                {
-                    command.Parameters.AddWithValue("@CustomerId", id);
-
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            int customerId = reader.GetInt32(reader.GetOrdinal("CustomerId"));
-                            string fullName = reader.GetString(reader.GetOrdinal("FullName"));
-                            string motherName = reader.GetString(reader.GetOrdinal("MotherName"));
-                            string address = reader.GetString(reader.GetOrdinal("Address"));
-                            string email = reader.GetString(reader.GetOrdinal("Email"));
-                            string mobileNumber = reader.GetString(reader.GetOrdinal("MobileNumber"));
-                            string whatsAppNumber = reader.GetString(reader.GetOrdinal("WhatsAppNumber"));
-                            string trnNumber = reader.GetString(reader.GetOrdinal("TRNNumber"));
-
-                            retrievedCustomer = new Customer
-                            {
-                                CustomerId = customerId,
-                                FullName = fullName,
-                                MotherName = motherName,
-                                Address = address,
-                                Email = email,
-                                MobileNumber = mobileNumber,
-                                WhatsAppNumber = whatsAppNumber,
-                                TRNNumber = trnNumber
-                            };
-                        }
-                    }
-                }
-            }
+            _documentTranslationService.Initialize();
+            var retrievedCustomer =
+                _documentTranslationService.AllCustomers.FirstOrDefault(customer => customer.CustomerId == id);
 
             return View(retrievedCustomer);
         }
@@ -136,7 +100,8 @@ namespace Project.Controllers
                 Email = customer.Email,
                 MobileNumber = customer.MobileNumber,
                 WhatsAppNumber = customer.WhatsAppNumber,
-                TRNNumber = string.IsNullOrEmpty(customer.TRNNumber) ? "" : customer.TRNNumber
+                TRNNumber = string.IsNullOrEmpty(customer.TRNNumber) ? "" : customer.TRNNumber,
+                Satisfaction = customer.Satisfaction
             };
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -148,7 +113,8 @@ namespace Project.Controllers
                 "Email = @Email, " +
                 "MobileNumber = @MobileNumber, " +
                 "WhatsAppNumber = @WhatsAppNumber, " +
-                "TRNNumber = @TRNNumber " +
+                "TRNNumber = @TRNNumber, " +
+                "Satisfaction = @Satisfaction " +
                 "WHERE CustomerId = @CustomerId";
 
                 using (SqlCommand command = new SqlCommand(sql, connection))
@@ -161,7 +127,7 @@ namespace Project.Controllers
                     command.Parameters.AddWithValue("@MobileNumber", newCustomer.MobileNumber);
                     command.Parameters.AddWithValue("@WhatsAppNumber", newCustomer.WhatsAppNumber);
                     command.Parameters.AddWithValue("@TRNNumber", newCustomer.TRNNumber);
-
+                    command.Parameters.AddWithValue("@Satisfaction", newCustomer.Satisfaction);
                     command.ExecuteNonQuery();
                 }
             }

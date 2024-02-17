@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "SBXdRcSNaiscKflmFyTcuuNpWzmnTuEefpJFeRT+QBy2prtQ9E103Kq8e08grmkW/MIhPdX1Q4Ovgq+ILfVjOA==",
+  "dgSpecHash": "nm5jLJ4W8WG+Xe/Y37SAR9n537TfaqU6OKaJsGekFq3hWkAKKngGMqMhPtephfx3x/OvU669+nVBqhNp/AZE8g==",
   "success": true,
-  "projectFilePath": "/Users/omerfaruk/Downloads/Project 3/Project/Project.csproj",
+  "projectFilePath": "/Users/omerfaruk/Documents/omer/ProjectTry/Project 3/Project/Project.csproj",
   "expectedPackageFiles": [
     "/Users/omerfaruk/.nuget/packages/humanizer/2.14.1/humanizer.2.14.1.nupkg.sha512",
     "/Users/omerfaruk/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
@@ -234,5 +234,16 @@
     "/Users/omerfaruk/.nuget/packages/system.xml.readerwriter/4.3.0/system.xml.readerwriter.4.3.0.nupkg.sha512",
     "/Users/omerfaruk/.nuget/packages/system.xml.xdocument/4.3.0/system.xml.xdocument.4.3.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'System.Data.SqlClient' 4.8.5 has a known high severity vulnerability, https://github.com/advisories/GHSA-98g6-xh36-x2p7",
+      "libraryId": "System.Data.SqlClient",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    }
+  ]
 }

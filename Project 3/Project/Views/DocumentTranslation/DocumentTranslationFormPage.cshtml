@@ -107,10 +107,9 @@
         </p>
         <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
             <b>
-                <span
-                    lang=TR style='font-size:14.0pt;font-family:"Times New Roman",serif'>
+                <span style="font-size:14.0pt;font-family:'Times New Roman',serif">
                     Date:
-                    <input asp-for="CreateDate" class="form-control"/>
+                    <input asp-for="CreateDate" class="form-control" value="@Model.CreateDate.ToString("yyyy-MM-ddTHH:mm")"/>
                     <span asp-validation-for="CreateDate" class="text-danger"></span>
                 </span>
             </b>
@@ -550,7 +549,7 @@ line-height:115%;font-family:"Times New Roman",serif'>Signature:</span>
         <span lang=TR style='font-size:14.0pt;line-height:115%;
 font-family:"Times New Roman",serif'>
             Delivery date:
-            <input asp-for="DeliveryDate" class="form-control"/>
+            <input asp-for="DeliveryDate" class="form-control" type="date"/>
             <span asp-validation-for="DeliveryDate" class="text-danger"></span>
         </span>
     </b>

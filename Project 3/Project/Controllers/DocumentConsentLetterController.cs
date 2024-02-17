@@ -88,6 +88,7 @@ public class DocumentConsentLetterController : Controller
     
     public IActionResult ConsentLetterForm(DocumentConsentLetterModel DocumentConsentLetterModel)
     {
+        DocumentConsentLetterModel.CreateDate = DateTime.Now;
         return View(DocumentConsentLetterModel);
     }
 

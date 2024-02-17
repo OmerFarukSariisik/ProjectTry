@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Project.Models;
 using System.Data.SqlClient;
+using Humanizer;
 using Project.Services;
 
 namespace Project.Controllers
@@ -20,7 +21,7 @@ namespace Project.Controllers
             _proformaInvoiceService = proformaInvoiceService;
             _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
-        
+
         public void Initialize()
         {
             if (_isInitialized)
@@ -29,9 +30,11 @@ namespace Project.Controllers
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-                
-                string tableExistsSql = "IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'vouchers') CREATE TABLE vouchers " +
-                                        "(VoucherId INT PRIMARY KEY IDENTITY(1,1), ProformaInvoiceId INT NOT NULL, Amount FLOAT, Date DATE)";
+
+                string tableExistsSql =
+                    "IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'vouchers') CREATE TABLE vouchers " +
+                    "(VoucherId INT PRIMARY KEY IDENTITY(1,1), ProformaInvoiceId INT NOT NULL, Amount FLOAT, Date DATE," +
+                    " Description NVARCHAR(60), Signature VARBINARY(MAX))";
 
                 using (SqlCommand checkTableCommand = new SqlCommand(tableExistsSql, connection))
                 {
@@ -50,6 +53,7 @@ namespace Project.Controllers
                             voucherModel.ProformaInvoiceId = reader.GetInt32(1);
                             voucherModel.Amount = reader.GetDouble(2);
                             voucherModel.Date = reader.GetDateTime(3);
+                            voucherModel.Description = reader.GetString(4);
 
                             _proformaInvoiceService.Initialize();
                             var proformaInvoice = _proformaInvoiceService.AllProformaInvoices.Find(c =>
@@ -63,8 +67,15 @@ namespace Project.Controllers
                                 Console.WriteLine("customer is null for voucher:" + voucherModel.ProformaInvoiceId);
                                 continue;
                             }
-
                             voucherModel.Customer = customer;
+                            
+                            int columnIndex = reader.GetOrdinal("Signature");
+                            long byteLength = reader.GetBytes(columnIndex, 0, null, 0, 0);
+                            byte[] signatureData = new byte[byteLength];
+                            reader.GetBytes(columnIndex, 0, signatureData, 0, (int)byteLength);
+                            voucherModel.Signature = signatureData;
+                            voucherModel.SignatureString = "data:image/jpeg;base64," + Convert.ToBase64String(voucherModel.Signature);
+                            
                             AllVouchers.Add(voucherModel);
                         }
                     }
@@ -88,7 +99,8 @@ namespace Project.Controllers
             var voucherModel = new Voucher
             {
                 ProformaInvoiceId = proformaInvoiceModel.ProformaInvoiceId,
-                Customer = proformaInvoiceModel.Customer
+                Customer = proformaInvoiceModel.Customer,
+                Date = DateTime.Now
             };
             return View(voucherModel);
         }
@@ -108,21 +120,27 @@ namespace Project.Controllers
             {
                 ProformaInvoiceId = voucher.ProformaInvoiceId,
                 Amount = voucher.Amount,
-                Date = voucher.Date
+                Date = voucher.Date,
+                Description = voucher.Description,
+                Signature = voucher.Signature,
+                SignatureString = voucher.SignatureString
             };
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
 
-                string sql = "INSERT INTO vouchers (ProformaInvoiceId, Amount, Date) " +
-                    "VALUES (@ProformaInvoiceId, @Amount, @Date)";
+                string sql = "INSERT INTO vouchers (ProformaInvoiceId, Amount, Date, Description, Signature) " +
+                             "VALUES (@ProformaInvoiceId, @Amount, @Date, @Description, @Signature)";
 
                 using (SqlCommand command = new SqlCommand(sql, connection))
                 {
                     command.Parameters.AddWithValue("@ProformaInvoiceId", newVoucher.ProformaInvoiceId);
                     command.Parameters.AddWithValue("@Amount", newVoucher.Amount);
                     command.Parameters.AddWithValue("@Date", newVoucher.Date);
+                    command.Parameters.AddWithValue("@Description", newVoucher.Description);
+                    command.Parameters.AddWithValue("@Signature",
+                        Convert.FromBase64String(newVoucher.SignatureString.Split(',')[1]));
 
                     command.ExecuteNonQuery();
                 }
@@ -140,16 +158,23 @@ namespace Project.Controllers
                 VoucherId = voucher.VoucherId,
                 ProformaInvoiceId = voucher.ProformaInvoiceId,
                 Amount = voucher.Amount,
-                Date = voucher.Date
+                Date = voucher.Date,
+                Description = voucher.Description,
+                SignatureString = voucher.SignatureString
             };
+            
+            var signatureToSave = newVoucher.SignatureString.Split(',')[1];
+            newVoucher.Signature = Convert.FromBase64String(signatureToSave);
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
                 string sql = "UPDATE vouchers SET ProformaInvoiceId = @ProformaInvoiceId, " +
-                "Amount = @Amount, " +
-                "Date = @Date " +
-                "WHERE VoucherId = @VoucherId";
+                             "Amount = @Amount, " +
+                             "Date = @Date, " +
+                             "Description = @Description, " +
+                             "Signature = @Signature " +
+                             "WHERE VoucherId = @VoucherId";
 
                 using (SqlCommand command = new SqlCommand(sql, connection))
                 {
@@ -157,6 +182,8 @@ namespace Project.Controllers
                     command.Parameters.AddWithValue("@ProformaInvoiceId", newVoucher.ProformaInvoiceId);
                     command.Parameters.AddWithValue("@Amount", newVoucher.Amount);
                     command.Parameters.AddWithValue("@Date", newVoucher.Date);
+                    command.Parameters.AddWithValue("@Description", newVoucher.Description);
+                    command.Parameters.AddWithValue("@Signature", newVoucher.Signature);
 
                     command.ExecuteNonQuery();
                 }
@@ -188,7 +215,7 @@ namespace Project.Controllers
 
             return RedirectToAction("VoucherIndex");
         }
-        
+
         public IActionResult ShowVoucherPage(int id)
         {
             Initialize();
@@ -200,7 +227,20 @@ namespace Project.Controllers
             _documentTranslationService.Initialize();
             retrievedVoucher.Customer = _documentTranslationService.AllCustomers.Find(c =>
                 c.CustomerId == retrievedProformaInvoice.CustomerId);
+            retrievedVoucher.AmountString = ConvertToWords((decimal)retrievedVoucher.Amount);
             return View(retrievedVoucher);
+        }
+        
+        [HttpGet]
+        public string ConvertToWords(decimal amount)
+        {
+            int dollars = (int)amount;
+            int cents = (int)((amount - dollars) * 100);
+            
+            string dollarsWords = dollars.ToWords();
+            string centsWords = cents > 0 ? $"{cents.ToWords()} FILS" : "ZERO FILS";
+
+            return $"{dollarsWords.ToUpper()} AND {centsWords.ToUpper()} ONLY";
         }
     }
 }

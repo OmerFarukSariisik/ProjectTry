@@ -6,18 +6,23 @@ namespace Project.Controllers;
 
 public class CustomerJobController : Controller
 {
+    private readonly IWebHostEnvironment _env;
     private readonly IDocumentTranslationService _documentTranslationService;
         
     private readonly string _connectionString;
 
-    public CustomerJobController(IConfiguration configuration, IDocumentTranslationService documentTranslationService)
+    public CustomerJobController(IConfiguration configuration, IDocumentTranslationService documentTranslationService,
+        IWebHostEnvironment env)
     {
         _documentTranslationService = documentTranslationService;
+        _env = env;
         _connectionString = configuration.GetConnectionString("DefaultConnection");
     }
     
     public IActionResult CreateCustomerJob()
     {
+        var imageList = GetImageList();
+        ViewBag.ImageList = imageList;
         return View("CreateCustomerJobPage");
     }
 
@@ -32,7 +37,8 @@ public class CustomerJobController : Controller
             Email = customerModel.Email,
             MobileNumber = customerModel.MobileNumber,
             WhatsAppNumber = customerModel.WhatsAppNumber,
-            TRNNumber = ""
+            TRNNumber = "",
+            Satisfaction = customerModel.Satisfaction
         };
         
         _documentTranslationService.Initialize();
@@ -144,5 +150,35 @@ public class CustomerJobController : Controller
         }
 
         return Json(null);
+    }
+    
+    public List<string> GetImageList()
+    {
+        // Get a list of PNG files in the folder
+        var imageFiles = Directory.GetFiles(Path.Combine(_env.WebRootPath, "images"), "*.png")
+            .Select(Path.GetFileName)
+            .ToList();
+        
+        return imageFiles;
+    }
+    
+    private string GetImageName(string imageIndex)
+    {
+        imageIndex = imageIndex.Split(".")[0];
+        int index = int.Parse(imageIndex);
+        switch (index)
+        {
+            case 1:
+                return "Happy";
+            case 2:
+                return "Good";
+            case 3:
+                return "Neutral";
+            case 4:
+                return "Sad";
+            case 5:
+                return "Angry";
+        }
+        return "";
     }
 }

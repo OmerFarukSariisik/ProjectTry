@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Humanizer" Version="2.14.1" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.23" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.23" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.23" />
@@ -20,6 +21,14 @@
 
   <ItemGroup>
     <_ContentIncludedByDefault Remove="Views\Try\TryPage.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\images\1.png" />
+    <None Include="wwwroot\images\2.png" />
+    <None Include="wwwroot\images\3.png" />
+    <None Include="wwwroot\images\4.png" />
+    <None Include="wwwroot\images\5.png" />
   </ItemGroup>
 
 </Project>

@@ -87,6 +87,7 @@ public class DocumentInvitationController : Controller
     
     public IActionResult InvitationForm(DocumentInvitationModel DocumentInvitationModel)
     {
+        DocumentInvitationModel.CreateDate = DateTime.Now;
         return View(DocumentInvitationModel);
     }
 

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/omerfaruk/Downloads/Project 3/Project/Project.csproj": {}
+    "/Users/omerfaruk/Documents/omer/ProjectTry/Project 3/Project/Project.csproj": {}
   },
   "projects": {
-    "/Users/omerfaruk/Downloads/Project 3/Project/Project.csproj": {
+    "/Users/omerfaruk/Documents/omer/ProjectTry/Project 3/Project/Project.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/omerfaruk/Downloads/Project 3/Project/Project.csproj",
+        "projectUniqueName": "/Users/omerfaruk/Documents/omer/ProjectTry/Project 3/Project/Project.csproj",
         "projectName": "Project",
-        "projectPath": "/Users/omerfaruk/Downloads/Project 3/Project/Project.csproj",
+        "projectPath": "/Users/omerfaruk/Documents/omer/ProjectTry/Project 3/Project/Project.csproj",
         "packagesPath": "/Users/omerfaruk/.nuget/packages/",
-        "outputPath": "/Users/omerfaruk/Downloads/Project 3/Project/obj/",
+        "outputPath": "/Users/omerfaruk/Documents/omer/ProjectTry/Project 3/Project/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/omerfaruk/.nuget/NuGet/NuGet.Config"
@@ -39,6 +39,10 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "Humanizer": {
+              "target": "Package",
+              "version": "[2.14.1, )"
+            },
             "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
               "target": "Package",
               "version": "[6.0.23, )"

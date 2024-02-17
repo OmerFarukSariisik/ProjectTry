@@ -88,6 +88,7 @@ public class DocumentCommitmentLetterController : Controller
     
     public IActionResult CommitmentLetterForm(DocumentCommitmentLetterModel DocumentCommitmentLetterModel)
     {
+        DocumentCommitmentLetterModel.CreateDate = DateTime.Now;
         return View(DocumentCommitmentLetterModel);
     }
 

@@ -7,10 +7,26 @@
 }
 
 <!DOCTYPE html>
-
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <h2>Create</h2>
 
 <form asp-action="CreateCustomer" method="post">
+    <div class="form-group">
+        <label asp-for="Satisfaction" class="control-label">Select an Image:</label>
+        <select asp-for="Satisfaction" class="form-control" id="imageDropdown" data-placeholder="Select an image">
+            @foreach (var item in ViewBag.ImageList)
+            {
+                <option value="@item"></option>
+            }
+        </select>
+        <span asp-validation-for="Satisfaction" class="text-danger"></span>
+    </div>
+    
+    <!-- Display the selected image dynamically -->
+    <div id="imageContainer">
+        <img id="selectedImage" src="" alt="Selected Image" style="max-width: 100%; max-height: 50px;" />
+    </div>
+
     <div class="form-group">
         <label asp-for="FullName" class="control-label"></label>
         <input asp-for="FullName" class="form-control"/>
@@ -113,4 +129,16 @@
         });
     </script>
 
+    <script>
+        // JavaScript code to update the displayed image when the dropdown changes
+        $(document).ready(function () {
+            $("#imageDropdown").change(function () {
+                var selectedImageIndex = $(this).val();
+                var imagePath = "/images/" + selectedImageIndex; // Adjust the path based on your project structure
+    
+                // Update the src attribute of the img element
+                $("#selectedImage").attr("src", imagePath);
+            });
+        });
+    </script>
 }
