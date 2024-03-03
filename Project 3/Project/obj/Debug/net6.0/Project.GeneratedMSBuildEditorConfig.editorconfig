@@ -20,8 +20,8 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXMvSWRlbnRpdHkvUGFnZXMvX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/omerfaruk/Documents/omer/ProjectTry/Project 3/Project/Views/Accounting/CreatePage.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWNjb3VudGluZy9DcmVhdGVQYWdlLmNzaHRtbA==
+[/Users/omerfaruk/Documents/omer/ProjectTry/Project 3/Project/Views/Accounting/CreateInvoicePage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWNjb3VudGluZy9DcmVhdGVJbnZvaWNlUGFnZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/omerfaruk/Documents/omer/ProjectTry/Project 3/Project/Views/Accounting/EditPage.cshtml]
@@ -126,10 +126,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/Users/omerfaruk/Documents/omer/ProjectTry/Project 3/Project/Views/DocumentSirculary/SircularyTrackPage.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRG9jdW1lbnRTaXJjdWxhcnkvU2lyY3VsYXJ5VHJhY2tQYWdlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/omerfaruk/Documents/omer/ProjectTry/Project 3/Project/Views/DocumentTranslation/DocumentTranslationFormPage.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRG9jdW1lbnRUcmFuc2xhdGlvbi9Eb2N1bWVudFRyYW5zbGF0aW9uRm9ybVBhZ2UuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/omerfaruk/Documents/omer/ProjectTry/Project 3/Project/Views/DocumentTranslation/DocumentTranslationShowPage.cshtml]

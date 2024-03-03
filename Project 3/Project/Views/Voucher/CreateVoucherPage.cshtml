@@ -78,7 +78,7 @@
         </label>
         <div class="col-sm-10">
             <div class="text-right" style="width: 200px; margin-left: auto;">
-                <input asp-for="Date" class="form-control"/>
+                @Html.TextBoxFor(model => model.Date, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date" })
                 <span asp-validation-for="Date" class="text-danger"></span>
             </div>
         </div>
@@ -109,6 +109,7 @@
         </label>
         <div class="col-sm-10">
             <label id="convertedText" style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+                @Model.AmountString
             </label>
         </div>
     </div>

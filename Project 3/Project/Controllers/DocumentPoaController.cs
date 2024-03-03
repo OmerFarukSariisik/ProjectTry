@@ -7,14 +7,14 @@ namespace Project.Controllers;
 
 public class DocumentPoaController : Controller
 {
-    private readonly IDocumentTranslationService _documentTranslationService;
+    private readonly ICustomerService _customerService;
     public List<DocumentPoaModel> AllDocumentPoa { get; set; } = new();
     private readonly string _connectionString;
     private bool _isInitialized;
 
-    public DocumentPoaController(IConfiguration configuration, IDocumentTranslationService documentTranslationService)
+    public DocumentPoaController(IConfiguration configuration, ICustomerService customerService)
     {
-        _documentTranslationService = documentTranslationService;
+        _customerService = customerService;
         _connectionString = configuration.GetConnectionString("DefaultConnection");
     }
     
@@ -37,7 +37,7 @@ public class DocumentPoaController : Controller
                 checkTableCommand.ExecuteNonQuery();
             }
             
-            _documentTranslationService.Initialize();
+            _customerService.Initialize();
 
             string sql = "SELECT * FROM documentPoa";
             using (SqlCommand command = new SqlCommand(sql, connection))
@@ -64,7 +64,7 @@ public class DocumentPoaController : Controller
                         documentPoa.AppointmentDate = reader.GetDateTime(6);
                         
                         documentPoa.CustomerId = reader.GetInt32(7);
-                        var customer = _documentTranslationService.AllCustomers.Find(c =>
+                        var customer = _customerService.AllCustomers.Find(c =>
                                 c.CustomerId == documentPoa.CustomerId);
                         
                         if(customer == null)
@@ -110,8 +110,8 @@ public class DocumentPoaController : Controller
             TRNNumber = ""
         };
         
-        _documentTranslationService.Initialize();
-        _documentTranslationService.CreateCustomer(customer);
+        _customerService.Initialize();
+        _customerService.CreateCustomer(customer);
         
         Initialize();
         using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -131,7 +131,7 @@ public class DocumentPoaController : Controller
                 command.Parameters.AddWithValue("@CreateDate", documentPoaModel.CreateDate);
                 command.Parameters.AddWithValue("@AppointmentDate", documentPoaModel.AppointmentDate);
                 command.Parameters.AddWithValue("@CustomerId",
-                    _documentTranslationService.AllCustomers.First(x => x.MobileNumber == customer.MobileNumber)
+                    _customerService.AllCustomers.First(x => x.MobileNumber == customer.MobileNumber)
                         .CustomerId);
 
                 command.ExecuteNonQuery();
@@ -155,7 +155,7 @@ public class DocumentPoaController : Controller
         return View(documentPoa);
     }
     
-    public IActionResult Delete(int id)
+    public IActionResult Delete(int proformaInvoiceId)
     {
         Initialize();
         using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -166,12 +166,12 @@ public class DocumentPoaController : Controller
 
             using (SqlCommand command = new SqlCommand(sql, connection))
             {
-                command.Parameters.AddWithValue("@DocumentPoaId", id);
+                command.Parameters.AddWithValue("@DocumentPoaId", proformaInvoiceId);
 
                 command.ExecuteNonQuery();
             }
         }
-        var documentPoa = AllDocumentPoa.FirstOrDefault(c => c.DocumentPoaId == id);
+        var documentPoa = AllDocumentPoa.FirstOrDefault(c => c.DocumentPoaId == proformaInvoiceId);
         AllDocumentPoa.Remove(documentPoa);
         return RedirectToAction("DocumentPoaTrackPage");
     }

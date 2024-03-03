@@ -110,7 +110,7 @@
                 <span
                     lang=TR style='font-size:14.0pt;font-family:"Times New Roman",serif'>
                     Date:
-                    <input asp-for="CreateDate" class="form-control"/>
+                    @Html.TextBoxFor(model => model.CreateDate, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date" })
                     <span asp-validation-for="CreateDate" class="text-danger"></span>
                 </span>
             </b>
@@ -550,7 +550,7 @@ line-height:115%;font-family:"Times New Roman",serif'>Signature:</span>
         <span lang=TR style='font-size:14.0pt;line-height:115%;
 font-family:"Times New Roman",serif'>
             Delivery date:
-            <input asp-for="DeliveryDate" class="form-control"/>
+            @Html.TextBoxFor(model => model.DeliveryDate, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date" })
             <span asp-validation-for="DeliveryDate" class="text-danger"></span>
         </span>
     </b>

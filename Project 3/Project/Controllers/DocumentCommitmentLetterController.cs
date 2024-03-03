@@ -7,14 +7,14 @@ namespace Project.Controllers;
 
 public class DocumentCommitmentLetterController : Controller
 {
-    private readonly IDocumentTranslationService _documentTranslationService;
+    private readonly ICustomerService _customerService;
     public List<DocumentCommitmentLetterModel> AllDocumentCommitmentLetter { get; set; } = new();
     private readonly string _connectionString;
     private bool _isInitialized;
 
-    public DocumentCommitmentLetterController(IConfiguration configuration, IDocumentTranslationService documentTranslationService)
+    public DocumentCommitmentLetterController(IConfiguration configuration, ICustomerService customerService)
     {
-        _documentTranslationService = documentTranslationService;
+        _customerService = customerService;
         _connectionString = configuration.GetConnectionString("DefaultConnection");
     }
     
@@ -37,7 +37,7 @@ public class DocumentCommitmentLetterController : Controller
                 checkTableCommand.ExecuteNonQuery();
             }
             
-            _documentTranslationService.Initialize();
+            _customerService.Initialize();
 
             string sql = "SELECT * FROM documentCommitmentLetter";
             using (SqlCommand command = new SqlCommand(sql, connection))
@@ -64,7 +64,7 @@ public class DocumentCommitmentLetterController : Controller
                         documentCommitmentLetter.AppointmentDate = reader.GetDateTime(6);
                         
                         documentCommitmentLetter.CustomerId = reader.GetInt32(7);
-                        var customer = _documentTranslationService.AllCustomers.Find(c =>
+                        var customer = _customerService.AllCustomers.Find(c =>
                                 c.CustomerId == documentCommitmentLetter.CustomerId);
                         
                         if(customer == null)
@@ -106,8 +106,8 @@ public class DocumentCommitmentLetterController : Controller
             TRNNumber = ""
         };
         
-        _documentTranslationService.Initialize();
-        _documentTranslationService.CreateCustomer(customer);
+        _customerService.Initialize();
+        _customerService.CreateCustomer(customer);
         
         Initialize();
         using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -127,7 +127,7 @@ public class DocumentCommitmentLetterController : Controller
                 command.Parameters.AddWithValue("@CreateDate", DocumentCommitmentLetterModel.CreateDate);
                 command.Parameters.AddWithValue("@AppointmentDate", DocumentCommitmentLetterModel.AppointmentDate);
                 command.Parameters.AddWithValue("@CustomerId",
-                    _documentTranslationService.AllCustomers.First(x => x.MobileNumber == customer.MobileNumber)
+                    _customerService.AllCustomers.First(x => x.MobileNumber == customer.MobileNumber)
                         .CustomerId);
 
                 command.ExecuteNonQuery();
@@ -151,7 +151,7 @@ public class DocumentCommitmentLetterController : Controller
         return View(documentPoa);
     }
     
-    public IActionResult Delete(int id)
+    public IActionResult Delete(int proformaInvoiceId)
     {
         Initialize();
         using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -162,13 +162,13 @@ public class DocumentCommitmentLetterController : Controller
 
             using (SqlCommand command = new SqlCommand(sql, connection))
             {
-                command.Parameters.AddWithValue("@DocumentCommitmentLetterId", id);
+                command.Parameters.AddWithValue("@DocumentCommitmentLetterId", proformaInvoiceId);
 
                 command.ExecuteNonQuery();
             }
         }
 
-        var documentCommitmentLetter = AllDocumentCommitmentLetter.FirstOrDefault(c => c.DocumentCommitmentLetterId == id);
+        var documentCommitmentLetter = AllDocumentCommitmentLetter.FirstOrDefault(c => c.DocumentCommitmentLetterId == proformaInvoiceId);
         AllDocumentCommitmentLetter.Remove(documentCommitmentLetter);
         return RedirectToAction("CommitmentLetterTrackPage");
     }

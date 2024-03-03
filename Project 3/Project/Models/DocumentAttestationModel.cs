@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace Project.Models;
 
 public class DocumentAttestationModel
@@ -10,7 +12,7 @@ public class DocumentAttestationModel
     public string WhatsAppNumber{ get; set; }
     public string TRNNumber{ get; set; }
     
-    
+    //[Key]
     public int DocumentAttestationId { get; set; }
     public string OriginalLanguage { get; set; }
     public string AttestationPlace { get; set; }

@@ -1,12 +1,13 @@
-@model Project.Models.Bill
+@model Project.Models.InvoiceModel
 
 @{
-    ViewData["Title"] = "ShowInvoice";
+    ViewData["Title"] = "Show Invoice";
 }
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<form id="printableForm">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>file_1704665555883</title>
@@ -222,7 +223,6 @@
     <br/>
 </p>
 
-
 <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
     <span>
         <table border="0" cellspacing="0" cellpadding="0">
@@ -240,27 +240,27 @@
                         Invoice:<span class="s2"> </span>#SI603
                     </p>
                     <p style="padding-top: 1pt;padding-left: 19pt;text-indent: 0pt;line-height: 115%;text-align: left;">
-                        Invoice Date: 11-Nov-2023
+                        Invoice Date: @Model.InvoiceDate.ToString("yyyy-MM-dd")
                     </p>
                     <p style="padding-top: 1pt;padding-left: 19pt;text-indent: 0pt;text-align: left;">
-                        Currency: @Model.Currency
+                        Currency: AED
                     </p>
                 </td>
                 <td align="right" style="padding-left: 170px;">
                     <h3 style="padding-top: 6pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">
-                        Invoice<span class="s1"> </span>To
+                        InvoiceTo
                     </h3>
                     <p style="padding-top: 1pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">
-                        @Model.CustomerFullName
-                    </p>
-                    <p style="padding-top: 1pt;padding-left: 6pt;text-indent: 0pt;line-height: 115%;text-align: left;">
-                        Contact No : @Model.ContactNumber
+                        @Model.ProformaInvoice.Customer.FullName
                     </p>
                     <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">
-                        TRN :
+                        Contact No : @Model.ProformaInvoice.Customer.MobileNumber
                     </p>
                     <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">
-                        Address : DUBAI
+                        TRN : @Model.ProformaInvoice.Customer.TRNNumber
+                    </p>
+                    <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">
+                        Address : @Model.ProformaInvoice.Customer.Address
                     </p>
                 </td>
             </tr>
@@ -279,12 +279,13 @@
 <p style="text-indent: 0pt;text-align: left;">
     <br/>
 </p>
-<table style="border-collapse:collapse;margin-left:19pt" cellspacing="0">
+
+<table style="border-collapse:collapse;margin-left:19pt" cellspacing="0" id="itemTable">
     <tr style="height:28pt">
         <td style="width:48pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
             <p class="s4"
                style="padding-top: 6pt;padding-left: 10pt;padding-right: 9pt;text-indent: 0pt;text-align: center;">
-                SL<span class="s5"> </span>NO
+                SL NO
             </p>
         </td>
         <td style="width:143pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
@@ -293,7 +294,7 @@
         <td style="width:67pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
             <p class="s4"
                style="padding-top: 6pt;padding-left: 15pt;padding-right: 8pt;text-indent: 0pt;text-align: center;">
-                Unit<span class="s5"> </span>Price
+                Unit Price
             </p>
             <p class="s6"
                style="padding-top: 1pt;padding-left: 15pt;padding-right: 8pt;text-indent: 0pt;line-height: 9pt;text-align: center;">
@@ -306,7 +307,7 @@
         <td style="width:72pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
             <p class="s4"
                style="padding-top: 6pt;padding-left: 20pt;padding-right: 8pt;text-indent: 0pt;text-align: center;">
-                Sub<span class="s5"> </span>Total
+                Sub Total
             </p>
             <p class="s6"
                style="padding-top: 1pt;padding-left: 20pt;padding-right: 8pt;text-indent: 0pt;line-height: 9pt;text-align: center;">
@@ -316,7 +317,7 @@
         <td style="width:72pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
             <p class="s4"
                style="padding-top: 6pt;padding-left: 9pt;padding-right: 8pt;text-indent: 0pt;text-align: center;">
-                TAX<span class="s5"> </span>Amount
+                TAX Amount
             </p>
             <p class="s7"
                style="padding-top: 1pt;padding-left: 9pt;padding-right: 8pt;text-indent: 0pt;line-height: 9pt;text-align: center;">
@@ -335,86 +336,95 @@
         </td>
     </tr>
     <tr style="height:25pt">
-        <td style="width:48pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s6" style="padding-top: 6pt;text-indent: 0pt;text-align: center;">1</p>
-        </td>
-        <td style="width:143pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s6" style="padding-top: 7pt;text-indent: 0pt;text-align: left;">
-                Document<span class="s8"> </span>translation
-                <span
-                    class="s8">
-                </span>()
-            </p>
-        </td>
-        <td style="width:67pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s6" style="padding-top: 6pt;padding-left: 23pt;text-indent: 0pt;text-align: left;">150.00</p>
-        </td>
-        <td style="width:48pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s6" style="padding-top: 6pt;padding-left: 16pt;text-indent: 0pt;text-align: left;">4.00</p>
-        </td>
-        <td style="width:72pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s6" style="padding-top: 6pt;padding-left: 22pt;text-indent: 0pt;text-align: left;">600.00</p>
-        </td>
-        <td style="width:72pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s6" style="padding-top: 6pt;padding-left: 25pt;text-indent: 0pt;text-align: left;">30.00</p>
-        </td>
-        <td style="width:83pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s6" style="padding-top: 6pt;padding-right: 21pt;text-indent: 0pt;text-align: right;">630.00</p>
-        </td>
+        @for (var i = 0; i < Model.Items.Length; i++)
+        {
+            <td style="width:48pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                <p class="s6" style="padding-top: 6pt;text-indent: 0pt;text-align: center;">@i</p>
+            </td>
+            <td style="width:143pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                <p class="s6" style="padding-top: 7pt;text-indent: 0pt;text-align: left;">
+                    @Model.Items[i].Description
+                </p>
+            </td>
+            <td style="width:67pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                <p class="s6" style="padding-top: 6pt;padding-left: 23pt;text-indent: 0pt;text-align: left;">
+                    @Model.Items[i].UnitPrice
+                </p>
+            </td>
+            <td style="width:48pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                <p class="s6" style="padding-top: 6pt;padding-left: 16pt;text-indent: 0pt;text-align: left;">
+                    @Model.Items[i].Qty
+                </p>
+            </td>
+            <td style="width:72pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                <p class="s6" style="padding-top: 6pt;padding-left: 22pt;text-indent: 0pt;text-align: left;">
+                    @Model.Items[i].SubTotal
+                </p>
+            </td>
+            <td style="width:72pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                <p class="s6" style="padding-top: 6pt;padding-left: 25pt;text-indent: 0pt;text-align: left;">
+                    @Model.Items[i].TaxAmount
+                </p>
+            </td>
+            <td style="width:83pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                <p class="s6" style="padding-top: 6pt;padding-right: 21pt;text-indent: 0pt;text-align: right;">
+                    @Model.Items[i].Total
+                </p>
+            </td>
+        }
     </tr>
-    <tr style="height:29pt">
+    <tr style="height:29pt" class="items-finish">
         <td style="width:450pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
             colspan="6">
             <p style="text-indent: 0pt;text-align: left;">
                 <br/>
             </p>
             <p class="s4" style="padding-right: 5pt;text-indent: 0pt;text-align: right;">
-                Sub<span class="s5"> </span>Total
+                Sub Total
             </p>
         </td>
         <td style="width:83pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
             <p style="text-indent: 0pt;text-align: left;">
                 <br/>
             </p>
-            <p class="s4" style="padding-right: 25pt;text-indent: 0pt;text-align: right;">600.00</p>
+            <p class="s4" style="padding-right: 25pt;text-indent: 0pt;text-align: right;"> @Model.SubTotal </p>
         </td>
     </tr>
     <tr style="height:23pt">
         <td style="width:450pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
             colspan="6">
             <p class="s4" style="padding-top: 6pt;padding-right: 5pt;text-indent: 0pt;text-align: right;">
-                Total<span class="s5"> </span>Tax<span class="s5"> </span>Amount
+                Total Tax Amount
             </p>
         </td>
         <td style="width:83pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s4" style="padding-top: 6pt;padding-right: 27pt;text-indent: 0pt;text-align: right;">30.00</p>
+            <p class="s4" style="padding-top: 6pt;padding-right: 27pt;text-indent: 0pt;text-align: right;"> @Model.TotalTaxAmount </p>
         </td>
     </tr>
     <tr style="height:24pt">
         <td style="width:450pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
             colspan="6">
             <p class="s4" style="padding-top: 6pt;padding-right: 5pt;text-indent: 0pt;text-align: right;">
-                Grand<span class="s5"> </span>Total
+                Grand Total
             </p>
         </td>
         <td style="width:83pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s4" style="padding-top: 6pt;padding-right: 25pt;text-indent: 0pt;text-align: right;">630.00</p>
+            <p class="s4" style="padding-top: 6pt;padding-right: 25pt;text-indent: 0pt;text-align: right;"> @Model.GrandTotal </p>
         </td>
     </tr>
     <tr style="height:22pt">
         <td style="width:137pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
             colspan="2">
             <p class="s4" style="padding-top: 6pt;padding-left: 54pt;text-indent: 0pt;text-align: left;">
-                Amount<span class="s5"> </span>in<span class="s5"> </span>words
+                Amount in words
             </p>
         </td>
         <td style="width:396pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
             colspan="5">
             <p class="s6" style="padding-top: 5pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">
-                SIX<span class="s8"> </span>HUNDRED<span class="s8"> </span>THIRTY<span class="s8"> </span>AND
-                <span
-                    class="s8">
-                </span>ZERO<span class="s8"> </span>FILS<span class="s8"> </span>ONLY
+                <label id="convertedText">
+                    @Model.AmountString
+                </label>
             </p>
         </td>
     </tr>
@@ -422,16 +432,36 @@
 <p style="text-indent: 0pt;text-align: left;">
     <br/>
 </p>
-<p style="padding-top: 6pt;padding-left: 11pt;text-indent: 0pt;text-align: left;">Remarks</p>
-<p style="padding-left: 19pt;text-indent: 0pt;text-align: left;"/>
+
+<h1 style="padding-left: 6pt;text-indent: 0;line-height: 10pt;text-align: left;width:355pt">
+    Remarks
+    <br><br/>
+    <p @Model.Remarks >
+</h1>
+
 <h3 style="padding-left: 355pt;text-indent: 0pt;line-height: 10pt;text-align: left;">
-    Created
-    <span
-        class="s1">
-    </span>By<span class="s1"> </span>:<span class="s1"> </span><span class="s9">Nesrine</span>
-    <span
-        class="s10">
-    </span><span class="s9">Madouni</span>
+    Created By: <span class="s9"> @Model.CreatedBy </span>
 </h3>
+
 </body>
+</form>
+<button onclick="printForm()">Print Form</button>
 </html>
+
+@section scripts {
+    <script>
+            function printForm() {
+                var printContents = document.getElementById('printableForm').innerHTML;
+                var originalContents = document.body.innerHTML;
+                var printWindow = window.open('', '_blank');
+                printWindow.document.open();
+                printWindow.document.write('<html><head><title>Print</title><link rel="stylesheet" href="styles.css"></head><body>');
+                printWindow.document.write(printContents);
+                printWindow.document.write('</body></html>');
+                printWindow.document.close();
+                printWindow.print();
+                printWindow.close();
+                document.body.innerHTML = originalContents;
+            }
+    </script>
+}

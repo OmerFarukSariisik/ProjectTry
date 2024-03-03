@@ -120,15 +120,18 @@
             </th>
 
             <td>
-                <a href="@Url.Action("EditProformaInvoicePage", "ProformaInvoice", new { id = item.ProformaInvoiceId })">Edit</a>
-                <a href="@Url.Action("DeleteProformaInvoice", "ProformaInvoice", new { id = item.ProformaInvoiceId })" class="delete-link" onclick="return confirmDelete()">Delete</a>
-                <a href="@Url.Action("ShowProformaInvoice", "ProformaInvoice", new { id = item.ProformaInvoiceId })">Show</a>
+                <a href="@Url.Action("EditProformaInvoicePage", "ProformaInvoice", new { proformaInvoiceId = item.ProformaInvoiceId })">Edit</a>
+                <a href="@Url.Action("DeleteProformaInvoice", "ProformaInvoice", new { proformaInvoiceId = item.ProformaInvoiceId })" class="delete-link" onclick="return confirmDelete()">Delete</a>
+                <a href="@Url.Action("ShowProformaInvoice", "ProformaInvoice", new { proformaInvoiceId = item.ProformaInvoiceId })">Show</a>
             </td>
             <td>
-                <a href="@Url.Action("RequestCreatePendingPage", "ProformaInvoice", new { id = item.ProformaInvoiceId })">Create Pending</a>
+                <a href="@Url.Action("RequestCreatePendingPage", "ProformaInvoice", new { proformaInvoiceId = item.ProformaInvoiceId })">Create Pending</a>
             </td>
             <td>
-                <a href="@Url.Action("RequestCreateVoucherPage", "ProformaInvoice", new { id = item.ProformaInvoiceId })">Create Voucher</a>
+                <a href="@Url.Action("RequestCreateInvoicePage", "ProformaInvoice", new { proformaInvoiceId = item.ProformaInvoiceId })">Create Invoice</a>
+            </td>
+            <td>
+                <a href="@Url.Action("RequestCreateVoucherPage", "ProformaInvoice", new { proformaInvoiceId = item.ProformaInvoiceId })">Create Voucher</a>
             </td>
         </tr>
     }

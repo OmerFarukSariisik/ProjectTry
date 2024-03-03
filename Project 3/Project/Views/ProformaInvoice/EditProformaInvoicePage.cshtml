@@ -238,7 +238,7 @@
                 <td align="left" style="padding-right: 20px;">
                     <p style="text-indent: 0pt;text-align: left;"/>
                     <h1 style="padding-top: 12pt;padding-left: 19pt;text-indent: 0pt;text-align: left;">
-                        Tax<span class="s3"> </span>Invoice
+                        Proforma Invoice
                     </h1>
                     <p style="text-indent: 0pt;text-align: left;">
                         <br/>
@@ -299,7 +299,7 @@
         <td style="width:48pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
             <p class="s4"
                style="padding-top: 6pt;padding-left: 10pt;padding-right: 9pt;text-indent: 0pt;text-align: center;">
-                SL<span class="s5"> </span>NO
+                SL NO
             </p>
         </td>
         <td style="width:143pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
@@ -308,7 +308,7 @@
         <td style="width:67pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
             <p class="s4"
                style="padding-top: 6pt;padding-left: 15pt;padding-right: 8pt;text-indent: 0pt;text-align: center;">
-                Unit<span class="s5"> </span>Price
+                Unit Price
             </p>
             <p class="s6"
                style="padding-top: 1pt;padding-left: 15pt;padding-right: 8pt;text-indent: 0pt;line-height: 9pt;text-align: center;">
@@ -321,7 +321,7 @@
         <td style="width:72pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
             <p class="s4"
                style="padding-top: 6pt;padding-left: 20pt;padding-right: 8pt;text-indent: 0pt;text-align: center;">
-                Sub<span class="s5"> </span>Total
+                Sub Total
             </p>
             <p class="s6"
                style="padding-top: 1pt;padding-left: 20pt;padding-right: 8pt;text-indent: 0pt;line-height: 9pt;text-align: center;">
@@ -331,7 +331,7 @@
         <td style="width:72pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
             <p class="s4"
                style="padding-top: 6pt;padding-left: 9pt;padding-right: 8pt;text-indent: 0pt;text-align: center;">
-                TAX<span class="s5"> </span>Amount
+                TAX Amount
             </p>
             <p class="s7"
                style="padding-top: 1pt;padding-left: 9pt;padding-right: 8pt;text-indent: 0pt;line-height: 9pt;text-align: center;">
@@ -426,7 +426,7 @@
                 <br/>
             </p>
             <p class="s4" style="padding-right: 5pt;text-indent: 0pt;text-align: right;">
-                Sub<span class="s5"> </span>Total
+                Sub Total
             </p>
         </td>
         <td style="width:83pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
@@ -442,7 +442,7 @@
         <td style="width:450pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
             colspan="6">
             <p class="s4" style="padding-top: 6pt;padding-right: 5pt;text-indent: 0pt;text-align: right;">
-                Total<span class="s5"> </span>Tax<span class="s5"> </span>Amount
+                Total Tax Amount
             </p>
         </td>
         <td style="width:83pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
@@ -455,12 +455,12 @@
         <td style="width:450pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
             colspan="6">
             <p class="s4" style="padding-top: 6pt;padding-right: 5pt;text-indent: 0pt;text-align: right;">
-                Grand<span class="s5"> </span>Total
+                Grand Total
             </p>
         </td>
         <td style="width:83pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
             <p class="s4" style="padding-top: 6pt;padding-right: 25pt;text-indent: 0pt;text-align: right;">
-                <input asp-for="GrandTotal" class="form-control"/>
+                <input asp-for="GrandTotal" id="priceInput" class="form-control"/>
             </p>
         </td>
     </tr>
@@ -468,16 +468,15 @@
         <td style="width:137pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
             colspan="2">
             <p class="s4" style="padding-top: 6pt;padding-left: 54pt;text-indent: 0pt;text-align: left;">
-                Amount<span class="s5"> </span>in<span class="s5"> </span>words
+                Amount in words
             </p>
         </td>
         <td style="width:396pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
             colspan="5">
             <p class="s6" style="padding-top: 5pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">
-                SIX<span class="s8"> </span>HUNDRED<span class="s8"> </span>THIRTY<span class="s8"> </span>AND
-                <span
-                    class="s8">
-                </span>ZERO<span class="s8"> </span>FILS<span class="s8"> </span>ONLY
+                <label id="convertedText">
+                    @Model.AmountString
+                </label>
             </p>
         </td>
     </tr>
@@ -572,6 +571,31 @@
                         // Replace [0] with the current index
                         name = name.replace(/\[\d\]/g, "[" + index + "]");
                         $(this).attr("name", name);
+                    });
+                }
+            });
+        </script>
+
+    <script>
+            $(document).ready(function () {
+                $("#priceInput").on("input", function () {
+                    // Get the entered price
+                    var price = parseFloat($(this).val());
+    
+                    // Call a function to convert and update the text
+                    updateConvertedText(price);
+                });
+    
+                function updateConvertedText(price) {
+                    // Make an AJAX call to a server-side action method to get the converted text
+                    $.ajax({
+                        type: "GET",
+                        url: "/ProformaInvoice/ConvertToWords",
+                        data: { amount: price },
+                        success: function (result) {
+                            // Update the text in the span
+                            $("#convertedText").text(result);
+                        }
                     });
                 }
             });

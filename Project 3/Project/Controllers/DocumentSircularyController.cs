@@ -7,14 +7,14 @@ namespace Project.Controllers;
 
 public class DocumentSircularyController : Controller
 {
-    private readonly IDocumentTranslationService _documentTranslationService;
+    private readonly ICustomerService _customerService;
     public List<DocumentSircularyModel> AllDocumentSirculary { get; set; } = new();
     private readonly string _connectionString;
     private bool _isInitialized;
 
-    public DocumentSircularyController(IConfiguration configuration, IDocumentTranslationService documentTranslationService)
+    public DocumentSircularyController(IConfiguration configuration, ICustomerService customerService)
     {
-        _documentTranslationService = documentTranslationService;
+        _customerService = customerService;
         _connectionString = configuration.GetConnectionString("DefaultConnection");
     }
     
@@ -37,7 +37,7 @@ public class DocumentSircularyController : Controller
                 checkTableCommand.ExecuteNonQuery();
             }
             
-            _documentTranslationService.Initialize();
+            _customerService.Initialize();
 
             string sql = "SELECT * FROM documentSirculary";
             using (SqlCommand command = new SqlCommand(sql, connection))
@@ -63,7 +63,7 @@ public class DocumentSircularyController : Controller
                         documentSirculary.AppointmentDate = reader.GetDateTime(5);
                         
                         documentSirculary.CustomerId = reader.GetInt32(6);
-                        var customer = _documentTranslationService.AllCustomers.Find(c =>
+                        var customer = _customerService.AllCustomers.Find(c =>
                                 c.CustomerId == documentSirculary.CustomerId);
                         
                         if(customer == null)
@@ -113,8 +113,8 @@ public class DocumentSircularyController : Controller
             TRNNumber = ""
         };
         
-        _documentTranslationService.Initialize();
-        _documentTranslationService.CreateCustomer(customer);
+        _customerService.Initialize();
+        _customerService.CreateCustomer(customer);
         
         Initialize();
         using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -133,7 +133,7 @@ public class DocumentSircularyController : Controller
                 command.Parameters.AddWithValue("@CreateDate", DocumentSircularyModel.CreateDate);
                 command.Parameters.AddWithValue("@AppointmentDate", DocumentSircularyModel.AppointmentDate);
                 command.Parameters.AddWithValue("@CustomerId",
-                    _documentTranslationService.AllCustomers.First(x => x.MobileNumber == customer.MobileNumber)
+                    _customerService.AllCustomers.First(x => x.MobileNumber == customer.MobileNumber)
                         .CustomerId);
 
                 command.ExecuteNonQuery();
@@ -157,7 +157,7 @@ public class DocumentSircularyController : Controller
         return View(documentPoa);
     }
     
-    public IActionResult Delete(int id)
+    public IActionResult Delete(int proformaInvoiceId)
     {
         Initialize();
         using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -168,12 +168,12 @@ public class DocumentSircularyController : Controller
 
             using (SqlCommand command = new SqlCommand(sql, connection))
             {
-                command.Parameters.AddWithValue("@DocumentSircularyId", id);
+                command.Parameters.AddWithValue("@DocumentSircularyId", proformaInvoiceId);
 
                 command.ExecuteNonQuery();
             }
         }
-        var documentPoa = AllDocumentSirculary.FirstOrDefault(c => c.DocumentSircularyId == id);
+        var documentPoa = AllDocumentSirculary.FirstOrDefault(c => c.DocumentSircularyId == proformaInvoiceId);
         AllDocumentSirculary.Remove(documentPoa);
         return RedirectToAction("SircularyTrackPage");
     }

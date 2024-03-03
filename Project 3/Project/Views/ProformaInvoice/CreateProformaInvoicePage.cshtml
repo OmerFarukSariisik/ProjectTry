@@ -231,7 +231,7 @@
                 <td align="left" style="padding-right: 20px;">
                     <p style="text-indent: 0pt;text-align: left;"/>
                     <h1 style="padding-top: 12pt;padding-left: 19pt;text-indent: 0pt;text-align: left;">
-                        Tax<span class="s3"> </span>Invoice
+                        Proforma Invoice
                     </h1>
                     <p style="text-indent: 0pt;text-align: left;">
                         <br/>
@@ -241,8 +241,8 @@
                         Invoice:<span class="s2"> </span>#SI603
                     </p>
                     <p style="padding-top: 1pt;padding-left: 19pt;text-indent: 0pt;line-height: 115%;text-align: left;">
-                        Invoice Date: 
-                        <input asp-for="InvoiceDate" class="form-control"/>
+                        Invoice Date:
+                        @Html.TextBoxFor(model => model.InvoiceDate, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date" })
                         <span asp-validation-for="InvoiceDate" class="text-danger"></span>
                     </p>
                     <p style="padding-top: 1pt;padding-left: 19pt;text-indent: 0pt;text-align: left;">
@@ -251,14 +251,14 @@
                 </td>
                 <td align="right" style="padding-left: 170px;">
                     <h3 style="padding-top: 6pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">
-                        Invoice<span class="s1"> </span>To
+                        Invoice To
                     </h3>
                     <p style="padding-top: 1pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">
                         <input asp-for="Customer.FullName" class="form-control" readonly="readonly" id="Customer.FullName"/>
                     </p>
                     <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">
                         Contact No :
-                        <input asp-for="Customer.MobileNumber" id="Customer.MobileNumber" data-url="@Url.Action("GetCustomerByMobileNumber", "ProformaInvoice")" />
+                        <input asp-for="Customer.MobileNumber" id="Customer.MobileNumber" data-url="@Url.Action("GetCustomerByMobileNumber", "ProformaInvoice")"/>
                         <span asp-validation-for="Customer.MobileNumber" class="text-danger"></span>
                     </p>
                     <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">
@@ -288,199 +288,217 @@
 <button id="addRowBtn">Add Row</button>
 <button id="removeRowBtn">Remove Row</button>
 <table style="border-collapse:collapse;margin-left:19pt" cellspacing="0" id="itemTable">
-    <tr style="height:28pt">
-        <td style="width:48pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s4"
-               style="padding-top: 6pt;padding-left: 10pt;padding-right: 9pt;text-indent: 0pt;text-align: center;">
-                SL<span class="s5"> </span>NO
-            </p>
-        </td>
-        <td style="width:143pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s4" style="padding-top: 6pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">Description</p>
-        </td>
-        <td style="width:67pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s4"
-               style="padding-top: 6pt;padding-left: 15pt;padding-right: 8pt;text-indent: 0pt;text-align: center;">
-                Unit<span class="s5"> </span>Price
-            </p>
-            <p class="s6"
-               style="padding-top: 1pt;padding-left: 15pt;padding-right: 8pt;text-indent: 0pt;line-height: 9pt;text-align: center;">
-                (AED)
-            </p>
-        </td>
-        <td style="width:48pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s4" style="padding-top: 6pt;padding-left: 16pt;text-indent: 0pt;text-align: left;">Qty</p>
-        </td>
-        <td style="width:72pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s4"
-               style="padding-top: 6pt;padding-left: 20pt;padding-right: 8pt;text-indent: 0pt;text-align: center;">
-                Sub<span class="s5"> </span>Total
-            </p>
-            <p class="s6"
-               style="padding-top: 1pt;padding-left: 20pt;padding-right: 8pt;text-indent: 0pt;line-height: 9pt;text-align: center;">
-                (AED)
-            </p>
-        </td>
-        <td style="width:72pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s4"
-               style="padding-top: 6pt;padding-left: 9pt;padding-right: 8pt;text-indent: 0pt;text-align: center;">
-                TAX<span class="s5"> </span>Amount
-            </p>
-            <p class="s7"
-               style="padding-top: 1pt;padding-left: 9pt;padding-right: 8pt;text-indent: 0pt;line-height: 9pt;text-align: center;">
-                (AED)
-            </p>
-        </td>
-        <td style="width:83pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:2pt">
-            <p class="s4"
-               style="padding-top: 6pt;padding-left: 33pt;padding-right: 25pt;text-indent: 0pt;text-align: center;">
-                Total
-            </p>
-            <p class="s7"
-               style="padding-top: 1pt;padding-left: 33pt;padding-right: 25pt;text-indent: 0pt;line-height: 9pt;text-align: center;">
-                (AED)
-            </p>
-        </td>
-    </tr>
-    <tr style="height:25pt" class="item-row">
-        <td style="width:48pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s6" style="padding-top: 6pt;text-indent: 0pt;text-align: center;">1</p>
-        </td>
-        <td style="width:143pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s6" style="padding-top: 7pt;text-indent: 0pt;text-align: left;">
-                <input asp-for="Items[0].Description" class="form-control" />
-            </p>
-        </td>
-        <td style="width:67pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s6" style="padding-top: 6pt;padding-left: 23pt;text-indent: 0pt;text-align: left;">
-                <input asp-for="Items[0].UnitPrice" class="form-control" />
-            </p>
-        </td>
-        <td style="width:48pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s6" style="padding-top: 6pt;padding-left: 16pt;text-indent: 0pt;text-align: left;">
-                <input asp-for="Items[0].Qty" class="form-control" />
-            </p>
-        </td>
-        <td style="width:72pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s6" style="padding-top: 6pt;padding-left: 22pt;text-indent: 0pt;text-align: left;">
-                <input asp-for="Items[0].SubTotal" class="form-control" />
-            </p>
-        </td>
-        <td style="width:72pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s6" style="padding-top: 6pt;padding-left: 25pt;text-indent: 0pt;text-align: left;">
-                <input asp-for="Items[0].TaxAmount" class="form-control" />
-            </p>
-        </td>
-        <td style="width:83pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s6" style="padding-top: 6pt;padding-right: 21pt;text-indent: 0pt;text-align: right;">
-                <input asp-for="Items[0].Total" class="form-control" />
-            </p>
-        </td>
-    </tr>
-    <tr style="height:25pt; display: none;" class="item-row-template">
-        <td style="width:48pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s6" style="padding-top: 6pt;text-indent: 0pt;text-align: center;">1</p>
-        </td>
-        <td style="width:143pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s6" style="padding-top: 7pt;text-indent: 0pt;text-align: left;">
-                <input asp-for="Items[0].Description" class="form-control" />
-            </p>
-        </td>
-        <td style="width:67pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s6" style="padding-top: 6pt;padding-left: 23pt;text-indent: 0pt;text-align: left;">
-                <input asp-for="Items[0].UnitPrice" class="form-control" />
-            </p>
-        </td>
-        <td style="width:48pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s6" style="padding-top: 6pt;padding-left: 16pt;text-indent: 0pt;text-align: left;">
-                <input asp-for="Items[0].Qty" class="form-control" />
-            </p>
-        </td>
-        <td style="width:72pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s6" style="padding-top: 6pt;padding-left: 22pt;text-indent: 0pt;text-align: left;">
-                <input asp-for="Items[0].SubTotal" class="form-control" />
-            </p>
-        </td>
-        <td style="width:72pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s6" style="padding-top: 6pt;padding-left: 25pt;text-indent: 0pt;text-align: left;">
-                <input asp-for="Items[0].TaxAmount" class="form-control" />
-            </p>
-        </td>
-        <td style="width:83pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s6" style="padding-top: 6pt;padding-right: 21pt;text-indent: 0pt;text-align: right;">
-                <input asp-for="Items[0].Total" class="form-control" />
-            </p>
-        </td>
-    </tr>
-    <tr style="height:29pt" class="items-finish">
-        <td style="width:450pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
-            colspan="6">
-            <p style="text-indent: 0pt;text-align: left;">
-                <br/>
-            </p>
-            <p class="s4" style="padding-right: 5pt;text-indent: 0pt;text-align: right;">
-                Sub<span class="s5"> </span>Total
-            </p>
-        </td>
-        <td style="width:83pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p style="text-indent: 0pt;text-align: left;">
-                <br/>
-            </p>
-            <p class="s4" style="padding-right: 25pt;text-indent: 0pt;text-align: right;"> <input asp-for="SubTotal" class="form-control" /> </p>
-        </td>
-    </tr>
-    <tr style="height:23pt">
-        <td style="width:450pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
-            colspan="6">
-            <p class="s4" style="padding-top: 6pt;padding-right: 5pt;text-indent: 0pt;text-align: right;">
-                Total<span class="s5"> </span>Tax<span class="s5"> </span>Amount
-            </p>
-        </td>
-        <td style="width:83pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s4" style="padding-top: 6pt;padding-right: 27pt;text-indent: 0pt;text-align: right;"> <input asp-for="TotalTaxAmount" class="form-control" /> </p>
-        </td>
-    </tr>
-    <tr style="height:24pt">
-        <td style="width:450pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
-            colspan="6">
-            <p class="s4" style="padding-top: 6pt;padding-right: 5pt;text-indent: 0pt;text-align: right;">
-                Grand<span class="s5"> </span>Total
-            </p>
-        </td>
-        <td style="width:83pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s4" style="padding-top: 6pt;padding-right: 25pt;text-indent: 0pt;text-align: right;"> <input asp-for="GrandTotal" class="form-control" /> </p>
-        </td>
-    </tr>
-    <tr style="height:22pt">
-        <td style="width:137pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
-            colspan="2">
-            <p class="s4" style="padding-top: 6pt;padding-left: 54pt;text-indent: 0pt;text-align: left;">
-                Amount<span class="s5"> </span>in<span class="s5"> </span>words
-            </p>
-        </td>
-        <td style="width:396pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
-            colspan="5">
-            <p class="s6" style="padding-top: 5pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">
-                SIX<span class="s8"> </span>HUNDRED<span class="s8"> </span>THIRTY<span class="s8"> </span>AND
-                <span
-                    class="s8">
-                </span>ZERO<span class="s8"> </span>FILS<span class="s8"> </span>ONLY
-            </p>
-        </td>
-    </tr>
+<tr style="height:28pt">
+    <td style="width:48pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+        <p class="s4"
+           style="padding-top: 6pt;padding-left: 10pt;padding-right: 9pt;text-indent: 0pt;text-align: center;">
+            SL NO
+        </p>
+    </td>
+    <td style="width:143pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+        <p class="s4" style="padding-top: 6pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">Description</p>
+    </td>
+    <td style="width:67pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+        <p class="s4"
+           style="padding-top: 6pt;padding-left: 15pt;padding-right: 8pt;text-indent: 0pt;text-align: center;">
+            Unit Price
+        </p>
+        <p class="s6"
+           style="padding-top: 1pt;padding-left: 15pt;padding-right: 8pt;text-indent: 0pt;line-height: 9pt;text-align: center;">
+            (AED)
+        </p>
+    </td>
+    <td style="width:48pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+        <p class="s4" style="padding-top: 6pt;padding-left: 16pt;text-indent: 0pt;text-align: left;">
+            Tax
+            Percentage
+        </p>
+    </td>
+    <td style="width:48pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+        <p class="s4" style="padding-top: 6pt;padding-left: 16pt;text-indent: 0pt;text-align: left;">Qty</p>
+    </td>
+    <td style="width:72pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+        <p class="s4"
+           style="padding-top: 6pt;padding-left: 20pt;padding-right: 8pt;text-indent: 0pt;text-align: center;">
+            Sub Total
+        </p>
+        <p class="s6"
+           style="padding-top: 1pt;padding-left: 20pt;padding-right: 8pt;text-indent: 0pt;line-height: 9pt;text-align: center;">
+            (AED)
+        </p>
+    </td>
+    <td style="width:72pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+        <p class="s4"
+           style="padding-top: 6pt;padding-left: 9pt;padding-right: 8pt;text-indent: 0pt;text-align: center;">
+            TAX Amount
+        </p>
+        <p class="s7"
+           style="padding-top: 1pt;padding-left: 9pt;padding-right: 8pt;text-indent: 0pt;line-height: 9pt;text-align: center;">
+            (AED)
+        </p>
+    </td>
+    <td style="width:83pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:2pt">
+        <p class="s4"
+           style="padding-top: 6pt;padding-left: 33pt;padding-right: 25pt;text-indent: 0pt;text-align: center;">
+            Total
+        </p>
+        <p class="s7"
+           style="padding-top: 1pt;padding-left: 33pt;padding-right: 25pt;text-indent: 0pt;line-height: 9pt;text-align: center;">
+            (AED)
+        </p>
+    </td>
+</tr>
+<tr style="height:25pt" class="item-row">
+    <td style="width:48pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+        <p class="s6" style="padding-top: 6pt;text-indent: 0pt;text-align: center;">1</p>
+    </td>
+    <td style="width:143pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+        <p class="s6" style="padding-top: 7pt;text-indent: 0pt;text-align: left;">
+            <input asp-for="Items[0].Description" class="form-control"/>
+        </p>
+    </td>
+    <td style="width:67pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+        <p class="s6" style="padding-top: 6pt;padding-left: 23pt;text-indent: 0pt;text-align: left;">
+            <input asp-for="Items[0].UnitPrice" class="form-control unitPrice"/>
+        </p>
+    </td>
+    <td style="width:67pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+        <p class="s6" style="padding: 5pt;text-indent: 0pt;text-align: left;">
+            <input asp-for="Vat" class="form-control taxPercent" placeholder="0, 5 or 9"/>
+        </p>
+    </td>
+    <td style="width:48pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+        <p class="s6" style="padding-top: 6pt;padding-left: 16pt;text-indent: 0pt;text-align: left;">
+            <input asp-for="Items[0].Qty" class="form-control qty"/>
+        </p>
+    </td>
+    <td style="width:72pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+        <p class="s6" style="padding-top: 6pt;padding-left: 22pt;text-indent: 0pt;text-align: left;">
+            <input asp-for="Items[0].SubTotal" class="form-control subTotal"/>
+        </p>
+    </td>
+    <td style="width:72pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+        <p class="s6" style="padding-top: 6pt;padding-left: 25pt;text-indent: 0pt;text-align: left;">
+            <input asp-for="Items[0].TaxAmount" class="form-control taxAmount"/>
+        </p>
+    </td>
+    <td style="width:83pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+        <p class="s6" style="padding-top: 6pt;padding-right: 21pt;text-indent: 0pt;text-align: right;">
+            <input asp-for="Items[0].Total" class="form-control total"/>
+        </p>
+    </td>
+</tr>
+<tr style="height:25pt; display: none;" class="item-row-template">
+    <td style="width:48pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+        <p class="s6" style="padding-top: 6pt;text-indent: 0pt;text-align: center;">1</p>
+    </td>
+    <td style="width:143pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+        <p class="s6" style="padding-top: 7pt;text-indent: 0pt;text-align: left;">
+            <input asp-for="Items[0].Description" class="form-control"/>
+        </p>
+    </td>
+    <td style="width:67pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+        <p class="s6" style="padding-top: 6pt;padding-left: 23pt;text-indent: 0pt;text-align: left;">
+            <input asp-for="Items[0].UnitPrice" class="form-control unitPrice"/>
+        </p>
+    </td>
+    <td style="width:67pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+        <p class="s6" style="padding: 5pt;text-indent: 0pt;text-align: left;">
+            <input asp-for="Vat" class="form-control taxPercent" placeholder="0, 5 or 9"/>
+        </p>
+    </td>
+    <td style="width:48pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+        <p class="s6" style="padding-top: 6pt;padding-left: 16pt;text-indent: 0pt;text-align: left;">
+            <input asp-for="Items[0].Qty" class="form-control qty"/>
+        </p>
+    </td>
+    <td style="width:72pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+        <p class="s6" style="padding-top: 6pt;padding-left: 22pt;text-indent: 0pt;text-align: left;">
+            <input asp-for="Items[0].SubTotal" class="form-control subTotal"/>
+        </p>
+    </td>
+    <td style="width:72pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+        <p class="s6" style="padding-top: 6pt;padding-left: 25pt;text-indent: 0pt;text-align: left;">
+            <input asp-for="Items[0].TaxAmount" class="form-control taxAmount"/>
+        </p>
+    </td>
+    <td style="width:83pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+        <p class="s6" style="padding-top: 6pt;padding-right: 21pt;text-indent: 0pt;text-align: right;">
+            <input asp-for="Items[0].Total" class="form-control total"/>
+        </p>
+    </td>
+</tr>
+<tr style="height:29pt" class="items-finish">
+    <td style="width:450pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+        colspan="7">
+        <p style="text-indent: 0pt;text-align: left;">
+            <br/>
+        </p>
+        <p class="s4" style="padding-right: 5pt;text-indent: 0pt;text-align: right;">
+            Sub Total
+        </p>
+    </td>
+    <td style="width:83pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+        <p style="text-indent: 0pt;text-align: left;">
+            <br/>
+        </p>
+        <p class="s4" style="padding-right: 25pt;text-indent: 0pt;text-align: right;">
+            <input asp-for="SubTotal" class="form-control"/>
+        </p>
+    </td>
+</tr>
+<tr style="height:23pt">
+    <td style="width:450pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+        colspan="7">
+        <p class="s4" style="padding-top: 6pt;padding-right: 5pt;text-indent: 0pt;text-align: right;">
+            Total Tax Amount
+        </p>
+    </td>
+    <td style="width:83pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+        <p class="s4" style="padding-top: 6pt;padding-right: 27pt;text-indent: 0pt;text-align: right;">
+            <input asp-for="TotalTaxAmount" class="form-control"/>
+        </p>
+    </td>
+</tr>
+<tr style="height:24pt">
+    <td style="width:450pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+        colspan="7">
+        <p class="s4" style="padding-top: 6pt;padding-right: 5pt;text-indent: 0pt;text-align: right;">
+            Grand Total
+        </p>
+    </td>
+    <td style="width:83pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+        <p class="s4" style="padding-top: 6pt;padding-right: 25pt;text-indent: 0pt;text-align: right;">
+            <input asp-for="GrandTotal" id="priceInput" class="form-control"/>
+        </p>
+    </td>
+</tr>
+<tr style="height:22pt">
+    <td style="width:137pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+        colspan="2">
+        <p class="s4" style="padding-top: 6pt;padding-left: 54pt;text-indent: 0pt;text-align: left;">
+            Amount in words
+        </p>
+    </td>
+    <td style="width:396pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+        colspan="6">
+        <p class="s6" style="padding-top: 5pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">
+            <label id="convertedText">
+            </label>
+        </p>
+    </td>
+</tr>
 </table>
+
 <p style="text-indent: 0pt;text-align: left;">
     <br/>
 </p>
 
 <h3 style="padding-left: 355pt;text-indent: 0pt;line-height: 10pt;text-align: left;">
-    Created
-    <span
-        class="s1">
-    </span>By<span class="s1"> </span>:<span class="s1"> </span>
-    <span
-        class="s10">
-    </span><span class="s9"> <input asp-for="CreatedBy" class="form-control" /> </span>
+    Created By:
+    <span class="s9">
+        <input asp-for="CreatedBy" class="form-control"/>
+    </span>
 </h3>
 
 <div class="form-group">
@@ -489,9 +507,6 @@
 </form>
 </body>
 </html>
-
-
-
 
 
 @section scripts {
@@ -564,4 +579,92 @@
                 }
             });
         </script>
+
+    <script>
+            $(document).ready(function () {
+                $("#priceInput").on("input", function () {
+                    // Get the entered price
+                    var price = parseFloat($(this).val());
+    
+                    // Call a function to convert and update the text
+                    updateConvertedText(price);
+                });
+    
+                function updateConvertedText(price) {
+                    // Make an AJAX call to a server-side action method to get the converted text
+                    $.ajax({
+                        type: "GET",
+                        url: "/ProformaInvoice/ConvertToWords",
+                        data: { amount: price },
+                        success: function (result) {
+                            // Update the text in the span
+                            $("#convertedText").text(result);
+                        }
+                    });
+                }
+            });
+    </script>
+
+    <script>
+        // Function to calculate subtotal, tax, and total for a specific row
+        function calculateRow(row) {
+            var unitPrice = parseFloat(row.find('.unitPrice').val()) || 0;
+            var qty = parseInt(row.find('.qty').val()) || 0;
+            var taxPercentage = parseFloat(row.find('.taxPercent').val()) || 0;
+
+            // Calculate SubTotal
+            var subTotal = unitPrice * qty;
+            row.find('.subTotal').val(subTotal.toFixed(2));
+
+            // Calculate Tax Amount
+            var taxAmount = (subTotal * (taxPercentage / 100));
+            row.find('.taxAmount').val(taxAmount.toFixed(2));
+
+            // Calculate Total
+            var total = subTotal + taxAmount;
+            row.find('.total').val(total.toFixed(2));
+
+            // Trigger the recalculation of totals
+            calculateTotals();
+        }
+
+        // Function to calculate and update totals
+        function calculateTotals() {
+            var subTotalSum = 0;
+            var taxAmountSum = 0;
+
+            // Iterate over each row and sum up SubTotal and TaxAmount
+            $('.item-row').each(function () {
+                subTotalSum += parseFloat($(this).find('.subTotal').val()) || 0;
+                taxAmountSum += parseFloat($(this).find('.taxAmount').val()) || 0;
+            });
+
+            // Update SubTotal, TotalTaxAmount, and GrandTotal
+            $('#SubTotal').val(subTotalSum.toFixed(2));
+            $('#TotalTaxAmount').val(taxAmountSum.toFixed(2));
+
+            // Update GrandTotal
+            var grandTotal = subTotalSum + taxAmountSum;
+            $('#priceInput').val(grandTotal.toFixed(2)).trigger('input'); // Trigger 'input' event
+
+        }
+
+        // Attach event handler for input changes using event delegation
+        $(document).on('input', '.unitPrice, .qty, .taxPercent', function () {
+            calculateRow($(this).closest('.item-row'));
+        });
+
+        // Attach event handler for dynamically added rows
+        $(document).on('input', '.item-row-template .unitPrice, .item-row-template .qty', function () {
+            // Clone the template row and append it to the table
+            var newRow = $('.item-row-template').clone().removeClass('item-row-template').show();
+            $('#itemTable tbody').append(newRow);
+
+            // Calculate the new row
+            calculateRow(newRow);
+        });
+
+        // Initial calculation when the page loads
+        calculateTotals();
+    </script>
 }

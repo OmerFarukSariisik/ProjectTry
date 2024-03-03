@@ -7,14 +7,14 @@ namespace Project.Controllers;
 
 public class DocumentConsentLetterController : Controller
 {
-    private readonly IDocumentTranslationService _documentTranslationService;
+    private readonly ICustomerService _customerService;
     public List<DocumentConsentLetterModel> AllDocumentConsentLetter { get; set; } = new();
     private readonly string _connectionString;
     private bool _isInitialized;
 
-    public DocumentConsentLetterController(IConfiguration configuration, IDocumentTranslationService documentTranslationService)
+    public DocumentConsentLetterController(IConfiguration configuration, ICustomerService customerService)
     {
-        _documentTranslationService = documentTranslationService;
+        _customerService = customerService;
         _connectionString = configuration.GetConnectionString("DefaultConnection");
     }
     
@@ -37,7 +37,7 @@ public class DocumentConsentLetterController : Controller
                 checkTableCommand.ExecuteNonQuery();
             }
             
-            _documentTranslationService.Initialize();
+            _customerService.Initialize();
 
             string sql = "SELECT * FROM documentConsentLetter";
             using (SqlCommand command = new SqlCommand(sql, connection))
@@ -64,7 +64,7 @@ public class DocumentConsentLetterController : Controller
                         documentConsentLetter.AppointmentDate = reader.GetDateTime(6);
                         
                         documentConsentLetter.CustomerId = reader.GetInt32(7);
-                        var customer = _documentTranslationService.AllCustomers.Find(c =>
+                        var customer = _customerService.AllCustomers.Find(c =>
                                 c.CustomerId == documentConsentLetter.CustomerId);
                         
                         if(customer == null)
@@ -106,8 +106,8 @@ public class DocumentConsentLetterController : Controller
             TRNNumber = ""
         };
         
-        _documentTranslationService.Initialize();
-        _documentTranslationService.CreateCustomer(customer);
+        _customerService.Initialize();
+        _customerService.CreateCustomer(customer);
         
         Initialize();
         using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -127,7 +127,7 @@ public class DocumentConsentLetterController : Controller
                 command.Parameters.AddWithValue("@CreateDate", DocumentConsentLetterModel.CreateDate);
                 command.Parameters.AddWithValue("@AppointmentDate", DocumentConsentLetterModel.AppointmentDate);
                 command.Parameters.AddWithValue("@CustomerId",
-                    _documentTranslationService.AllCustomers.First(x => x.MobileNumber == customer.MobileNumber)
+                    _customerService.AllCustomers.First(x => x.MobileNumber == customer.MobileNumber)
                         .CustomerId);
 
                 command.ExecuteNonQuery();
@@ -151,7 +151,7 @@ public class DocumentConsentLetterController : Controller
         return View(documentPoa);
     }
     
-    public IActionResult Delete(int id)
+    public IActionResult Delete(int proformaInvoiceId)
     {
         Initialize();
         using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -162,13 +162,13 @@ public class DocumentConsentLetterController : Controller
 
             using (SqlCommand command = new SqlCommand(sql, connection))
             {
-                command.Parameters.AddWithValue("@DocumentConsentLetterId", id);
+                command.Parameters.AddWithValue("@DocumentConsentLetterId", proformaInvoiceId);
 
                 command.ExecuteNonQuery();
             }
         }
 
-        var documentConsentLetter = AllDocumentConsentLetter.FirstOrDefault(c => c.DocumentConsentLetterId == id);
+        var documentConsentLetter = AllDocumentConsentLetter.FirstOrDefault(c => c.DocumentConsentLetterId == proformaInvoiceId);
         AllDocumentConsentLetter.Remove(documentConsentLetter);
         return RedirectToAction("ConsentLetterTrackPage");
     }

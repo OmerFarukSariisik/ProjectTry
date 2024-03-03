@@ -7,14 +7,14 @@ namespace Project.Controllers;
 
 public class DocumentTranslationController : Controller
 {
-    private readonly IDocumentTranslationService _documentTranslationService;
+    private readonly ICustomerService _customerService;
     public List<DocumentTranslationModel> AllDocumentTranslations { get; set; } = new();
     private readonly string _connectionString;
     private bool _isInitialized;
 
-    public DocumentTranslationController(IConfiguration configuration, IDocumentTranslationService documentTranslationService)
+    public DocumentTranslationController(IConfiguration configuration, ICustomerService customerService)
     {
-        _documentTranslationService = documentTranslationService;
+        _customerService = customerService;
         _connectionString = configuration.GetConnectionString("DefaultConnection");
     }
 
@@ -37,7 +37,7 @@ public class DocumentTranslationController : Controller
                 checkTableCommand.ExecuteNonQuery();
             }
             
-            _documentTranslationService.Initialize();
+            _customerService.Initialize();
 
             string sql = "SELECT * FROM documentTranslations";
             using (SqlCommand command = new SqlCommand(sql, connection))
@@ -66,7 +66,7 @@ public class DocumentTranslationController : Controller
                         documentTranslation.AttestationService = reader.GetString(8);
                         
                         documentTranslation.CustomerId = reader.GetInt32(9);
-                        var customer = _documentTranslationService.AllCustomers.Find(c =>
+                        var customer = _customerService.AllCustomers.Find(c =>
                                 c.CustomerId == documentTranslation.CustomerId);
                         
                         if(customer == null)
@@ -85,11 +85,6 @@ public class DocumentTranslationController : Controller
         }
         
         _isInitialized = true;
-    }
-
-    public IActionResult DocumentTranslationFormPage()
-    {
-        return View();
     }
     
     public IActionResult TranslationForm(DocumentTranslationModel documentTranslationModel)
@@ -111,8 +106,8 @@ public class DocumentTranslationController : Controller
             TRNNumber = ""
         };
         
-        _documentTranslationService.Initialize();
-        _documentTranslationService.CreateCustomer(customer);
+        _customerService.Initialize();
+        _customerService.CreateCustomer(customer);
         
         Initialize();
         using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -134,7 +129,7 @@ public class DocumentTranslationController : Controller
                 command.Parameters.AddWithValue("@DeliveryDate", documentTranslationModel.DeliveryDate);
                 command.Parameters.AddWithValue("@AttestationService", documentTranslationModel.AttestationService);
                 command.Parameters.AddWithValue("@CustomerId",
-                    _documentTranslationService.AllCustomers.First(x => x.MobileNumber == customer.MobileNumber)
+                    _customerService.AllCustomers.First(x => x.MobileNumber == customer.MobileNumber)
                         .CustomerId);
 
                 command.ExecuteNonQuery();
@@ -158,7 +153,7 @@ public class DocumentTranslationController : Controller
         return View(documentTranslation);
     }
     
-    public IActionResult Delete(int id)
+    public IActionResult Delete(int proformaInvoiceId)
     {
         Initialize();
         using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -169,12 +164,12 @@ public class DocumentTranslationController : Controller
 
             using (SqlCommand command = new SqlCommand(sql, connection))
             {
-                command.Parameters.AddWithValue("@DocumentTranslationId", id);
+                command.Parameters.AddWithValue("@DocumentTranslationId", proformaInvoiceId);
 
                 command.ExecuteNonQuery();
             }
         }
-        var documentTranslation = AllDocumentTranslations.FirstOrDefault(c => c.DocumentTranslationId == id);
+        var documentTranslation = AllDocumentTranslations.FirstOrDefault(c => c.DocumentTranslationId == proformaInvoiceId);
         AllDocumentTranslations.Remove(documentTranslation);
         return RedirectToAction("DocumentTranslationTrackPage");
     }

@@ -8,14 +8,14 @@ namespace Project.Controllers;
 
 public class ProformaInvoiceController : Controller
 {
-    private readonly IDocumentTranslationService _documentTranslationService;
+    private readonly ICustomerService _customerService;
     private readonly IProformaInvoiceService _proformaInvoiceService;
     private readonly string _connectionString;
 
     public ProformaInvoiceController(IConfiguration configuration,
-        IDocumentTranslationService documentTranslationService, IProformaInvoiceService proformaInvoiceService)
+        ICustomerService customerService, IProformaInvoiceService proformaInvoiceService)
     {
-        _documentTranslationService = documentTranslationService;
+        _customerService = customerService;
         _proformaInvoiceService = proformaInvoiceService;
         _connectionString = configuration.GetConnectionString("DefaultConnection");
     }
@@ -42,14 +42,15 @@ public class ProformaInvoiceController : Controller
 
     public IActionResult CreateProformaInvoicePage()
     {
+        _proformaInvoiceService.Initialize();
         return View();
     }
 
-    public IActionResult EditProformaInvoicePage(int id)
+    public IActionResult EditProformaInvoicePage(int proformaInvoiceId)
     {
-        Console.WriteLine("id: " + id);
+        Console.WriteLine("id: " + proformaInvoiceId);
         _proformaInvoiceService.Initialize();
-        var retrievedProformaInvoice = _proformaInvoiceService.AllProformaInvoices.Find(b => b.ProformaInvoiceId == id);
+        var retrievedProformaInvoice = _proformaInvoiceService.AllProformaInvoices.Find(b => b.ProformaInvoiceId == proformaInvoiceId);
         Console.WriteLine("retrievedProformaInvoice: " + retrievedProformaInvoice.ProformaInvoiceId);
         Console.WriteLine("retrievedProformaInvoice: " + retrievedProformaInvoice.Customer.FullName);
         return View(retrievedProformaInvoice);
@@ -68,7 +69,8 @@ public class ProformaInvoiceController : Controller
             TotalTaxAmount = proformaInvoice.TotalTaxAmount,
             GrandTotal = proformaInvoice.GrandTotal,
             CreatedBy = proformaInvoice.CreatedBy,
-            InvoiceDate = proformaInvoice.InvoiceDate
+            InvoiceDate = proformaInvoice.InvoiceDate,
+            Vat =  proformaInvoice.Vat
         };
 
         for (var i = 0; i < newProformaInvoice.Items.Length; i++)
@@ -91,9 +93,9 @@ public class ProformaInvoiceController : Controller
             }
         }
 
-        _documentTranslationService.Initialize();
+        _customerService.Initialize();
         newProformaInvoice.Customer =
-            _documentTranslationService.AllCustomers.First(x =>
+            _customerService.AllCustomers.First(x =>
                 x.MobileNumber == proformaInvoice.Customer.MobileNumber);
 
         using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -101,8 +103,8 @@ public class ProformaInvoiceController : Controller
             connection.Open();
 
             string sql =
-                "INSERT INTO proformaInvoices (CustomerId, Descriptions, UnitPrices, Qtys, SubTotals, TaxAmounts, Totals, SubTotal, TotalTaxAmount, GrandTotal, CreatedBy, InvoiceDate, ProformaInvoiceNo) " +
-                "VALUES (@CustomerId, @Descriptions, @UnitPrices, @Qtys, @SubTotals, @TaxAmounts, @Totals, @SubTotal, @TotalTaxAmount, @GrandTotal, @CreatedBy, @InvoiceDate, @ProformaInvoiceNo)";
+                "INSERT INTO proformaInvoices (CustomerId, Descriptions, UnitPrices, Qtys, SubTotals, TaxAmounts, Totals, SubTotal, TotalTaxAmount, GrandTotal, CreatedBy, InvoiceDate, ProformaInvoiceNo, Vat) " +
+                "VALUES (@CustomerId, @Descriptions, @UnitPrices, @Qtys, @SubTotals, @TaxAmounts, @Totals, @SubTotal, @TotalTaxAmount, @GrandTotal, @CreatedBy, @InvoiceDate, @ProformaInvoiceNo, @Vat)";
 
             using (SqlCommand command = new SqlCommand(sql, connection))
             {
@@ -119,6 +121,7 @@ public class ProformaInvoiceController : Controller
                 command.Parameters.AddWithValue("@GrandTotal", newProformaInvoice.GrandTotal);
                 command.Parameters.AddWithValue("@CreatedBy", newProformaInvoice.CreatedBy);
                 command.Parameters.AddWithValue("@InvoiceDate", newProformaInvoice.InvoiceDate);
+                command.Parameters.AddWithValue("@Vat", newProformaInvoice.Vat);
                 command.ExecuteNonQuery();
             }
         }
@@ -141,7 +144,8 @@ public class ProformaInvoiceController : Controller
             TotalTaxAmount = proformaInvoice.TotalTaxAmount,
             GrandTotal = proformaInvoice.GrandTotal,
             CreatedBy = proformaInvoice.CreatedBy,
-            InvoiceDate = proformaInvoice.InvoiceDate
+            InvoiceDate = proformaInvoice.InvoiceDate,
+            Vat =  proformaInvoice.Vat
         };
 
         for (var i = 0; i < newProformaInvoice.Items.Length; i++)
@@ -164,9 +168,9 @@ public class ProformaInvoiceController : Controller
             }
         }
 
-        _documentTranslationService.Initialize();
+        _customerService.Initialize();
         newProformaInvoice.Customer =
-            _documentTranslationService.AllCustomers.First(x =>
+            _customerService.AllCustomers.First(x =>
                 x.MobileNumber == proformaInvoice.Customer.MobileNumber);
         newProformaInvoice.CustomerId = newProformaInvoice.Customer.CustomerId;
         
@@ -188,7 +192,8 @@ public class ProformaInvoiceController : Controller
                          "GrandTotal = @GrandTotal, " +
                          "CreatedBy = @CreatedBy, " +
                          "InvoiceDate = @InvoiceDate, " +
-                         "ProformaInvoiceNo = @ProformaInvoiceNo " +
+                         "ProformaInvoiceNo = @ProformaInvoiceNo, " +
+                         "Vat = @Vat " +
                          "WHERE ProformaInvoiceId = @ProformaInvoiceId";
 
             using (SqlCommand command = new SqlCommand(sql, connection))
@@ -207,6 +212,7 @@ public class ProformaInvoiceController : Controller
                 command.Parameters.AddWithValue("@GrandTotal", newProformaInvoice.GrandTotal);
                 command.Parameters.AddWithValue("@CreatedBy", newProformaInvoice.CreatedBy);
                 command.Parameters.AddWithValue("@InvoiceDate", newProformaInvoice.InvoiceDate);
+                command.Parameters.AddWithValue("@Vat", newProformaInvoice.Vat);
                 command.ExecuteNonQuery();
             }
         }
@@ -223,7 +229,7 @@ public class ProformaInvoiceController : Controller
     }
 
 
-    public IActionResult DeleteProformaInvoice(int id)
+    public IActionResult DeleteProformaInvoice(int proformaInvoiceId)
     {
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
@@ -233,14 +239,14 @@ public class ProformaInvoiceController : Controller
 
             using (SqlCommand command = new SqlCommand(sql, connection))
             {
-                command.Parameters.AddWithValue("@ProformaInvoiceId", id);
+                command.Parameters.AddWithValue("@ProformaInvoiceId", proformaInvoiceId);
 
                 command.ExecuteNonQuery();
             }
         }
 
         _proformaInvoiceService.Initialize();
-        _proformaInvoiceService.AllProformaInvoices.RemoveAll(b => b.ProformaInvoiceId == id);
+        _proformaInvoiceService.AllProformaInvoices.RemoveAll(b => b.ProformaInvoiceId == proformaInvoiceId);
         return RedirectToAction("ProformaInvoiceIndex");
     }
     
@@ -255,10 +261,10 @@ public class ProformaInvoiceController : Controller
         return RedirectToAction("ProformaInvoiceIndex", new { str = searchNameString, first = false });
     }
 
-    public IActionResult ShowProformaInvoice(int id)
+    public IActionResult ShowProformaInvoice(int proformaInvoiceId)
     {
         _proformaInvoiceService.Initialize();
-        var retrievedProformaInvoice = _proformaInvoiceService.AllProformaInvoices.Find(b => b.ProformaInvoiceId == id);
+        var retrievedProformaInvoice = _proformaInvoiceService.AllProformaInvoices.Find(b => b.ProformaInvoiceId == proformaInvoiceId);
         Console.WriteLine("retrievedProformaInvoice: " + retrievedProformaInvoice.Items.Length);
         return View(retrievedProformaInvoice);
     }
@@ -267,8 +273,8 @@ public class ProformaInvoiceController : Controller
     public IActionResult GetCustomerByMobileNumber(string mobileNumber)
     {
         Console.WriteLine("aaaa");
-        _documentTranslationService.Initialize();
-        var customer = _documentTranslationService.AllCustomers.FirstOrDefault(x => x.MobileNumber == mobileNumber);
+        _customerService.Initialize();
+        var customer = _customerService.AllCustomers.FirstOrDefault(x => x.MobileNumber == mobileNumber);
 
         Console.WriteLine("mobile number:" + mobileNumber + "-");
         if (customer != null)
@@ -287,10 +293,10 @@ public class ProformaInvoiceController : Controller
         return Json(null);
     }
 
-    public IActionResult RequestCreatePendingPage(int id)
+    public IActionResult RequestCreatePendingPage(int proformaInvoiceId)
     {
         _proformaInvoiceService.Initialize();
-        var retrievedProformaInvoice = _proformaInvoiceService.AllProformaInvoices.Find(b => b.ProformaInvoiceId == id);
+        var retrievedProformaInvoice = _proformaInvoiceService.AllProformaInvoices.Find(b => b.ProformaInvoiceId == proformaInvoiceId);
         if(retrievedProformaInvoice.Customer == null)
             Console.WriteLine("CUSTOMER NULLLLLL: " + retrievedProformaInvoice.CustomerId);
         else
@@ -298,15 +304,25 @@ public class ProformaInvoiceController : Controller
         
         return RedirectToAction("CreatePendingPage", "Pending", retrievedProformaInvoice);
     }
-    public IActionResult RequestCreateVoucherPage(int id)
+    public IActionResult RequestCreateInvoicePage(int proformaInvoiceId)
+    {
+        return RedirectToAction("CreateInvoicePage", "Accounting", new { proformaInvoiceId = proformaInvoiceId });
+    }
+    public IActionResult RequestCreateVoucherPage(int proformaInvoiceId)
     {
         _proformaInvoiceService.Initialize();
-        var retrievedProformaInvoice = _proformaInvoiceService.AllProformaInvoices.Find(b => b.ProformaInvoiceId == id);
+        var retrievedProformaInvoice = _proformaInvoiceService.AllProformaInvoices.Find(b => b.ProformaInvoiceId == proformaInvoiceId);
         if(retrievedProformaInvoice.Customer == null)
             Console.WriteLine("CUSTOMER NULLLLLL: " + retrievedProformaInvoice.CustomerId);
         else
             Console.WriteLine("CUSTOMER FOUNDDDD: " + retrievedProformaInvoice.Customer.FullName);
         
         return RedirectToAction("CreateVoucherPage", "Voucher", retrievedProformaInvoice);
+    }
+    
+    [HttpGet]
+    public string ConvertToWords(decimal amount)
+    {
+        return _proformaInvoiceService.ConvertToWords(amount);
     }
 }

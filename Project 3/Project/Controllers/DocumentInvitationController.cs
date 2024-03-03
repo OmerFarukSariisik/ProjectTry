@@ -7,14 +7,14 @@ namespace Project.Controllers;
 
 public class DocumentInvitationController : Controller
 {
-    private readonly IDocumentTranslationService _documentTranslationService;
+    private readonly ICustomerService _customerService;
     public List<DocumentInvitationModel> AllDocumentInvitation { get; set; } = new();
     private readonly string _connectionString;
     private bool _isInitialized;
 
-    public DocumentInvitationController(IConfiguration configuration, IDocumentTranslationService documentTranslationService)
+    public DocumentInvitationController(IConfiguration configuration, ICustomerService customerService)
     {
-        _documentTranslationService = documentTranslationService;
+        _customerService = customerService;
         _connectionString = configuration.GetConnectionString("DefaultConnection");
     }
     
@@ -37,7 +37,7 @@ public class DocumentInvitationController : Controller
                 checkTableCommand.ExecuteNonQuery();
             }
             
-            _documentTranslationService.Initialize();
+            _customerService.Initialize();
 
             string sql = "SELECT * FROM documentInvitation";
             using (SqlCommand command = new SqlCommand(sql, connection))
@@ -63,7 +63,7 @@ public class DocumentInvitationController : Controller
                         documentInvitation.AppointmentDate = reader.GetDateTime(5);
                         
                         documentInvitation.CustomerId = reader.GetInt32(6);
-                        var customer = _documentTranslationService.AllCustomers.Find(c =>
+                        var customer = _customerService.AllCustomers.Find(c =>
                                 c.CustomerId == documentInvitation.CustomerId);
                         
                         if(customer == null)
@@ -105,8 +105,8 @@ public class DocumentInvitationController : Controller
             TRNNumber = ""
         };
         
-        _documentTranslationService.Initialize();
-        _documentTranslationService.CreateCustomer(customer);
+        _customerService.Initialize();
+        _customerService.CreateCustomer(customer);
         
         Initialize();
         using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -125,7 +125,7 @@ public class DocumentInvitationController : Controller
                 command.Parameters.AddWithValue("@CreateDate", DocumentInvitationModel.CreateDate);
                 command.Parameters.AddWithValue("@AppointmentDate", DocumentInvitationModel.AppointmentDate);
                 command.Parameters.AddWithValue("@CustomerId",
-                    _documentTranslationService.AllCustomers.First(x => x.MobileNumber == customer.MobileNumber)
+                    _customerService.AllCustomers.First(x => x.MobileNumber == customer.MobileNumber)
                         .CustomerId);
 
                 command.ExecuteNonQuery();
@@ -149,7 +149,7 @@ public class DocumentInvitationController : Controller
         return View(documentPoa);
     }
     
-    public IActionResult Delete(int id)
+    public IActionResult Delete(int proformaInvoiceId)
     {
         Initialize();
         using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -160,12 +160,12 @@ public class DocumentInvitationController : Controller
 
             using (SqlCommand command = new SqlCommand(sql, connection))
             {
-                command.Parameters.AddWithValue("@DocumentInvitationId", id);
+                command.Parameters.AddWithValue("@DocumentInvitationId", proformaInvoiceId);
 
                 command.ExecuteNonQuery();
             }
         }
-        var documentPoa = AllDocumentInvitation.FirstOrDefault(c => c.DocumentInvitationId == id);
+        var documentPoa = AllDocumentInvitation.FirstOrDefault(c => c.DocumentInvitationId == proformaInvoiceId);
         AllDocumentInvitation.Remove(documentPoa);
         return RedirectToAction("InvitationTrackPage");
     }

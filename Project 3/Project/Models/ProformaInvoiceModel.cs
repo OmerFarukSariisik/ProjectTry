@@ -20,6 +20,10 @@ public class ProformaInvoiceModel
     public double GrandTotal { get; set; }
     public string CreatedBy { get; set; }
     public DateTime InvoiceDate { get; set; }
+    public int Vat { get; set; }
+    
+    //
+    public string AmountString { get; set; }
 }
 
 public class ProformaInvoiceItem

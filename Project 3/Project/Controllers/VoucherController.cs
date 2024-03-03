@@ -9,15 +9,15 @@ namespace Project.Controllers
     public class VoucherController : Controller
     {
         private readonly IProformaInvoiceService _proformaInvoiceService;
-        private readonly IDocumentTranslationService _documentTranslationService;
+        private readonly ICustomerService _customerService;
         public List<Voucher> AllVouchers { get; set; } = new();
         private readonly string _connectionString;
         private bool _isInitialized;
 
-        public VoucherController(IConfiguration configuration, IDocumentTranslationService documentTranslationService,
+        public VoucherController(IConfiguration configuration, ICustomerService customerService,
             IProformaInvoiceService proformaInvoiceService)
         {
-            _documentTranslationService = documentTranslationService;
+            _customerService = customerService;
             _proformaInvoiceService = proformaInvoiceService;
             _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
@@ -58,8 +58,13 @@ namespace Project.Controllers
                             _proformaInvoiceService.Initialize();
                             var proformaInvoice = _proformaInvoiceService.AllProformaInvoices.Find(c =>
                                 c.ProformaInvoiceId == voucherModel.ProformaInvoiceId);
-                            _documentTranslationService.Initialize();
-                            var customer = _documentTranslationService.AllCustomers.Find(c =>
+                            if (proformaInvoice == null)
+                            {
+                                Console.WriteLine("customer is null for voucher:" + voucherModel.ProformaInvoiceId);
+                                continue;
+                            }
+                            _customerService.Initialize();
+                            var customer = _customerService.AllCustomers.Find(c =>
                                 c.CustomerId == proformaInvoice.CustomerId);
 
                             if (customer == null)
@@ -75,7 +80,7 @@ namespace Project.Controllers
                             reader.GetBytes(columnIndex, 0, signatureData, 0, (int)byteLength);
                             voucherModel.Signature = signatureData;
                             voucherModel.SignatureString = "data:image/jpeg;base64," + Convert.ToBase64String(voucherModel.Signature);
-                            
+                            voucherModel.AmountString =  ConvertToWords((decimal)voucherModel.Amount);
                             AllVouchers.Add(voucherModel);
                         }
                     }
@@ -93,8 +98,8 @@ namespace Project.Controllers
 
         public IActionResult CreateVoucherPage(ProformaInvoiceModel proformaInvoiceModel)
         {
-            _documentTranslationService.Initialize();
-            proformaInvoiceModel.Customer = _documentTranslationService.AllCustomers.Find(c =>
+            _customerService.Initialize();
+            proformaInvoiceModel.Customer = _customerService.AllCustomers.Find(c =>
                 c.CustomerId == proformaInvoiceModel.CustomerId);
             var voucherModel = new Voucher
             {
@@ -220,27 +225,13 @@ namespace Project.Controllers
         {
             Initialize();
             var retrievedVoucher = AllVouchers.Find(b => b.VoucherId == id);
-            _proformaInvoiceService.Initialize();
-            var retrievedProformaInvoice =
-                _proformaInvoiceService.AllProformaInvoices.Find(b =>
-                    b.ProformaInvoiceId == retrievedVoucher.ProformaInvoiceId);
-            _documentTranslationService.Initialize();
-            retrievedVoucher.Customer = _documentTranslationService.AllCustomers.Find(c =>
-                c.CustomerId == retrievedProformaInvoice.CustomerId);
-            retrievedVoucher.AmountString = ConvertToWords((decimal)retrievedVoucher.Amount);
             return View(retrievedVoucher);
         }
         
         [HttpGet]
         public string ConvertToWords(decimal amount)
         {
-            int dollars = (int)amount;
-            int cents = (int)((amount - dollars) * 100);
-            
-            string dollarsWords = dollars.ToWords();
-            string centsWords = cents > 0 ? $"{cents.ToWords()} FILS" : "ZERO FILS";
-
-            return $"{dollarsWords.ToUpper()} AND {centsWords.ToUpper()} ONLY";
+            return _proformaInvoiceService.ConvertToWords(amount);
         }
     }
 }

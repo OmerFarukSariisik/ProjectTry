@@ -7,6 +7,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<form id="printableForm">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>file_1704665555883</title>
@@ -229,7 +230,7 @@
                 <td align="left" style="padding-right: 20px;">
                     <p style="text-indent: 0pt;text-align: left;"/>
                     <h1 style="padding-top: 12pt;padding-left: 19pt;text-indent: 0pt;text-align: left;">
-                        Tax<span class="s3"> </span>Invoice
+                        Proforma Invoice
                     </h1>
                     <p style="text-indent: 0pt;text-align: left;">
                         <br/>
@@ -239,7 +240,7 @@
                         Invoice:<span class="s2"> </span>#SI603
                     </p>
                     <p style="padding-top: 1pt;padding-left: 19pt;text-indent: 0pt;line-height: 115%;text-align: left;">
-                        Invoice Date: @Model.InvoiceDate
+                        Invoice Date: @Model.InvoiceDate.ToString("yyyy-MM-dd")
                     </p>
                     <p style="padding-top: 1pt;padding-left: 19pt;text-indent: 0pt;text-align: left;">
                         Currency: AED
@@ -247,7 +248,7 @@
                 </td>
                 <td align="right" style="padding-left: 170px;">
                     <h3 style="padding-top: 6pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">
-                        Invoice<span class="s1"> </span>To
+                        InvoiceTo
                     </h3>
                     <p style="padding-top: 1pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">
                         @Model.Customer.FullName
@@ -284,7 +285,7 @@
         <td style="width:48pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
             <p class="s4"
                style="padding-top: 6pt;padding-left: 10pt;padding-right: 9pt;text-indent: 0pt;text-align: center;">
-                SL<span class="s5"> </span>NO
+                SL NO
             </p>
         </td>
         <td style="width:143pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
@@ -293,7 +294,7 @@
         <td style="width:67pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
             <p class="s4"
                style="padding-top: 6pt;padding-left: 15pt;padding-right: 8pt;text-indent: 0pt;text-align: center;">
-                Unit<span class="s5"> </span>Price
+                Unit Price
             </p>
             <p class="s6"
                style="padding-top: 1pt;padding-left: 15pt;padding-right: 8pt;text-indent: 0pt;line-height: 9pt;text-align: center;">
@@ -306,7 +307,7 @@
         <td style="width:72pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
             <p class="s4"
                style="padding-top: 6pt;padding-left: 20pt;padding-right: 8pt;text-indent: 0pt;text-align: center;">
-                Sub<span class="s5"> </span>Total
+                Sub Total
             </p>
             <p class="s6"
                style="padding-top: 1pt;padding-left: 20pt;padding-right: 8pt;text-indent: 0pt;line-height: 9pt;text-align: center;">
@@ -316,7 +317,7 @@
         <td style="width:72pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
             <p class="s4"
                style="padding-top: 6pt;padding-left: 9pt;padding-right: 8pt;text-indent: 0pt;text-align: center;">
-                TAX<span class="s5"> </span>Amount
+                TAX Amount
             </p>
             <p class="s7"
                style="padding-top: 1pt;padding-left: 9pt;padding-right: 8pt;text-indent: 0pt;line-height: 9pt;text-align: center;">
@@ -379,7 +380,7 @@
                 <br/>
             </p>
             <p class="s4" style="padding-right: 5pt;text-indent: 0pt;text-align: right;">
-                Sub<span class="s5"> </span>Total
+                Sub Total
             </p>
         </td>
         <td style="width:83pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
@@ -393,7 +394,7 @@
         <td style="width:450pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
             colspan="6">
             <p class="s4" style="padding-top: 6pt;padding-right: 5pt;text-indent: 0pt;text-align: right;">
-                Total<span class="s5"> </span>Tax<span class="s5"> </span>Amount
+                Total Tax Amount
             </p>
         </td>
         <td style="width:83pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
@@ -404,7 +405,7 @@
         <td style="width:450pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
             colspan="6">
             <p class="s4" style="padding-top: 6pt;padding-right: 5pt;text-indent: 0pt;text-align: right;">
-                Grand<span class="s5"> </span>Total
+                Grand Total
             </p>
         </td>
         <td style="width:83pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
@@ -415,16 +416,15 @@
         <td style="width:137pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
             colspan="2">
             <p class="s4" style="padding-top: 6pt;padding-left: 54pt;text-indent: 0pt;text-align: left;">
-                Amount<span class="s5"> </span>in<span class="s5"> </span>words
+                Amount in words
             </p>
         </td>
         <td style="width:396pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
             colspan="5">
             <p class="s6" style="padding-top: 5pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">
-                SIX<span class="s8"> </span>HUNDRED<span class="s8"> </span>THIRTY<span class="s8"> </span>AND
-                <span
-                    class="s8">
-                </span>ZERO<span class="s8"> </span>FILS<span class="s8"> </span>ONLY
+                <label id="convertedText">
+                    @Model.AmountString
+                </label>
             </p>
         </td>
     </tr>
@@ -434,14 +434,50 @@
 </p>
 
 <h3 style="padding-left: 355pt;text-indent: 0pt;line-height: 10pt;text-align: left;">
-    Created
-    <span
-        class="s1">
-    </span>By<span class="s1"> </span>:<span class="s1"> </span>
-    <span
-        class="s10">
-    </span><span class="s9"> @Model.CreatedBy </span>
+    Created By: <span class="s9"> @Model.CreatedBy </span>
 </h3>
 
+<table border="2" cellspacing="0" cellpadding="0">
+    <tr>
+        <td style="width: 820px">
+            <h3 style="padding-left: 10px;font-size: 17px;padding-top: 12px">
+                Bank Account Data <br/>
+            </h3>
+                
+            <h3 style="padding-left: 23px;font-size: 17px">
+                <span style="text-decoration: underline;">Emirates Islamic Bank</span><br/>
+                Account Name : Ankara Translation and Businessmen Services FZE<br/>
+                Account No : 3708456955701<br/>
+                IBAN : AE74 0340 0037 0845 6955 701<br/>
+            </h3>
+        </td>
+    </tr>
+</table>
+
 </body>
+</form>
+<button onclick="printForm()">Print Form</button>
 </html>
+
+
+
+@section scripts {
+
+    <script>
+            function printForm() {
+                var printContents = document.getElementById('printableForm').innerHTML;
+                var originalContents = document.body.innerHTML;
+                
+                var printWindow = window.open('', '_blank');
+                printWindow.document.open();
+                printWindow.document.write('<html><head><title>Print</title><link rel="stylesheet" href="styles.css"></head><body>');
+                printWindow.document.write(printContents);
+                printWindow.document.write('</body></html>');
+                printWindow.document.close();
+                printWindow.print();
+                printWindow.close();
+    
+                document.body.innerHTML = originalContents;
+            }
+    </script>
+}

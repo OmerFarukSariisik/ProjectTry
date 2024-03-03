@@ -107,7 +107,7 @@
             <b>
                 <span
                     lang=TR style='font-size:14.0pt;font-family:"Times New Roman",serif'>
-                    Date: @Model.CreateDate
+                    Date: @Model.CreateDate.ToString("yyyy-MM-dd")
                 </span>
             </b>
         </p>
@@ -504,7 +504,7 @@ line-height:115%;font-family:"Times New Roman",serif'>Signature:</span>
     <b>
         <span lang=TR style='font-size:14.0pt;line-height:115%;
 font-family:"Times New Roman",serif'>
-            Appointment date: @Model.AppointmentDate
+            Appointment date: @Model.AppointmentDate.ToString("yyyy-MM-dd")
         </span>
     </b>
 </p>

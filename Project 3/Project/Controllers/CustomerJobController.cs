@@ -7,14 +7,14 @@ namespace Project.Controllers;
 public class CustomerJobController : Controller
 {
     private readonly IWebHostEnvironment _env;
-    private readonly IDocumentTranslationService _documentTranslationService;
+    private readonly ICustomerService _customerService;
         
     private readonly string _connectionString;
 
-    public CustomerJobController(IConfiguration configuration, IDocumentTranslationService documentTranslationService,
+    public CustomerJobController(IConfiguration configuration, ICustomerService customerService,
         IWebHostEnvironment env)
     {
-        _documentTranslationService = documentTranslationService;
+        _customerService = customerService;
         _env = env;
         _connectionString = configuration.GetConnectionString("DefaultConnection");
     }
@@ -41,8 +41,8 @@ public class CustomerJobController : Controller
             Satisfaction = customerModel.Satisfaction
         };
         
-        _documentTranslationService.Initialize();
-        _documentTranslationService.CreateCustomer(customer);
+        _customerService.Initialize();
+        _customerService.CreateCustomer(customer);
 
         switch (customerModel.DocumentType)
         {
@@ -134,8 +134,8 @@ public class CustomerJobController : Controller
     [HttpGet]
     public IActionResult GetCustomerByMobileNumber(string mobileNumber)
     {
-        _documentTranslationService.Initialize();
-        var customer = _documentTranslationService.AllCustomers.FirstOrDefault(x => x.MobileNumber == mobileNumber);
+        _customerService.Initialize();
+        var customer = _customerService.AllCustomers.FirstOrDefault(x => x.MobileNumber == mobileNumber);
 
         if (customer != null)
         {

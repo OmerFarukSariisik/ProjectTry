@@ -7,16 +7,16 @@ namespace Project.Controllers;
 
 public class PendingController : Controller
 {
-    private readonly IDocumentTranslationService _documentTranslationService;
+    private readonly ICustomerService _customerService;
     private readonly IProformaInvoiceService _proformaInvoiceService;
 
     public List<PendingModel> AllPendings { get; set; } = new();
     private readonly string _connectionString;
     private bool _isInitialized;
 
-    public PendingController(IConfiguration configuration, IDocumentTranslationService documentTranslationService, IProformaInvoiceService proformaInvoiceService)
+    public PendingController(IConfiguration configuration, ICustomerService customerService, IProformaInvoiceService proformaInvoiceService)
     {
-        _documentTranslationService = documentTranslationService;
+        _customerService = customerService;
         _proformaInvoiceService = proformaInvoiceService;
         _connectionString = configuration.GetConnectionString("DefaultConnection");
     }
@@ -73,8 +73,8 @@ public class PendingController : Controller
 
     public IActionResult CreatePendingPage(ProformaInvoiceModel proformaInvoiceModel)
     {
-        _documentTranslationService.Initialize();
-        proformaInvoiceModel.Customer = _documentTranslationService.AllCustomers.Find(c =>
+        _customerService.Initialize();
+        proformaInvoiceModel.Customer = _customerService.AllCustomers.Find(c =>
             c.CustomerId == proformaInvoiceModel.CustomerId);
         if(proformaInvoiceModel.Customer == null)
             Console.WriteLine("CUSTOMER NULLLLLL2: " + proformaInvoiceModel.CustomerId);
@@ -148,7 +148,7 @@ public class PendingController : Controller
         return View(pendingModels.ToArray());
     }
     
-    public IActionResult DeletePending(int id)
+    public IActionResult DeletePending(int proformaInvoiceId)
     {
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
@@ -158,21 +158,21 @@ public class PendingController : Controller
 
             using (SqlCommand command = new SqlCommand(sql, connection))
             {
-                command.Parameters.AddWithValue("@PendingId", id);
+                command.Parameters.AddWithValue("@PendingId", proformaInvoiceId);
 
                 command.ExecuteNonQuery();
             }
         }
         
-        AllPendings.RemoveAll(b => b.PendingId == id);
+        AllPendings.RemoveAll(b => b.PendingId == proformaInvoiceId);
         return RedirectToAction("PendingIndex");
     }
     
-    public IActionResult EditPendingPage(int id)
+    public IActionResult EditPendingPage(int proformaInvoiceId)
     {
-        Console.WriteLine("id: " + id);
+        Console.WriteLine("id: " + proformaInvoiceId);
         Initialize();
-        var retrievedPending = AllPendings.Find(b => b.PendingId == id);
+        var retrievedPending = AllPendings.Find(b => b.PendingId == proformaInvoiceId);
         return View(retrievedPending);
     }
     

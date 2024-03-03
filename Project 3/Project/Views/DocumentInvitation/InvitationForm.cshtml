@@ -9,6 +9,10 @@
 <html>
 
 <head>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    
     <meta http-equiv=Content-Type content="text/html; charset=utf-8">
     <meta name=Generator content="Microsoft Word 15 (filtered)">
     <style>
@@ -109,7 +113,7 @@
             <b>
                 <span style="font-size:14.0pt;font-family:'Times New Roman',serif">
                     Date:
-                    <input asp-for="CreateDate" class="form-control" value="@Model.CreateDate.ToString("yyyy-MM-ddTHH:mm")"/>
+                    @Html.TextBoxFor(model => model.CreateDate, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date" })
                     <span asp-validation-for="CreateDate" class="text-danger"></span>
                 </span>
             </b>
@@ -469,7 +473,7 @@ line-height:115%;font-family:"Times New Roman",serif'>Signature:</span>
         <span lang=TR style='font-size:14.0pt;line-height:115%;
 font-family:"Times New Roman",serif'>
             Appointment date:
-            <input asp-for="AppointmentDate" class="form-control" type="date"/>
+            @Html.TextBoxFor(model => model.AppointmentDate, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date" })
             <span asp-validation-for="AppointmentDate" class="text-danger"></span>
         </span>
     </b>
@@ -487,30 +491,33 @@ font-family:"Times New Roman",serif'>
 
 </html>
 
-<script>
-        const canvas = document.getElementById('signatureCanvas');
-        const ctx = canvas.getContext('2d');
-        let isDrawing = false;
-        
-        canvas.addEventListener('mousedown', (e) => {
-            isDrawing = true;
-            ctx.beginPath();
-            ctx.moveTo(e.offsetX, e.offsetY);
-        });
-        
-        canvas.addEventListener('mousemove', (e) => {
-            if (isDrawing) {
-                ctx.lineTo(e.offsetX, e.offsetY);
-                ctx.stroke();
-            }
-        });
-        
-        canvas.addEventListener('mouseup', () => {
-            isDrawing = false;
-            // When the drawing is done, save the signature as data URL
-            const dataURL = canvas.toDataURL();
-            console.log("dataURL:" + dataURL);
-            //const compressedData = LZString.compressToEncodedURIComponent(dataURL);
-            document.getElementById('signatureInput').value = dataURL; // Set the value in hidden input
-        });
-</script>
+
+@section Scripts {
+    <script>
+            const canvas = document.getElementById('signatureCanvas');
+            const ctx = canvas.getContext('2d');
+            let isDrawing = false;
+            
+            canvas.addEventListener('mousedown', (e) => {
+                isDrawing = true;
+                ctx.beginPath();
+                ctx.moveTo(e.offsetX, e.offsetY);
+            });
+            
+            canvas.addEventListener('mousemove', (e) => {
+                if (isDrawing) {
+                    ctx.lineTo(e.offsetX, e.offsetY);
+                    ctx.stroke();
+                }
+            });
+            
+            canvas.addEventListener('mouseup', () => {
+                isDrawing = false;
+                // When the drawing is done, save the signature as data URL
+                const dataURL = canvas.toDataURL();
+                console.log("dataURL:" + dataURL);
+                //const compressedData = LZString.compressToEncodedURIComponent(dataURL);
+                document.getElementById('signatureInput').value = dataURL; // Set the value in hidden input
+            });
+    </script>
+}

@@ -7,23 +7,23 @@ namespace Project.Controllers
 {
     public class CustomerController : Controller
     {
-        private readonly IDocumentTranslationService _documentTranslationService;
+        private readonly ICustomerService _customerService;
         
         private readonly string _connectionString;
 
-        public CustomerController(IConfiguration configuration, IDocumentTranslationService documentTranslationService)
+        public CustomerController(IConfiguration configuration, ICustomerService customerService)
         {
-            _documentTranslationService = documentTranslationService;
+            _customerService = customerService;
             _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
         public IActionResult CustomerIndex(string searchString)
         {
-            _documentTranslationService.Initialize();
+            _customerService.Initialize();
             if (string.IsNullOrEmpty(searchString))
-                return View(_documentTranslationService.AllCustomers.ToArray());
+                return View(_customerService.AllCustomers.ToArray());
             
-            return View(_documentTranslationService.AllCustomers.FindAll(c => c.FullName.Contains(searchString)).ToArray());
+            return View(_customerService.AllCustomers.FindAll(c => c.FullName.Contains(searchString)).ToArray());
         }
 
         public IActionResult CreateCustomerPage()
@@ -31,11 +31,11 @@ namespace Project.Controllers
             return View();
         }
 
-        public IActionResult EditCustomerPage(int id)
+        public IActionResult EditCustomerPage(int proformaInvoiceId)
         {
-            _documentTranslationService.Initialize();
+            _customerService.Initialize();
             var retrievedCustomer =
-                _documentTranslationService.AllCustomers.FirstOrDefault(customer => customer.CustomerId == id);
+                _customerService.AllCustomers.FirstOrDefault(customer => customer.CustomerId == proformaInvoiceId);
 
             return View(retrievedCustomer);
         }
@@ -136,7 +136,7 @@ namespace Project.Controllers
         }
 
 
-        public IActionResult Delete(int id)
+        public IActionResult Delete(int proformaInvoiceId)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -145,7 +145,7 @@ namespace Project.Controllers
 
                 using (SqlCommand command = new SqlCommand(sql, connection))
                 {
-                    command.Parameters.AddWithValue("@CustomerId", id);
+                    command.Parameters.AddWithValue("@CustomerId", proformaInvoiceId);
                     command.ExecuteNonQuery();
                 }
             }

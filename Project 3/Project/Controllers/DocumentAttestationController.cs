@@ -1,5 +1,6 @@
 using System.Data.SqlClient;
 using Microsoft.AspNetCore.Mvc;
+using Project.Data;
 using Project.Models;
 using Project.Services;
 
@@ -7,14 +8,15 @@ namespace Project.Controllers;
 
 public class DocumentAttestationController : Controller
 {
-    private readonly IDocumentTranslationService _documentTranslationService;
+    private readonly ICustomerService _customerService;
+    //private readonly ApplicationDbContext _dbContext;
     public List<DocumentAttestationModel> AllDocumentAttestations { get; set; } = new();
     private readonly string _connectionString;
     private bool _isInitialized;
 
-    public DocumentAttestationController(IConfiguration configuration, IDocumentTranslationService documentTranslationService)
+    public DocumentAttestationController(IConfiguration configuration, ICustomerService customerService)
     {
-        _documentTranslationService = documentTranslationService;
+        _customerService = customerService;
         _connectionString = configuration.GetConnectionString("DefaultConnection");
     }
     
@@ -23,6 +25,7 @@ public class DocumentAttestationController : Controller
         if (_isInitialized)
             return;
 
+        //AllDocumentAttestations = _dbContext.DocumentAttestationModel.ToList();
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
             connection.Open();
@@ -37,7 +40,7 @@ public class DocumentAttestationController : Controller
                 checkTableCommand.ExecuteNonQuery();
             }
             
-            _documentTranslationService.Initialize();
+            _customerService.Initialize();
 
             string sql = "SELECT * FROM documentAttestations";
             using (SqlCommand command = new SqlCommand(sql, connection))
@@ -65,7 +68,7 @@ public class DocumentAttestationController : Controller
                         documentAttestation.DeliveryDate = reader.GetDateTime(7);
                         
                         documentAttestation.CustomerId = reader.GetInt32(8);
-                        var customer = _documentTranslationService.AllCustomers.Find(c =>
+                        var customer = _customerService.AllCustomers.Find(c =>
                                 c.CustomerId == documentAttestation.CustomerId);
                         
                         if(customer == null)
@@ -105,8 +108,8 @@ public class DocumentAttestationController : Controller
             TRNNumber = ""
         };
         
-        _documentTranslationService.Initialize();
-        _documentTranslationService.CreateCustomer(customer);
+        _customerService.Initialize();
+        _customerService.CreateCustomer(customer);
         
         Initialize();
         using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -127,7 +130,7 @@ public class DocumentAttestationController : Controller
                 command.Parameters.AddWithValue("@CreateDate", documentAttestationModel.CreateDate);
                 command.Parameters.AddWithValue("@DeliveryDate", documentAttestationModel.DeliveryDate);
                 command.Parameters.AddWithValue("@CustomerId",
-                    _documentTranslationService.AllCustomers.First(x => x.MobileNumber == customer.MobileNumber)
+                    _customerService.AllCustomers.First(x => x.MobileNumber == customer.MobileNumber)
                         .CustomerId);
 
                 command.ExecuteNonQuery();
@@ -151,7 +154,7 @@ public class DocumentAttestationController : Controller
         return View(documentAttestation);
     }
     
-    public IActionResult Delete(int id)
+    public IActionResult Delete(int proformaInvoiceId)
     {
         Initialize();
         using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -162,11 +165,11 @@ public class DocumentAttestationController : Controller
 
             using (SqlCommand command = new SqlCommand(sql, connection))
             {
-                command.Parameters.AddWithValue("@DocumentAttestationId", id);
+                command.Parameters.AddWithValue("@DocumentAttestationId", proformaInvoiceId);
                 command.ExecuteNonQuery();
             }
         }
-        var documentAttestation = AllDocumentAttestations.FirstOrDefault(c => c.DocumentAttestationId == id);
+        var documentAttestation = AllDocumentAttestations.FirstOrDefault(c => c.DocumentAttestationId == proformaInvoiceId);
         AllDocumentAttestations.Remove(documentAttestation);
         return RedirectToAction("DocumentAttestationTrackPage");
     }
