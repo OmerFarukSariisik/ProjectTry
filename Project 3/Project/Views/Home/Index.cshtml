@@ -1,59 +1,228 @@
-﻿@{
+﻿@model Project.Models.HomeModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
+<!DOCTYPE html>
+<html>
+<style>
+    /* CSS for the top bar panel */
+    #top-bar {
+        position: fixed; /* Fix the top bar panel at the top of the viewport */
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 50px; /* Set the desired height for the top bar panel */
+        background-color: #333; /* Background color for the top bar panel */
+        color: #fff;
+        display: flex;
+        justify-content: center; /* Center the content horizontally */
+        align-items: center; /* Center the content vertically */
+    }
+    
+    #notification-button {
+        font-size: 35px;
+        color: #fff;
+        cursor: pointer;
+        right: 23px;
+        position: absolute;
+    }
+    
+    .notification-badge {
+        position: absolute;
+        top: 4px;
+        right: -7px;
+        background-color: red;
+        width: 18px; /* Adjust width as needed */
+        height: 18px; /* Adjust height as needed */
+        border-radius: 50%; /* Make it a circle */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .notification-badge span {
+        color: white;
+        font-size: 15px; /* Adjust font size as needed */
+        line-height: 1;
+    }
+    
+    #panelitem {
+        font-size: 23px; /* Decreased font size for better readability */
+        color: #fff;
+        cursor: pointer;
+        margin: 0 35px; /* Added some spacing between clickable items */
+        text-decoration: none; /* Removed underline */
+        transition: color 1s ease, transform 1s ease; /* Smooth color transition on hover */
+    }
+    
+    #panelitem:hover {
+        color: #FFC107; /* Changed color on hover to a yellowish color */
+        transform: scale(1.1); /* Scale up by 10% on hover */
+    }
+    
+    .custom-link {
+        color: #fff; /* Set the desired color for the link */
+        text-decoration: none; /* Remove the underline */
+        transition: color 0.75s ease, transform 0.75s ease; /* Add transition for color and transform */
+    }
+    
+    .custom-link:hover {
+        color: #FFC107; /* Set the desired color for the link on hover */
+    }
+    
+    #leftpanelitem {
+        cursor: pointer;
+        margin-top: 10px; /* Added some spacing between clickable items */
+        text-decoration: none; /* Removed underline */
+        transition: color 0.75s ease, transform 0.75s ease; /* Add transition for color and transform */
+    }
+    
+    .leftcustom-link {
+        color: #fff; /* Set the desired color for the link */
+        text-decoration: none; /* Remove the underline */
+        transition: color 0.75s ease, transform 0.75s ease; /* Add transition for color and transform */
+    }
+    
+    .leftcustom-link:hover {
+        color: #FFC107; /* Set the desired color for the link on hover */
+        transform: scale(1.04);
+    }
+    
+    #notification-window {
+        position: absolute;
+        top: 100%; /* Initially hidden below the top bar */
+        right: 0;
+        width: 300px;
+        background-color: #f4f4f4;
+        padding: 10px;
+        border: 1px solid #ccc;
+        transform: scaleY(0); /* Initially hidden, no height */
+        transform-origin: top; /* Scale from top */
+        transition: transform 0.3s ease;
+    }
+    
+    #notification-window.show {
+        top: 50px; /* Ensure notification window is aligned with the top bar panel */
+        transform: scaleY(1); /* Show notification window with full height */
+    }
+    
+    #left-panel {
+        position: fixed;
+        top: 50px; /* Adjust based on the height of your top nav bar */
+        left: 0;
+        bottom: 0;
+        width: 300px; /* Set the width of the left panel */
+        background-color: #222; /* Slightly darker shade of the top nav bar color */
+        color: #fff;
+        display: flex;
+        flex-direction: column; /* Stack items vertically */
+        padding-left: 20px;
+    }
+    
+    
+    /* Add CSS for dropdown content */
+    .dropdown-content {
+        display: none;
+        padding-left: 20px; /* Adjust padding as needed */
+    }
+    
+    /* Show dropdown content when dropdown-toggle is clicked */
+    .dropdown-toggle.active + .dropdown-content {
+        display: block;
+    }
+    
+    /* Style the dropdown links */
+    .dropdown-content a {
+        display: block;
+        color: #fff;
+        text-decoration: none;
+        padding: 3px 0; /* Adjust padding as needed */
+    }
+    
+    /* Style the dropdown links on hover */
+    .dropdown-content a:hover {
+        color: #FFC107;
+    }
 
-<h2>Main Page</h2>
+</style>
 
 <body>
-<nav>
-    <ul>
-        <li>
-            <a href="@Url.Action("CreateCustomerJob", "CustomerJob")">Create Customer</a>
-        </li>
-        <li>
-            <a href="@Url.Action("ProformaInvoiceIndex", "ProformaInvoice")">Accounting</a>
-        </li>
-        <li>
-            <a href="@Url.Action("CustomerIndex", "Customer")">Customer List</a>
-        </li>
-        @*<li>
-            <a href="@Url.Action("JobIndex", "Job")">JOBB</a>
-        </li>*@
-        @*<li style="list-style-position: inside;">
-            <a href="@Url.Action("DocumentTranslationFormPage", "DocumentTranslation")">Document Translation Form</a>
-        </li>
-        <li style="list-style-position: inside;">
-            <a href="@Url.Action("CustomerIndex", "Customer")">Document Approval</a>
-        </li>
-        <li style="list-style-position: inside;">
-            <a href="@Url.Action("CustomerIndex", "Customer")">Notarial Procedures</a>
-        </li>*@
-        <li>
-            <a>Job Tracking</a>
-        </li>
-        <li style="list-style-position: inside;">
-            <a href="@Url.Action("DocumentTranslationTrackPage", "DocumentTranslation")">Document Translation Tracking</a>
-        </li>
-        <li style="list-style-position: inside;">
-            <a href="@Url.Action("DocumentAttestationTrackPage", "DocumentAttestation")">Document Attestation Tracking</a>
-        </li>
-        <li style="list-style-position: inside;">
-            <a href="@Url.Action("DocumentPoaTrackPage", "DocumentPoa")">Document Poa Tracking</a>
-        </li>
-        <li style="list-style-position: inside;">
-            <a href="@Url.Action("SircularyTrackPage", "DocumentSirculary")">Document Sirculary Tracking</a>
-        </li>
-        <li style="list-style-position: inside;">
-            <a href="@Url.Action("InvitationTrackPage", "DocumentInvitation")">Document Invitation Tracking</a>
-        </li>
-        <li style="list-style-position: inside;">
-            <a href="@Url.Action("CommitmentLetterTrackPage", "DocumentCommitmentLetter")">Document Commitment Letter Tracking</a>
-        </li>
-        <li style="list-style-position: inside;">
-            <a href="@Url.Action("ConsentLetterTrackPage", "DocumentConsentLetter")">Document Consent Letter Tracking</a>
-        </li>
-        
-    </ul>
-</nav>
+
+<div>
+
+    <div id="notification-window">
+        @Model.NotificationMessage
+    </div>
+    <div id="top-bar">
+        <div id="panelitem"> </div>
+        <div id="panelitem">
+            <a class="custom-link" href="@Url.Action("CreateCustomerJob", "CustomerJob")">Create Form</a>
+        </div>
+        <div id="panelitem">
+            <a class="custom-link" href="@Url.Action("ProformaInvoiceIndex", "ProformaInvoice")">Accounting</a>
+        </div>
+        <div id="panelitem">
+            <a class="custom-link" href="@Url.Action("CustomerIndex", "Customer")">Customers</a>
+        </div>
+        <div id="panelitem"> </div>
+        <div id="notification-button" class="@((Model.HasNotification) ? "has-notification" : "")">
+            <span>&#9993;</span>
+            @if (Model.HasNotification)
+            {
+                <div class="notification-badge">
+                    <span>!</span>
+                </div>
+            }
+        </div>
+        <div id="leftrightpanelitem"></div>
+    </div>
+
+    <div id="left-panel">
+        <a class="leftcustom-link" id="leftpanelitem" href="@Url.Action("TaxDocumentationsPage", "TaxDocumentations")">Tax Documentations</a>
+
+        <a id="leftpanelitem"> </a>
+
+        <a id="leftpanelitem" class="leftcustom-link dropdown-toggle" href="#">Document Tracking</a>
+        <div class="dropdown-content">
+            <a id="leftpanelitem" class="leftcustom-link" href="@Url.Action("DocumentTranslationTrackPage", "DocumentTranslation")"> Translation Documents</a>
+            <a id="leftpanelitem" class="leftcustom-link" href="@Url.Action("DocumentAttestationTrackPage", "DocumentAttestation")"> Attestation Documents</a>
+            <a id="leftpanelitem" class="leftcustom-link" href="@Url.Action("DocumentPoaTrackPage", "DocumentPoa")"> Poa Documents</a>
+            <a id="leftpanelitem" class="leftcustom-link" href="@Url.Action("SircularyTrackPage", "DocumentSirculary")"> Sirculary Documents</a>
+            <a id="leftpanelitem" class="leftcustom-link" href="@Url.Action("InvitationTrackPage", "DocumentInvitation")"> Invitation Documents</a>
+            <a id="leftpanelitem" class="leftcustom-link" href="@Url.Action("CommitmentLetterTrackPage", "DocumentCommitmentLetter")"> Commitment Letter Documents</a>
+            <a id="leftpanelitem" class="leftcustom-link" href="@Url.Action("ConsentLetterTrackPage", "DocumentConsentLetter")"> Consent Letter Documents</a>
+        </div>
+    </div>
+</div>
+
 </body>
+</html>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function () {
+    $('#notification-button').click(function (event) {
+        $('#notification-window').toggleClass('show');
+        event.stopPropagation(); // Prevent click event from propagating
+    });
+
+    // Click event listener for document to hide notification window when clicked outside
+    $(document).click(function () {
+        $('#notification-window').removeClass('show');
+    });
+});
+
+$(document).ready(function () {
+    // Toggle dropdown content when dropdown-toggle is clicked
+    $('.dropdown-toggle').click(function (event) {
+        event.stopPropagation(); // Prevent click event from propagating
+        $(this).toggleClass('active');
+        $(this).next('.dropdown-content').slideToggle('fast');
+    });
+
+    
+});
+
+</script>

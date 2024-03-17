@@ -1,0 +1,59 @@
+@model Project.Models.TaxDocumentationsModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+@{
+    // Create a dictionary to map month numbers to month names
+    var monthNames = new Dictionary<int, string>();
+    var cultureInfo = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat;
+    for (int i = 1; i <= 12; i++)
+    {
+        monthNames.Add(i, cultureInfo.GetMonthName(i));
+    }
+}
+
+<div class="text-center">
+    <div class="d-inline-block mx-4">
+        <h3>
+            <a href="@Url.Action("Index", "Home")"> Home</a>
+        </h3>
+    </div>
+</div>
+
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+</style>
+
+<table>
+    <thead>
+    <tr>
+        <th>Month</th>
+        <th>Tax Amount</th>
+    </tr>
+    </thead>
+    <tbody>
+    @for (int i = 1; i <= 12; i++)
+    {
+        <tr>
+            <td>@monthNames[i]</td>
+            <td>@(Model.AllMonthsTaxAmounts.ContainsKey(i) ? Model.AllMonthsTaxAmounts[i].ToString() : "0")</td>
+        </tr>
+    }
+    </tbody>
+</table>

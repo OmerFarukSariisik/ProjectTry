@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notification Example</title>
+    <style>
+/* CSS for the top bar panel */
+#top-bar {
+    position: fixed; /* Fix the top bar panel at the top of the viewport */
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50px; /* Set the desired height for the top bar panel */
+    background-color: #333; /* Background color for the top bar panel */
+    color: #fff;
+    display: flex;
+    justify-content: center; /* Center the content horizontally */
+    align-items: center; /* Center the content vertically */
+}
+
+#notification-button {
+    cursor: pointer;
+    font-size: 35px;
+    color: #fff;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px; /* Adjust the width as needed */
+    height: 30px; /* Adjust the height as needed */
+    border-radius: 50%; /* Make it a circle */
+}
+
+.notification-badge {
+    position: absolute;
+    top: -3px;
+    right: -8px;
+    background-color: red;
+    width: 18px; /* Adjust width as needed */
+    height: 18px; /* Adjust height as needed */
+    border-radius: 50%; /* Make it a circle */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.notification-badge span {
+    color: white;
+    font-size: 15px; /* Adjust font size as needed */
+    line-height: 1;
+}
+
+#emptypanelitem {
+    width: 900px; /* Fill the remaining space in the top bar panel */
+}
+#leftrightpanelitem {
+    width: 20px; /* Fill the remaining space in the top bar panel */
+}
+
+#notification-window {
+    position: absolute;
+    top: 100%; /* Initially hidden below the top bar */
+    right: 0;
+    width: 300px;
+    background-color: #f4f4f4;
+    padding: 10px;
+    border: 1px solid #ccc;
+    transform: scaleY(0); /* Initially hidden, no height */
+    transform-origin: top; /* Scale from top */
+    transition: transform 0.3s ease;
+}
+
+#notification-window.show {
+    top: 40px; /* Ensure notification window is aligned with the top bar panel */
+    transform: scaleY(1); /* Show notification window with full height */
+}
+</style>
+</head>
+<body>
+
+<!-- Separate <div> element for the top bar panel -->
+<div id="top-bar">
+    <div id="emptypanelitem"></div>
+    <div id="emptypanelitem"></div>
+    <div id="notification-button" class="has-notification">
+        <span>&#9993;</span>
+        <div class="notification-badge"><span>!</span></div>
+    </div>
+    <div id="leftrightpanelitem"></div>
+</div>
+
+
+<div id="notification-window">
+    Notification content goes here.
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function () {
+    $('#notification-button').click(function (event) {
+        $('#notification-window').toggleClass('show');
+        event.stopPropagation(); // Prevent click event from propagating
+    });
+
+    // Click event listener for document to hide notification window when clicked outside
+    $(document).click(function () {
+        $('#notification-window').removeClass('show');
+    });
+});
+</script>
+
+</body>
+</html>

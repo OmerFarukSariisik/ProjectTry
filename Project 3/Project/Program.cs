@@ -17,6 +17,8 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IProformaInvoiceService, ProformaInvoiceService>();
+builder.Services.AddScoped<ITaxManagementService, TaxManagementService>();
+builder.Services.AddScoped<IInvoiceService, InvoiceService>();
 
 
 var app = builder.Build();

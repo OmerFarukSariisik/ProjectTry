@@ -4,36 +4,73 @@
 
 @model Project.Models.Voucher[]
 
+<style>
+    #top-bar {
+        position: fixed; /* Fix the top bar panel at the top of the viewport */
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 50px; /* Set the desired height for the top bar panel */
+        background-color: #333; /* Background color for the top bar panel */
+        color: #fff;
+        display: flex;
+        justify-content: center; /* Center the content horizontally */
+        align-items: center; /* Center the content vertically */
+    }
+    
+    #panelitem {
+        font-size: 23px; /* Decreased font size for better readability */
+        color: #fff;
+        cursor: pointer;
+        margin: 0 35px; /* Added some spacing between clickable items */
+        text-decoration: none; /* Removed underline */
+        transition: color 1s ease, transform 1s ease; /* Smooth color transition on hover */
+    }
+    #panelitem:hover {
+        color: #FFC107; /* Changed color on hover to a yellowish color */
+        transform: scale(1.1); /* Scale up by 10% on hover */
+    }
+    
+    .custom-link {
+        color: #fff; /* Set the desired color for the link */
+        text-decoration: none; /* Remove the underline */
+        transition: color 0.75s ease, transform 0.75s ease; /* Add transition for color and transform */
+    }
+    .custom-link:hover {
+        color: #FFC107; /* Set the desired color for the link on hover */
+    }
+</style>
 
-<div class="text-center">
-    <div class="d-inline-block mx-4">
+<div id="top-bar">
+    <div id="panelitem">
         <h3>
-            <a href="@Url.Action("Index", "Home")"> Home</a>
+            <a class="custom-link" href="@Url.Action("Index", "Home")"> Home</a>
         </h3>
     </div>
-    <div class="d-inline-block mx-4">
+    <div id="panelitem">
         <h3>
-            <a href="@Url.Action("ProformaInvoiceIndex", "ProformaInvoice")"> Proforma Invoices</a>
+            <a class="custom-link" href="@Url.Action("ProformaInvoiceIndex", "ProformaInvoice")"> Proforma Invoices</a>
         </h3>
     </div>
-    <div class="d-inline-block mx-4">
+    <div id="panelitem">
         <h3>
-            <a href="@Url.Action("PendingIndex", "Pending")"> Pending</a>
+            <a class="custom-link" href="@Url.Action("PendingIndex", "Pending")"> Pending</a>
         </h3>
     </div>
-    <div class="d-inline-block mx-4">
+    <div id="panelitem">
         <h3>
-            <a href="@Url.Action("Index", "Accounting")"> Invoices</a>
+            <a class="custom-link" href="@Url.Action("Index", "Accounting")"> Invoices</a>
         </h3>
     </div>
-    <div class="d-inline-block mx-4">
+
+    <div id="panelitem">
         <h3>
             <a> Vouchers</a>
         </h3>
     </div>
 </div>
 
-<h2>Vouchers</h2>
+<h2><br/><br/>Vouchers</h2>
 
 <table class="table">
     <thead>
