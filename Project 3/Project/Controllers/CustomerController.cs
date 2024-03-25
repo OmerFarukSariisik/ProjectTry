@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Project.Models;
 using System.Data.SqlClient;
+using System.Net;
+using System.Net.Mail;
 using Project.Services;
 
 namespace Project.Controllers
@@ -8,7 +10,7 @@ namespace Project.Controllers
     public class CustomerController : Controller
     {
         private readonly ICustomerService _customerService;
-        
+
         private readonly string _connectionString;
 
         public CustomerController(IConfiguration configuration, ICustomerService customerService)
@@ -22,7 +24,7 @@ namespace Project.Controllers
             _customerService.Initialize();
             if (string.IsNullOrEmpty(searchString))
                 return View(_customerService.AllCustomers.ToArray());
-            
+
             return View(_customerService.AllCustomers.FindAll(c => c.FullName.Contains(searchString)).ToArray());
         }
 
@@ -31,13 +33,76 @@ namespace Project.Controllers
             return View();
         }
 
-        public IActionResult EditCustomerPage(int proformaInvoiceId)
+        public IActionResult EditCustomerPage(int id)
         {
             _customerService.Initialize();
             var retrievedCustomer =
-                _customerService.AllCustomers.FirstOrDefault(customer => customer.CustomerId == proformaInvoiceId);
+                _customerService.AllCustomers.FirstOrDefault(customer => customer.CustomerId == id);
 
             return View(retrievedCustomer);
+        }
+
+        public IActionResult MailToCustomerPage(int id)
+        {
+            _customerService.Initialize();
+            var retrievedCustomer = _customerService.AllCustomers.FirstOrDefault(customer => customer.CustomerId == id);
+
+            var mailModel = new MailModel
+            {
+                To = retrievedCustomer.Email
+            };
+            return View(mailModel);
+        }
+
+        [HttpPost]
+        public IActionResult SendMail(MailModel mailModel)
+        {
+            try
+            {
+                var smtpClient = new SmtpClient("smtp.gmail.com")
+                {
+                    Port = 587,
+                    Credentials = new NetworkCredential(mailModel.From, mailModel.Password),
+                    EnableSsl = true,
+                };
+                var mailMessage = new MailMessage
+                {
+                    From = new MailAddress(mailModel.From),
+                    Subject = mailModel.Subject,
+                    Body = mailModel.Body,
+                    IsBodyHtml = true,
+                };
+                var toEmails = mailModel.To.Split(',');
+                
+                foreach (var email in toEmails)
+                {
+                    mailMessage.To.Add(email.Trim()); // Trim to remove any leading or trailing spaces
+                }
+
+                smtpClient.Send(mailMessage);
+
+                Console.WriteLine("MAIL SENT");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("MAIL NOT SENT");
+            }
+            
+            return RedirectToAction("CustomerIndex");
+        }
+        
+        public ActionResult SendMailToAllCustomers()
+        {
+            _customerService.Initialize();
+            var allCustomerEmails = string.Join(",", _customerService.AllCustomers.Select(c => c.Email));
+            
+            var mailModel = new MailModel
+            {
+                To = allCustomerEmails
+            };
+
+            // Redirect to SendMail view with mailModel
+            return View("MailToCustomerPage", mailModel);
         }
 
         [HttpPost]
@@ -45,47 +110,6 @@ namespace Project.Controllers
         {
             //CreateCustomer(customer);
             return RedirectToAction("CustomerIndex");
-        }
-
-        [HttpPost]
-        public void CreateCustomer(Customer customer)
-        {
-            /*Initialize();
-            Customer newCustomer = new Customer
-            {
-                FullName = customer.FullName,
-                Address = customer.Address,
-                Email = customer.Email,
-                MobileNumber = customer.MobileNumber,
-                TRNNumber = customer.TRNNumber
-            };
-            
-            var hasCustomer = _documentTranslationService.AllCustomers.Any(c => c.FullName == newCustomer.FullName && c.Email == newCustomer.Email);
-            if (hasCustomer)
-                return;
-
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                connection.Open();
-
-                string sql = "INSERT INTO customers (FullName, Address, Email, MobileNumber, TRNNumber) " +
-                    "VALUES (@FullName, @Address, @Email, @MobileNumber, @TRNNumber); SELECT SCOPE_IDENTITY()";
-
-                using (SqlCommand command = new SqlCommand(sql, connection))
-                {
-                    command.Parameters.AddWithValue("@FullName", newCustomer.FullName);
-                    command.Parameters.AddWithValue("@Address", newCustomer.Address);
-                    command.Parameters.AddWithValue("@Email", newCustomer.Email);
-                    command.Parameters.AddWithValue("@MobileNumber", newCustomer.MobileNumber);
-                    command.Parameters.AddWithValue("@TRNNumber", newCustomer.TRNNumber);
-                    command.ExecuteNonQuery();
-                    newCustomer.CustomerId = (int)command.ExecuteScalar();
-                }
-            }
-            
-            _documentTranslationService.AllCustomers.Add(newCustomer);
-            Console.WriteLine("Last Customer(Customer): " + _documentTranslationService.AllCustomers.Last().FullName + " - " +
-                              _documentTranslationService.AllCustomers.Last().CustomerId);*/
         }
 
         [HttpPost]
@@ -108,14 +132,14 @@ namespace Project.Controllers
             {
                 connection.Open();
                 string sql = "UPDATE customers SET FullName = @FullName, " +
-                "MotherName = @MotherName, " +
-                "Address = @Address, " +
-                "Email = @Email, " +
-                "MobileNumber = @MobileNumber, " +
-                "WhatsAppNumber = @WhatsAppNumber, " +
-                "TRNNumber = @TRNNumber, " +
-                "Satisfaction = @Satisfaction " +
-                "WHERE CustomerId = @CustomerId";
+                             "MotherName = @MotherName, " +
+                             "Address = @Address, " +
+                             "Email = @Email, " +
+                             "MobileNumber = @MobileNumber, " +
+                             "WhatsAppNumber = @WhatsAppNumber, " +
+                             "TRNNumber = @TRNNumber, " +
+                             "Satisfaction = @Satisfaction " +
+                             "WHERE CustomerId = @CustomerId";
 
                 using (SqlCommand command = new SqlCommand(sql, connection))
                 {
@@ -131,12 +155,10 @@ namespace Project.Controllers
                     command.ExecuteNonQuery();
                 }
             }
-
             return RedirectToAction("CustomerIndex");
         }
 
-
-        public IActionResult Delete(int proformaInvoiceId)
+        public IActionResult Delete(int id)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -145,7 +167,7 @@ namespace Project.Controllers
 
                 using (SqlCommand command = new SqlCommand(sql, connection))
                 {
-                    command.Parameters.AddWithValue("@CustomerId", proformaInvoiceId);
+                    command.Parameters.AddWithValue("@CustomerId", id);
                     command.ExecuteNonQuery();
                 }
             }

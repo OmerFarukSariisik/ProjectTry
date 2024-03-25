@@ -8,25 +8,47 @@
 
 <!DOCTYPE html>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<h2>Create</h2>
+
+<style>
+    #top-bar {
+        position: fixed; /* Fix the top bar panel at the top of the viewport */
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 50px; /* Set the desired height for the top bar panel */
+        background-color: #333; /* Background color for the top bar panel */
+        color: #fff;
+        display: flex;
+        justify-content: center; /* Center the content horizontally */
+        align-items: center; /* Center the content vertically */
+    }
+    
+    #panelitem {
+        font-size: 23px; /* Decreased font size for better readability */
+        color: #fff;
+        margin: 0 35px; /* Added some spacing between clickable items */
+        text-decoration: none; /* Removed underline */
+        transition: color 1s ease, transform 1s ease; /* Smooth color transition on hover */
+    }
+</style>
+
+<div id="top-bar">
+    <div id="panelitem">
+        <h3>
+            <h2 >Create Customer</h2>
+        </h3>
+    </div>
+</div>
+<br/><br/><br/><br/>
 
 <form asp-action="CreateCustomer" method="post">
-    <div class="form-group">
-        <label asp-for="Satisfaction" class="control-label">Select an Image:</label>
-        <select asp-for="Satisfaction" class="form-control" id="imageDropdown" data-placeholder="Select an image">
-            @foreach (var item in ViewBag.ImageList)
-            {
-                <option value="@item"></option>
-            }
-        </select>
-        <span asp-validation-for="Satisfaction" class="text-danger"></span>
-    </div>
     
-    <!-- Display the selected image dynamically -->
-    <div id="imageContainer">
-        <img id="selectedImage" src="" alt="Selected Image" style="max-width: 100%; max-height: 50px;" />
+    <div class="form-group" id="satisfactionInput">
+        <label class="control-label"> Customer Type</label>
+        <input asp-for="Satisfaction" class="form-control" maxlength="3"/>
+        <span asp-validation-for="Satisfaction" class="text-danger"></span>
+        <button type="button" onclick="toggleVisibility()">Hide</button>
     </div>
-
     <div class="form-group">
         <label asp-for="FullName" class="control-label"></label>
         <input asp-for="FullName" class="form-control"/>
@@ -128,17 +150,11 @@
             // Rest of your existing code...
         });
     </script>
-
-    <script>
-        // JavaScript code to update the displayed image when the dropdown changes
-        $(document).ready(function () {
-            $("#imageDropdown").change(function () {
-                var selectedImageIndex = $(this).val();
-                var imagePath = "/images/" + selectedImageIndex; // Adjust the path based on your project structure
     
-                // Update the src attribute of the img element
-                $("#selectedImage").attr("src", imagePath);
-            });
-        });
+    <script>
+        function toggleVisibility() {
+            var inputElement = document.getElementById('satisfactionInput');
+            inputElement.style.display = inputElement.style.display === 'none' ? 'block' : 'none';
+        }
     </script>
 }

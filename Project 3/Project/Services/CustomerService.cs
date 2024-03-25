@@ -48,7 +48,7 @@ public class CustomerService : ICustomerService
             string tableExistsSql =
                 "IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'customers') CREATE TABLE customers " +
                 "(CustomerId INT PRIMARY KEY IDENTITY(1,1), FullName NVARCHAR(50) NOT NULL, MotherName NVARCHAR(50), Address NVARCHAR(MAX), Email NVARCHAR(50), MobileNumber NVARCHAR(20)" +
-                ", WhatsAppNumber NVARCHAR(20), TRNNumber NVARCHAR(20), Satisfaction INT)";
+                ", WhatsAppNumber NVARCHAR(20), TRNNumber NVARCHAR(20), Satisfaction NVARCHAR(3))";
 
             using (SqlCommand checkTableCommand = new SqlCommand(tableExistsSql, connection))
             {
@@ -76,7 +76,7 @@ public class CustomerService : ICustomerService
                         customer.MobileNumber = reader.GetString(5);
                         customer.WhatsAppNumber = reader.GetString(6);
                         customer.TRNNumber = reader.GetString(7);
-                        customer.Satisfaction = reader.GetInt32(8);
+                        customer.Satisfaction = reader.GetString(8);
                         
                         Console.WriteLine("Mobile number:" + customer.MobileNumber + "-");
                         if (AllCustomers.All(c => c.CustomerId != customer.CustomerId))

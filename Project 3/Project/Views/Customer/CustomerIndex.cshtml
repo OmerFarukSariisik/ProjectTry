@@ -4,17 +4,52 @@
 
 @model Project.Models.Customer[]
 
-<h2>Customers</h2>
+<style>
+    #top-bar {
+        position: fixed; /* Fix the top bar panel at the top of the viewport */
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 50px; /* Set the desired height for the top bar panel */
+        background-color: #333; /* Background color for the top bar panel */
+        color: #fff;
+        display: flex;
+        justify-content: center; /* Center the content horizontally */
+        align-items: center; /* Center the content vertically */
+    }
+    
+    #panelitem {
+        font-size: 23px; /* Decreased font size for better readability */
+        color: #fff;
+        margin: 0 35px; /* Added some spacing between clickable items */
+        text-decoration: none; /* Removed underline */
+        transition: color 1s ease, transform 1s ease; /* Smooth color transition on hover */
+    }
+</style>
 
+<div id="top-bar">
+    <div id="panelitem">
+        <h3>
+            Customers
+        </h3>
+    </div>
+</div>
+
+<br/><br/><br/>
 @*<p>
     <a href="@Url.Action("CreateCustomerPage", "Customer")">Create New Customer</a>
 </p>*@
+
+<div id="panelitem">
+    <a href="@Url.Action("SendMailToAllCustomers", "Customer")" class="btn btn-primary">Send Mail to All Customers</a>
+</div>
+<br/>
 
 <table class="table">
     <thead>
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.First().CustomerId)
+            Type
         </th>
         <th>
             @Html.DisplayNameFor(model => model.First().FullName)
@@ -46,7 +81,7 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.CustomerId)
+                @Html.DisplayFor(modelItem => item.Satisfaction)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.FullName)
@@ -71,6 +106,7 @@
             </td>
 
             <td>
+                <a href="@Url.Action("MailToCustomerPage", "Customer", new { id = item.CustomerId })">Mail</a>
                 <a href="@Url.Action("EditCustomerPage", "Customer", new { id = item.CustomerId })">Edit</a>
                 <a href="@Url.Action("Delete", "Customer", new { id = item.CustomerId })" class="delete-link" onclick="return confirmDelete()">Delete</a>
             </td>

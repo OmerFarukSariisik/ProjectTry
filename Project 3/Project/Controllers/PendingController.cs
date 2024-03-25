@@ -148,7 +148,7 @@ public class PendingController : Controller
         return View(pendingModels.ToArray());
     }
     
-    public IActionResult DeletePending(int proformaInvoiceId)
+    public IActionResult DeletePending(int id)
     {
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
@@ -158,21 +158,21 @@ public class PendingController : Controller
 
             using (SqlCommand command = new SqlCommand(sql, connection))
             {
-                command.Parameters.AddWithValue("@PendingId", proformaInvoiceId);
+                command.Parameters.AddWithValue("@PendingId", id);
 
                 command.ExecuteNonQuery();
             }
         }
         
-        AllPendings.RemoveAll(b => b.PendingId == proformaInvoiceId);
+        AllPendings.RemoveAll(b => b.PendingId == id);
         return RedirectToAction("PendingIndex");
     }
     
-    public IActionResult EditPendingPage(int proformaInvoiceId)
+    public IActionResult EditPendingPage(int id)
     {
-        Console.WriteLine("id: " + proformaInvoiceId);
+        Console.WriteLine("id: " + id);
         Initialize();
-        var retrievedPending = AllPendings.Find(b => b.PendingId == proformaInvoiceId);
+        var retrievedPending = AllPendings.Find(b => b.PendingId == id);
         return View(retrievedPending);
     }
     

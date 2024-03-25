@@ -1,0 +1,73 @@
+@page
+@model Project.Models.MailModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<style>
+    #top-bar {
+        position: fixed; /* Fix the top bar panel at the top of the viewport */
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 50px; /* Set the desired height for the top bar panel */
+        background-color: #333; /* Background color for the top bar panel */
+        color: #fff;
+        display: flex;
+        justify-content: center; /* Center the content horizontally */
+        align-items: center; /* Center the content vertically */
+    }
+    
+    #panelitem {
+        font-size: 23px; /* Decreased font size for better readability */
+        color: #fff;
+        cursor: pointer;
+        margin: 0 35px; /* Added some spacing between clickable items */
+        text-decoration: none; /* Removed underline */
+        transition: color 1s ease, transform 1s ease; /* Smooth color transition on hover */
+    }
+</style>
+
+<html>
+
+<div id="top-bar">
+    <div id="panelitem">
+        <h3>
+            Send Mail
+        </h3>
+    </div>
+</div>
+<br/><br/><br/>
+
+@using (Html.BeginForm("SendMail", "Customer", FormMethod.Post))
+{
+    <br/> <br/> <br/>
+    
+    <div class="form-group">
+        @Html.LabelFor(model => model.Subject)
+        @Html.TextBoxFor(model => model.Subject, new { @class = "form-control" })
+    </div>
+    
+    <div class="form-group">
+        @Html.LabelFor(model => model.Body)
+        @Html.TextAreaFor(model => model.Body, new { @class = "form-control" })
+    </div>
+    
+    <div class="form-group">
+        @Html.LabelFor(model => model.From)
+        @Html.TextBoxFor(model => model.From, new { @class = "form-control" })
+    </div>
+    
+    <div class="form-group">
+        @Html.LabelFor(model => model.Password)
+        @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
+    </div>
+    
+    @Html.HiddenFor(model => model.To) <!-- Hidden field for 'To' field -->
+    
+    <button type="submit" class="btn btn-primary">Send Email</button>
+}
+</html>
