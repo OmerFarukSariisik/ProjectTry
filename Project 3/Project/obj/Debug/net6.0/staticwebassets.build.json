@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "XxAaz7Uk7c7BKYP92Hww3TblvLWxi7spradtE0+fopU=",
+  "Hash": "mtQts9Q8KiRYa0eyAwOf6CYajBmVEFNDXxkXi6fXoxs=",
   "Source": "Project",
   "BasePath": "_content/Project",
   "Mode": "Default",
@@ -1188,6 +1188,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/images/5.png"
+    },
+    {
+      "Identity": "/Users/omerfaruk/Documents/omer/ProjectTry/Project 3/Project/wwwroot/images/background.webp",
+      "SourceId": "Project",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/omerfaruk/Documents/omer/ProjectTry/Project 3/Project/wwwroot/",
+      "BasePath": "_content/Project",
+      "RelativePath": "images/background.webp",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/images/background.webp"
     },
     {
       "Identity": "/Users/omerfaruk/Documents/omer/ProjectTry/Project 3/Project/wwwroot/js/site.js",

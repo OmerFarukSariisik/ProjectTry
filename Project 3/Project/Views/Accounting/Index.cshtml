@@ -5,43 +5,6 @@
 
 @model Project.Models.InvoiceModel[]
 
-<style>
-    #top-bar {
-        position: fixed; /* Fix the top bar panel at the top of the viewport */
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 50px; /* Set the desired height for the top bar panel */
-        background-color: #333; /* Background color for the top bar panel */
-        color: #fff;
-        display: flex;
-        justify-content: center; /* Center the content horizontally */
-        align-items: center; /* Center the content vertically */
-    }
-    
-    #panelitem {
-        font-size: 23px; /* Decreased font size for better readability */
-        color: #fff;
-        cursor: pointer;
-        margin: 0 35px; /* Added some spacing between clickable items */
-        text-decoration: none; /* Removed underline */
-        transition: color 1s ease, transform 1s ease; /* Smooth color transition on hover */
-    }
-    #panelitem:hover {
-        color: #FFC107; /* Changed color on hover to a yellowish color */
-        transform: scale(1.1); /* Scale up by 10% on hover */
-    }
-    
-    .custom-link {
-        color: #fff; /* Set the desired color for the link */
-        text-decoration: none; /* Remove the underline */
-        transition: color 0.75s ease, transform 0.75s ease; /* Add transition for color and transform */
-    }
-    .custom-link:hover {
-        color: #FFC107; /* Set the desired color for the link on hover */
-    }
-</style>
-
 <div id="top-bar">
     <div id="panelitem">
         <h3>
@@ -58,9 +21,9 @@
             <a class="custom-link" href="@Url.Action("PendingIndex", "Pending")"> Pending</a>
         </h3>
     </div>
-    <div id="panelitem">
+    <div id="selectedpanelitem">
         <h3>
-            <a class="custom-link"> Invoices</a>
+            <a>Invoices</a>
         </h3>
     </div>
 
@@ -71,7 +34,7 @@
     </div>
 </div>
 
-<h2> <br/><br/>Invoices</h2>
+<br/><br/><br/><br/>
 
 <div>
     <form asp-action="Search" method="post">
@@ -88,20 +51,17 @@
     </form>
 </div>
 
-<table class="table">
+<table class="styled-table">
     <thead>
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.First().InvoiceId)
+            RefNo
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.First().InvoiceNumber)
+            Invoice RefNo
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.First().ProformaInvoice.ProformaInvoiceNo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.First().ProformaInvoice.Customer.FullName)
+            Name
         </th>
         <th>
             @Html.DisplayNameFor(model => model.First().Descriptions)
@@ -114,9 +74,6 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.InvoiceId)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.InvoiceNumber)
             </td>
@@ -131,9 +88,12 @@
             </td>
 
             <td>
-                <a href="@Url.Action("EditPage", "Accounting", new { targetInvoiceId = item.InvoiceId })">Edit</a>
-                <a href="@Url.Action("Delete", "Accounting", new { id = item.InvoiceId })" class="delete-link" onclick="return confirmDelete()">Delete</a>
-                <a href="@Url.Action("ShowInvoice", "Accounting", new { id = item.InvoiceId })">Show</a>
+                <a class="tablebutton" href="@Url.Action("EditPage", "Accounting", new { targetInvoiceId = item.InvoiceId })">
+                    <span class="tablebutton_text">Edit</span>
+                </a>
+                <a class="tablebutton" href="@Url.Action("ShowInvoice", "Accounting", new { id = item.InvoiceId })">
+                    <span class="tablebutton_text">Show</span>
+                </a>
             </td>
         </tr>
     }

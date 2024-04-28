@@ -63,7 +63,7 @@
     
     <div class="form-group">
         @Html.LabelFor(model => model.Password)
-        @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
+        @Html.TextBoxFor(model => model.Password, new { @class = "form-control", type = "password" })
     </div>
     
     @Html.HiddenFor(model => model.To) <!-- Hidden field for 'To' field -->

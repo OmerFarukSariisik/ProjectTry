@@ -6,9 +6,17 @@
 
 <!DOCTYPE html>
 
-<h2>Document Attestation Tracking</h2>
+<div id="top-bar">
+    <div id="selectedpanelitem">
+        <h3>
+            Document Attestation Tracking
+        </h3>
+    </div>
+</div>
 
-<table class="table">
+<br/><br/><br/>
+
+<table class="styled-table">
     <thead>
     <tr>
         <th>
@@ -32,6 +40,7 @@
         <th>
             @Html.DisplayNameFor(model => model.First().AttestationPlace)
         </th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
@@ -61,8 +70,12 @@
             </td>
 
             <td>
-                <a href="@Url.Action("DocumentAttestationShowPage", "DocumentAttestation", new { id = item.DocumentAttestationId })">Show</a>
-                <a href="@Url.Action("Delete", "DocumentAttestation", new { id = item.DocumentAttestationId })" class="delete-link" onclick="return confirmDelete()">Delete</a>
+                <a class="tablebutton" href="@Url.Action("DocumentAttestationShowPage", "DocumentAttestation", new { id = item.DocumentAttestationId })">
+                    <span class="tablebutton_text">Show</span>
+                </a>
+                <a class="tablebutton" href="@Url.Action("Delete", "DocumentAttestation", new { id = item.DocumentAttestationId })" onclick="return confirmDelete()">
+                    <span class="tablebutton_text">Delete</span>
+                </a>
             </td>
         </tr>
     }

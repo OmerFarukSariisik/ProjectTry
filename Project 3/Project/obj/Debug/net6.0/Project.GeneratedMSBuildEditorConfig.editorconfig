@@ -164,6 +164,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUGVuZGluZy9QZW5kaW5nSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[/Users/omerfaruk/Documents/omer/ProjectTry/Project 3/Project/Views/ProformaInvoice/ChooseCustomerForProformaInvoicePage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUHJvZm9ybWFJbnZvaWNlL0Nob29zZUN1c3RvbWVyRm9yUHJvZm9ybWFJbnZvaWNlUGFnZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Documents/omer/ProjectTry/Project 3/Project/Views/ProformaInvoice/ChooseServicePage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUHJvZm9ybWFJbnZvaWNlL0Nob29zZVNlcnZpY2VQYWdlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/omerfaruk/Documents/omer/ProjectTry/Project 3/Project/Views/ProformaInvoice/CreateProformaInvoicePage.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUHJvZm9ybWFJbnZvaWNlL0NyZWF0ZVByb2Zvcm1hSW52b2ljZVBhZ2UuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -178,6 +186,22 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/Users/omerfaruk/Documents/omer/ProjectTry/Project 3/Project/Views/ProformaInvoice/ShowProformaInvoice.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUHJvZm9ybWFJbnZvaWNlL1Nob3dQcm9mb3JtYUludm9pY2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Documents/omer/ProjectTry/Project 3/Project/Views/Settings/MailSettingsPartialView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2V0dGluZ3MvTWFpbFNldHRpbmdzUGFydGlhbFZpZXcuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Documents/omer/ProjectTry/Project 3/Project/Views/Settings/PriceSettingsPartialView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2V0dGluZ3MvUHJpY2VTZXR0aW5nc1BhcnRpYWxWaWV3LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Documents/omer/ProjectTry/Project 3/Project/Views/Settings/SettingsIndex.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2V0dGluZ3MvU2V0dGluZ3NJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/omerfaruk/Documents/omer/ProjectTry/Project 3/Project/Views/Settings/TaxSettingsPartialView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2V0dGluZ3MvVGF4U2V0dGluZ3NQYXJ0aWFsVmlldy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/omerfaruk/Documents/omer/ProjectTry/Project 3/Project/Views/TaxDocumentations/TaxDocumentationsPage.cshtml]

@@ -19,6 +19,14 @@ builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IProformaInvoiceService, ProformaInvoiceService>();
 builder.Services.AddScoped<ITaxManagementService, TaxManagementService>();
 builder.Services.AddScoped<IInvoiceService, InvoiceService>();
+builder.Services.AddScoped<IDocumentAttestationService, DocumentAttestationService>();
+builder.Services.AddScoped<IDocumentTranslationService, DocumentTranslationService>();
+builder.Services.AddScoped<IDocumentPoaService, DocumentPoaService>();
+builder.Services.AddScoped<IDocumentCommitmentLetterService, DocumentCommitmentLetterService>();
+builder.Services.AddScoped<IDocumentConsentLetterService, DocumentConsentLetterService>();
+builder.Services.AddScoped<IDocumentInvitationService, DocumentInvitationService>();
+builder.Services.AddScoped<IDocumentSircularyService, DocumentSircularyService>();
+builder.Services.AddScoped<ISettingsService, SettingsService>();
 
 
 var app = builder.Build();

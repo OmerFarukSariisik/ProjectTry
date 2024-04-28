@@ -1,26 +1,175 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
+<style>
+        .styled-table {
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9em;
+            font-family: sans-serif;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        }
+        .styled-table thead tr {
+            background-color: #009879;
+            color: #ffffff;
+            text-align: left;
+        }
+        .styled-table th,
+        .styled-table td {
+            padding: 10px 15px;
+        }
+        .styled-table tbody tr {
+            border-bottom: thin solid #dddddd;
+        }
+        .styled-table tbody tr:nth-of-type(even) {
+            background-color: #f3f3f3;
+        }
+        .styled-table tbody tr:last-of-type {
+            border-bottom: 2px solid #009879;
+        }
+        .styled-table tbody tr.active-row {
+            font-weight: bold;
+            color: #009879;
+        }
+</style>
+
+<style>
+    .create-button {
+    	display: flex;
+    	height: 50px;
+    	width: 150px;
+    	padding: 0;
+    	background: #009578;
+    	border: none;
+    	outline: none;
+    	border-radius: 5px;
+    	overflow: hidden;
+    	font-family: "Quicksand", sans-serif;
+    	font-size: 16px;
+    	font-weight: 500;
+    	cursor: pointer;
+    	text-decoration: none;
+    }
+    .create-button:hover {
+    	background: #008168;
+    }
+    .create-button:active {
+    	background: #006e58;
+    }
+    .create-button__text,
+    .create-button__icon {
+    	display: inline-flex;
+    	align-items: center;
+    	padding: 0 24px;
+    	color: #fff;
+    	height: 100%;
+    	font-size: 1.5em;
+        background: rgba(0, 0, 0, 0.08);
+    }
+</style>
+
+<style>
+	.tablebutton {
+		display: flex;
+		margin: 5px 0;
+		background: #009578;
+		outline: darkgreen;
+		border-radius: 5px;
+		border: darkgreen;
+		overflow: hidden;
+		font-family: "Quicksand", sans-serif;
+		font-size: 16px;
+		font-weight: 500;
+		cursor: pointer;
+		text-decoration: none;
+		align-items: center;
+		justify-content: center;
+		width: min-content;
+	}
+	.tablebutton:hover {
+		background: #008168;
+	}
+	.tablebutton:active {
+		background: #006e58;
+	}
+	.tablebutton_text {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0 20px;
+		color: #fff;
+		text-decoration: none;
+	}
+</style>
+
+<style>
+    #top-bar {
+        position: fixed; /* Fix the top bar panel at the top of the viewport */
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 50px; /* Set the desired height for the top bar panel */
+        background-color: #333; /* Background color for the top bar panel */
+        color: #fff;
+        display: flex;
+        justify-content: center; /* Center the content horizontally */
+        align-items: center; /* Center the content vertically */
+    }
+    
+    #panelitem {
+        font-size: 23px; /* Decreased font size for better readability */
+        color: #fff;
+        cursor: pointer;
+        margin: 0 35px; /* Added some spacing between clickable items */
+        text-decoration: none; /* Removed underline */
+        padding-top: 10px;
+        transition: color 1s ease, transform 1s ease; /* Smooth color transition on hover */
+    }
+    #panelitem:hover {
+        color: #57f1ff; /* Changed color on hover to a yellowish color */
+        transform: scale(1.1); /* Scale up by 10% on hover */
+    }
+    
+    #selectedpanelitem {
+        font-size: 25px;
+        cursor: default;
+        margin: 0 35px;
+        text-decoration: none;
+        padding-top: 10px;
+        color: #57f1ff;
+        transform: scale(1.1);
+    }
+    .custom-link {
+        color: #fff; /* Set the desired color for the link */
+        text-decoration: none; /* Remove the underline */
+        transition: color 0.75s ease, transform 0.75s ease; /* Add transition for color and transform */
+    }
+    .custom-link:hover {
+        color: #57f1ff; /* Set the desired color for the link on hover */
+    }
+</style>
+
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"] - Project</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Project.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/Project.styles.css" asp-append-version="true"/>
 </head>
 <body>
-    <header>
-        
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+<header>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+</header>
+<div class="container">
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

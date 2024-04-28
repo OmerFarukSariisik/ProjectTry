@@ -1,4 +1,5 @@
 using System.Data.SqlClient;
+using System.Globalization;
 using Humanizer;
 using Microsoft.AspNetCore.Mvc;
 using Project.Models;
@@ -40,8 +41,7 @@ public class ProformaInvoiceService : IProformaInvoiceService
                 "IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'proformaInvoices') CREATE TABLE proformaInvoices " +
                 "(ProformaInvoiceId INT PRIMARY KEY IDENTITY(1,1), CustomerId INT NOT NULL, Descriptions NVARCHAR(61), UnitPrices NVARCHAR(30)" +
                 ", Qtys NVARCHAR(10), SubTotals NVARCHAR(30), TaxAmounts NVARCHAR(30), Totals NVARCHAR(30), SubTotal FLOAT" +
-                ", TotalTaxAmount FLOAT, GrandTotal FLOAT, CreatedBy NVARCHAR(30), InvoiceDate DATE, ProformaInvoiceNo INT" +
-                ", Vat INT)";
+                ", TotalTaxAmount FLOAT, GrandTotal FLOAT, CreatedBy NVARCHAR(30), InvoiceDate DATE, ProformaInvoiceNo INT, Vats NVARCHAR(30))";
 
             using (SqlCommand checkTableCommand = new SqlCommand(tableExistsSql, connection))
             {
@@ -70,7 +70,7 @@ public class ProformaInvoiceService : IProformaInvoiceService
                         proformaInvoice.CreatedBy = reader.GetString(11);
                         proformaInvoice.InvoiceDate = reader.GetDateTime(12);
                         proformaInvoice.ProformaInvoiceNo = reader.GetInt32(13);
-                        proformaInvoice.Vat = reader.GetInt32(14);
+                        proformaInvoice.Vats = reader.GetString(14);
 
                         _customerService.Initialize();
                         var customer = _customerService.AllCustomers.Find(c =>
@@ -88,14 +88,15 @@ public class ProformaInvoiceService : IProformaInvoiceService
                         {
                             proformaInvoice.Items[i] = new ProformaInvoiceItem();
                             proformaInvoice.Items[i].Description = proformaInvoice.Descriptions.Split("|")[i];
-                            proformaInvoice.Items[i].UnitPrice = double.Parse(proformaInvoice.UnitPrices.Split("|")[i]);
+                            proformaInvoice.Items[i].UnitPrice = double.Parse(proformaInvoice.UnitPrices.Split("|")[i], CultureInfo.InvariantCulture);
                             proformaInvoice.Items[i].Qty = int.Parse(proformaInvoice.Qtys.Split("|")[i]);
-                            proformaInvoice.Items[i].SubTotal = double.Parse(proformaInvoice.SubTotals.Split("|")[i]);
-                            proformaInvoice.Items[i].TaxAmount = double.Parse(proformaInvoice.TaxAmounts.Split("|")[i]);
-                            proformaInvoice.Items[i].Total = double.Parse(proformaInvoice.Totals.Split("|")[i]);
+                            proformaInvoice.Items[i].SubTotal = double.Parse(proformaInvoice.SubTotals.Split("|")[i], CultureInfo.InvariantCulture);
+                            proformaInvoice.Items[i].TaxAmount = double.Parse(proformaInvoice.TaxAmounts.Split("|")[i], CultureInfo.InvariantCulture);
+                            proformaInvoice.Items[i].Total = double.Parse(proformaInvoice.Totals.Split("|")[i], CultureInfo.InvariantCulture);
+                            proformaInvoice.Items[i].Vat = double.Parse(proformaInvoice.Vats.Split("|")[i], CultureInfo.InvariantCulture);
                         }
                         
-                        proformaInvoice.AmountString =  ConvertToWords((decimal)proformaInvoice.GrandTotal);
+                        proformaInvoice.AmountString = ConvertToWords((decimal)proformaInvoice.GrandTotal);
                         AllProformaInvoices.Add(proformaInvoice);
                     }
                 }

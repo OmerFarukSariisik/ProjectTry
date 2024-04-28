@@ -61,9 +61,11 @@ namespace Project.Controllers
                 TotalTaxAmount = proformaInvoiceModel.TotalTaxAmount,
                 GrandTotal = proformaInvoiceModel.GrandTotal,
                 Items = proformaInvoiceModel.Items,
-                AmountString = ConvertToWords((decimal)proformaInvoiceModel.GrandTotal)
+                AmountString = ConvertToWords((decimal)proformaInvoiceModel.GrandTotal),
+                CreatedBy = proformaInvoiceModel.CreatedBy,
+                Remarks = ""
             };
-            return View(invoiceModel);
+            return Create(invoiceModel);
         }
 
         public IActionResult EditPage(int targetInvoiceId)

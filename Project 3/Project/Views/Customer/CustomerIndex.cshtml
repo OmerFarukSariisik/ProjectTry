@@ -4,31 +4,9 @@
 
 @model Project.Models.Customer[]
 
-<style>
-    #top-bar {
-        position: fixed; /* Fix the top bar panel at the top of the viewport */
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 50px; /* Set the desired height for the top bar panel */
-        background-color: #333; /* Background color for the top bar panel */
-        color: #fff;
-        display: flex;
-        justify-content: center; /* Center the content horizontally */
-        align-items: center; /* Center the content vertically */
-    }
-    
-    #panelitem {
-        font-size: 23px; /* Decreased font size for better readability */
-        color: #fff;
-        margin: 0 35px; /* Added some spacing between clickable items */
-        text-decoration: none; /* Removed underline */
-        transition: color 1s ease, transform 1s ease; /* Smooth color transition on hover */
-    }
-</style>
 
 <div id="top-bar">
-    <div id="panelitem">
+    <div id="selectedpanelitem">
         <h3>
             Customers
         </h3>
@@ -40,12 +18,12 @@
     <a href="@Url.Action("CreateCustomerPage", "Customer")">Create New Customer</a>
 </p>*@
 
-<div id="panelitem">
+<div>
     <a href="@Url.Action("SendMailToAllCustomers", "Customer")" class="btn btn-primary">Send Mail to All Customers</a>
 </div>
 <br/>
 
-<table class="table">
+<table class="styled-table">
     <thead>
     <tr>
         <th>
@@ -106,9 +84,15 @@
             </td>
 
             <td>
-                <a href="@Url.Action("MailToCustomerPage", "Customer", new { id = item.CustomerId })">Mail</a>
-                <a href="@Url.Action("EditCustomerPage", "Customer", new { id = item.CustomerId })">Edit</a>
-                <a href="@Url.Action("Delete", "Customer", new { id = item.CustomerId })" class="delete-link" onclick="return confirmDelete()">Delete</a>
+                <a class="tablebutton" href="@Url.Action("MailToCustomerPage", "Customer", new { id = item.CustomerId })">
+                    <span class="tablebutton_text">Mail</span>
+                </a>
+                <a class="tablebutton" href="@Url.Action("EditCustomerPage", "Customer", new { id = item.CustomerId })">
+                    <span class="tablebutton_text">Edit</span>
+                </a>
+                <a class="tablebutton" href="@Url.Action("Delete", "Customer", new { id = item.CustomerId })" onclick="return confirmDelete()">
+                    <span class="tablebutton_text">Delete</span>
+                </a>
             </td>
         </tr>
     }

@@ -4,42 +4,7 @@
 
 @model Project.Models.ProformaInvoiceModel[]
 
-<style>
-    #top-bar {
-        position: fixed; /* Fix the top bar panel at the top of the viewport */
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 50px; /* Set the desired height for the top bar panel */
-        background-color: #333; /* Background color for the top bar panel */
-        color: #fff;
-        display: flex;
-        justify-content: center; /* Center the content horizontally */
-        align-items: center; /* Center the content vertically */
-    }
-    
-    #panelitem {
-        font-size: 23px; /* Decreased font size for better readability */
-        color: #fff;
-        cursor: pointer;
-        margin: 0 35px; /* Added some spacing between clickable items */
-        text-decoration: none; /* Removed underline */
-        transition: color 1s ease, transform 1s ease; /* Smooth color transition on hover */
-    }
-    #panelitem:hover {
-        color: #FFC107; /* Changed color on hover to a yellowish color */
-        transform: scale(1.1); /* Scale up by 10% on hover */
-    }
-    
-    .custom-link {
-        color: #fff; /* Set the desired color for the link */
-        text-decoration: none; /* Remove the underline */
-        transition: color 0.75s ease, transform 0.75s ease; /* Add transition for color and transform */
-    }
-    .custom-link:hover {
-        color: #FFC107; /* Set the desired color for the link on hover */
-    }
-</style>
+<!DOCTYPE html>
 
 <div id="top-bar">
     <div id="panelitem">
@@ -47,7 +12,7 @@
             <a class="custom-link" href="@Url.Action("Index", "Home")"> Home</a>
         </h3>
     </div>
-    <div id="panelitem">
+    <div id="selectedpanelitem">
         <h3>
             <a> Proforma Invoices</a>
         </h3>
@@ -70,38 +35,40 @@
     </div>
 </div>
 
-<h2><br/><br/>Proforma Invoices</h2>
-
-<p>
-    <a href="@Url.Action("CreateProformaInvoicePage", "ProformaInvoice")">Create New Proforma Invoice</a>
-</p>
+<br/><br/><br/><br/>
 
 <div>
-    <form asp-action="Search" method="post">
-        <label for="searchString">Search by Proforma Invoice Number:</label>
-        <input type="text" id="searchString" name="searchString"/>
+    <span style="display: inline-block;">
+        <a href="@Url.Action("ChooseCustomerForProformaInvoicePage", "ProformaInvoice")" class="create-button">
+            <span class="create-button__text">New</span>
+            <span class="create-button__icon">
+                <ion-icon name="add-circle-outline"></ion-icon>
+            </span>
+        </a>
+        <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+    </span>
+
+    <form asp-action="Search" method="post" style="display: inline-block;">
+        <label for="searchCriteria">Search by:</label>
+        <select id="searchCriteria" name="searchCriteria">
+            <option value="ProformaInvoiceNumber">Proforma Invoice Number</option>
+            <option value="Name">Name</option>
+            <!-- Add other search options as needed -->
+        </select>
+        <input type="text" id="searchQuery" name="searchQuery"/>
         <button type="submit">Search</button>
     </form>
 </div>
-<div>
-    <form asp-action="SearchByName" method="post">
-        <label for="searchNameString">Search by Name:</label>
-        <input type="text" id="searchNameString" name="searchNameString"/>
-        <button type="submit">Search</button>
-    </form>
-</div>
 
-<table class="table">
+
+<table class="styled-table">
     <thead>
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.First().ProformaInvoiceId)
+            RefNo
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.First().ProformaInvoiceNo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.First().Customer.FullName)
+            Name
         </th>
         <th>
             @Html.DisplayNameFor(model => model.First().Descriptions)
@@ -123,15 +90,15 @@
         </th>
 
         <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
     @foreach (var item in Model)
     {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProformaInvoiceId)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ProformaInvoiceNo)
             </td>
@@ -153,23 +120,35 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Totals)
             </td>
-            <th>
+            <td>
                 @Html.DisplayFor(modelItem => item.Items[0].Total)
-            </th>
+            </td>
 
             <td>
-                <a href="@Url.Action("EditProformaInvoicePage", "ProformaInvoice", new { proformaInvoiceId = item.ProformaInvoiceId })">Edit</a>
-                <a href="@Url.Action("DeleteProformaInvoice", "ProformaInvoice", new { proformaInvoiceId = item.ProformaInvoiceId })" class="delete-link" onclick="return confirmDelete()">Delete</a>
-                <a href="@Url.Action("ShowProformaInvoice", "ProformaInvoice", new { proformaInvoiceId = item.ProformaInvoiceId })">Show</a>
+                <a class="tablebutton" href="@Url.Action("ShowProformaInvoice", "ProformaInvoice", new { proformaInvoiceId = item.ProformaInvoiceId })">
+                    <span class="tablebutton_text">Show</span>
+                </a>
+                <a class="tablebutton" href="@Url.Action("EditProformaInvoicePage", "ProformaInvoice", new { proformaInvoiceId = item.ProformaInvoiceId })">
+                    <span class="tablebutton_text">Edit</span>
+                </a>
+                <a class="tablebutton" href="@Url.Action("DeleteProformaInvoice", "ProformaInvoice", new { proformaInvoiceId = item.ProformaInvoiceId })" onclick="return confirmDelete()">
+                    <span class="tablebutton_text">Delete</span>
+                </a>
             </td>
             <td>
-                <a href="@Url.Action("RequestCreatePendingPage", "ProformaInvoice", new { proformaInvoiceId = item.ProformaInvoiceId })">Create Pending</a>
+                <a class="tablebutton" href="@Url.Action("RequestCreatePendingPage", "ProformaInvoice", new { proformaInvoiceId = item.ProformaInvoiceId })">
+                    <span class="tablebutton_text">Create Pending</span>
+                </a>
             </td>
             <td>
-                <a href="@Url.Action("RequestCreateInvoicePage", "ProformaInvoice", new { proformaInvoiceId = item.ProformaInvoiceId })">Create Invoice</a>
+                <a class="tablebutton" href="@Url.Action("RequestCreateInvoicePage", "ProformaInvoice", new { proformaInvoiceId = item.ProformaInvoiceId })"  onclick="return createInvoice()">
+                    <span class="tablebutton_text">Create Invoice</span>
+                </a>
             </td>
             <td>
-                <a href="@Url.Action("RequestCreateVoucherPage", "ProformaInvoice", new { proformaInvoiceId = item.ProformaInvoiceId })">Create Voucher</a>
+                <a class="tablebutton" href="@Url.Action("RequestCreateVoucherPage", "ProformaInvoice", new { proformaInvoiceId = item.ProformaInvoiceId })">
+                    <span class="tablebutton_text">Create Voucher</span>
+                </a>
             </td>
         </tr>
     }
@@ -180,6 +159,9 @@
     <script>
         function confirmDelete() {
                 return confirm("Are you sure you want to delete this item?");
+        }
+        function createInvoice() {
+                return confirm("Create Invoice?");
         }
     </script>
 }

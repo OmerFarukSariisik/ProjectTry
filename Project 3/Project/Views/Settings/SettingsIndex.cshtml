@@ -1,0 +1,69 @@
+@{
+    ViewData["Title"] = "Settings";
+}
+
+@model Project.Models.SettingsModel
+
+<!DOCTYPE html>
+
+<div id="top-bar">
+    <div id="selectedpanelitem">
+        <h3>
+            <a>Settings</a>
+        </h3>
+    </div>
+</div>
+
+<br/><br/><br/><br/>
+
+
+<html>
+<head>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+
+<body>
+
+@using (Html.BeginForm("EditSettings", "Settings", FormMethod.Post))
+{
+    <ul class="nav nav-tabs justify-content-center">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#taxSettings">Tax Settings</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#priceSettings">Price Settings</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#mailSettings">Mail Settings</a>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <div id="taxSettings" class="tab-pane fade show active">
+            @Html.Partial("TaxSettingsPartialView", Model) <!-- Pass model to partial view -->
+        </div>
+        <div id="priceSettings" class="tab-pane fade">
+            @Html.Partial("PriceSettingsPartialView", Model) <!-- Pass model to partial view -->
+        </div>
+        <div id="mailSettings" class="tab-pane fade">
+            @Html.Partial("MailSettingsPartialView", Model) <!-- Pass model to partial view -->
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-primary"/>
+        </div>
+    </div>
+}
+
+<div>
+    <a asp-action="Index" asp-controller="Home">Back to Home</a>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+@model Project.Models.SettingsModel
+
+<div class="form-horizontal">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.SettingsId)
+
+    <div class="form-group">
+        <label asp-for="AttestationTax" class="control-label col-md-2">Attestation Tax:</label>
+        <div class="col-md-10">
+            <input asp-for="AttestationTax" class="form-control"/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="CommitmentTax" class="control-label col-md-2">Commitment Tax:</label>
+        <div class="col-md-10">
+            <input asp-for="CommitmentTax" class="form-control"/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ConsentTax" class="control-label col-md-2">Consent Tax:</label>
+        <div class="col-md-10">
+            <input asp-for="ConsentTax" class="form-control"/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="InvitationTax" class="control-label col-md-2">Invitation Tax:</label>
+        <div class="col-md-10">
+            <input asp-for="InvitationTax" class="form-control"/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PoaTax" class="control-label col-md-2">Poa Tax:</label>
+        <div class="col-md-10">
+            <input asp-for="PoaTax" class="form-control"/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="SircularyTax" class="control-label col-md-2">Sirculary Tax:</label>
+        <div class="col-md-10">
+            <input asp-for="SircularyTax" class="form-control"/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="TranslationTax" class="control-label col-md-2">Translation Tax:</label>
+        <div class="col-md-10">
+            <input asp-for="TranslationTax" class="form-control"/>
+        </div>
+    </div>
+
+</div>

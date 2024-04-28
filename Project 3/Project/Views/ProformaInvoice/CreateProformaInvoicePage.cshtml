@@ -348,46 +348,50 @@
         </p>
     </td>
 </tr>
-<tr style="height:25pt" class="item-row">
-    <td style="width:48pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-        <p class="s6" style="padding-top: 6pt;text-indent: 0pt;text-align: center;">1</p>
-    </td>
-    <td style="width:143pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-        <p class="s6" style="padding-top: 7pt;text-indent: 0pt;text-align: left;">
-            <input asp-for="Items[0].Description" class="form-control"/>
-        </p>
-    </td>
-    <td style="width:67pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-        <p class="s6" style="padding-top: 6pt;padding-left: 23pt;text-indent: 0pt;text-align: left;">
-            <input asp-for="Items[0].UnitPrice" class="form-control unitPrice"/>
-        </p>
-    </td>
-    <td style="width:67pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-        <p class="s6" style="padding: 5pt;text-indent: 0pt;text-align: left;">
-            <input asp-for="Vat" class="form-control taxPercent" placeholder="0, 5 or 9"/>
-        </p>
-    </td>
-    <td style="width:48pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-        <p class="s6" style="padding-top: 6pt;padding-left: 16pt;text-indent: 0pt;text-align: left;">
-            <input asp-for="Items[0].Qty" class="form-control qty"/>
-        </p>
-    </td>
-    <td style="width:72pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-        <p class="s6" style="padding-top: 6pt;padding-left: 22pt;text-indent: 0pt;text-align: left;">
-            <input asp-for="Items[0].SubTotal" class="form-control subTotal"/>
-        </p>
-    </td>
-    <td style="width:72pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-        <p class="s6" style="padding-top: 6pt;padding-left: 25pt;text-indent: 0pt;text-align: left;">
-            <input asp-for="Items[0].TaxAmount" class="form-control taxAmount"/>
-        </p>
-    </td>
-    <td style="width:83pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-        <p class="s6" style="padding-top: 6pt;padding-right: 21pt;text-indent: 0pt;text-align: right;">
-            <input asp-for="Items[0].Total" class="form-control total"/>
-        </p>
-    </td>
-</tr>
+@for (var i = 0; i < Model.Items.Length; i++)
+{
+    <tr style="height:25pt" class="item-row">
+        <td style="width:48pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p class="s6" style="padding-top: 6pt;text-indent: 0pt;text-align: center;">i</p>
+        </td>
+        <td style="width:143pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p class="s6" style="padding-top: 7pt;text-indent: 0pt;text-align: left;">
+                <input asp-for="Items[i].Description" class="form-control item-description" id="Description_0"/>
+            </p>
+        </td>
+        <td style="width:67pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p class="s6" style="padding-top: 6pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">
+                <input asp-for="Items[i].UnitPriceString" class="form-control unitPrice"/>
+            </p>
+        </td>
+        <td style="width:67pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p class="s6" style="padding: 5pt;text-indent: 0pt;text-align: left;">
+                <input asp-for="Items[i].VatString" class="form-control taxPercent" placeholder="0, 5 or 9"/>
+            </p>
+        </td>
+        <td style="width:48pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p class="s6" style="padding-top: 6pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">
+                <input asp-for="Items[i].Qty" class="form-control qty"/>
+            </p>
+        </td>
+        <td style="width:72pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p class="s6" style="padding-top: 6pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">
+                <input asp-for="Items[i].SubTotalString" class="form-control subTotal"/>
+            </p>
+        </td>
+        <td style="width:72pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p class="s6" style="padding-top: 6pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">
+                <input asp-for="Items[i].TaxAmountString" class="form-control taxAmount"/>
+            </p>
+        </td>
+        <td style="width:83pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p class="s6" style="padding-top: 6pt;padding-right: 4pt;text-indent: 0pt;text-align: right;">
+                <input asp-for="Items[i].TotalString" class="form-control total"/>
+            </p>
+        </td>
+    </tr>
+}
+
 <tr style="height:25pt; display: none;" class="item-row-template">
     <td style="width:48pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
         <p class="s6" style="padding-top: 6pt;text-indent: 0pt;text-align: center;">1</p>
@@ -398,33 +402,33 @@
         </p>
     </td>
     <td style="width:67pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-        <p class="s6" style="padding-top: 6pt;padding-left: 23pt;text-indent: 0pt;text-align: left;">
-            <input asp-for="Items[0].UnitPrice" class="form-control unitPrice"/>
+        <p class="s6" style="padding-top: 6pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">
+            <input asp-for="Items[0].UnitPriceString" class="form-control unitPrice"/>
         </p>
     </td>
     <td style="width:67pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
         <p class="s6" style="padding: 5pt;text-indent: 0pt;text-align: left;">
-            <input asp-for="Vat" class="form-control taxPercent" placeholder="0, 5 or 9"/>
+            <input asp-for="Items[0].VatString" class="form-control taxPercent" placeholder="0, 5 or 9"/>
         </p>
     </td>
     <td style="width:48pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-        <p class="s6" style="padding-top: 6pt;padding-left: 16pt;text-indent: 0pt;text-align: left;">
+        <p class="s6" style="padding-top: 6pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">
             <input asp-for="Items[0].Qty" class="form-control qty"/>
         </p>
     </td>
     <td style="width:72pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-        <p class="s6" style="padding-top: 6pt;padding-left: 22pt;text-indent: 0pt;text-align: left;">
-            <input asp-for="Items[0].SubTotal" class="form-control subTotal"/>
+        <p class="s6" style="padding-top: 6pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">
+            <input asp-for="Items[0].SubTotalString" class="form-control subTotal"/>
         </p>
     </td>
     <td style="width:72pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-        <p class="s6" style="padding-top: 6pt;padding-left: 25pt;text-indent: 0pt;text-align: left;">
-            <input asp-for="Items[0].TaxAmount" class="form-control taxAmount"/>
+        <p class="s6" style="padding-top: 6pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">
+            <input asp-for="Items[0].TaxAmountString" class="form-control taxAmount"/>
         </p>
     </td>
     <td style="width:83pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-        <p class="s6" style="padding-top: 6pt;padding-right: 21pt;text-indent: 0pt;text-align: right;">
-            <input asp-for="Items[0].Total" class="form-control total"/>
+        <p class="s6" style="padding-top: 6pt;padding-right: 4pt;text-indent: 0pt;text-align: right;">
+            <input asp-for="Items[0].TotalString" class="form-control total"/>
         </p>
     </td>
 </tr>
@@ -443,7 +447,7 @@
             <br/>
         </p>
         <p class="s4" style="padding-right: 25pt;text-indent: 0pt;text-align: right;">
-            <input asp-for="SubTotal" class="form-control"/>
+            <input asp-for="SubTotalString" class="form-control"/>
         </p>
     </td>
 </tr>
@@ -456,7 +460,7 @@
     </td>
     <td style="width:83pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
         <p class="s4" style="padding-top: 6pt;padding-right: 27pt;text-indent: 0pt;text-align: right;">
-            <input asp-for="TotalTaxAmount" class="form-control"/>
+            <input asp-for="TotalTaxAmountString" class="form-control"/>
         </p>
     </td>
 </tr>
@@ -469,7 +473,7 @@
     </td>
     <td style="width:83pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
         <p class="s4" style="padding-top: 6pt;padding-right: 25pt;text-indent: 0pt;text-align: right;">
-            <input asp-for="GrandTotal" id="priceInput" class="form-control"/>
+            <input asp-for="GrandTotalString" id="priceInput" class="form-control"/>
         </p>
     </td>
 </tr>
@@ -543,42 +547,61 @@
     </script>
     <script>
             $(document).ready(function () {
-                var currentIndex = 0; // Initialize the index counter
-                console.log("try1");
+                var currentIndex = @Model.Items.Length; // Initialize the index counter
+            
                 // Add Row button click event
                 $("#addRowBtn").on("click", function () {
                     event.preventDefault();
-                    console.log("try2");
+                    
+                    // Clone the template row
                     var newRow = $(".item-row-template").clone().removeClass("item-row-template").addClass("item-row");
-    
-                    updateIndices(newRow, currentIndex);
+            
+                    // Update indices and show the new row
+                    updateRowIndices(newRow, currentIndex);
                     newRow.css("display", "table-row");
                     $(".items-finish").first().before(newRow);
-    
-                    newRow.show();
+            
+                    // Increment the index counter
                     currentIndex++;
                 });
-    
+            
                 // Remove Row button click event
                 $("#removeRowBtn").on("click", function () {
                     // Find the last visible row and remove it
                     $(".item-row:visible:last").remove();
-    
-                    // Decrement the index counter
-                    currentIndex--;
+            
+                    // Decrement the index counter if it's greater than 0
+                    if (currentIndex > 0) {
+                        currentIndex--;
+                    }
                 });
-    
+            
                 // Function to update indices in a row
-                function updateIndices(row, index) {
-                    row.find("input").each(function () {
+                function updateRowIndices(row, index) {
+                    row.find("input, label").each(function () {
                         var name = $(this).attr("name");
-                        // Replace [0] with the current index
-                        name = name.replace(/\[\d\]/g, "[" + index + "]");
-                        $(this).attr("name", name);
+                        var id = $(this).attr("id");
+            
+                        // Update name attribute
+                        if (name) {
+                            name = name.replace(/\[\d+\]/g, "[" + index + "]");
+                            $(this).attr("name", name);
+                        }
+            
+                        // Update id attribute
+                        if (id) {
+                            id = id.replace(/\d+/, index);
+                            $(this).attr("id", id);
+                        }
+            
+                        // Update label text
+                        var labelText = $(this).text().replace(/\d+/g, index + 1);
+                        $(this).text(labelText);
                     });
                 }
             });
-        </script>
+
+    </script>
 
     <script>
             $(document).ready(function () {
@@ -635,18 +658,21 @@
 
             // Iterate over each row and sum up SubTotal and TaxAmount
             $('.item-row').each(function () {
+                console.log("Calculating row...");
                 subTotalSum += parseFloat($(this).find('.subTotal').val()) || 0;
                 taxAmountSum += parseFloat($(this).find('.taxAmount').val()) || 0;
             });
 
+            console.log("SubTotal: " + subTotalSum);
+            console.log("TaxAmount: " + taxAmountSum);
             // Update SubTotal, TotalTaxAmount, and GrandTotal
-            $('#SubTotal').val(subTotalSum.toFixed(2));
-            $('#TotalTaxAmount').val(taxAmountSum.toFixed(2));
+            $('#SubTotalString').val(subTotalSum.toFixed(2));
+            $('#TotalTaxAmountString').val(taxAmountSum.toFixed(2));
 
             // Update GrandTotal
             var grandTotal = subTotalSum + taxAmountSum;
+            console.log("GrandTotal: " + grandTotal);
             $('#priceInput').val(grandTotal.toFixed(2)).trigger('input'); // Trigger 'input' event
-
         }
 
         // Attach event handler for input changes using event delegation
@@ -662,6 +688,14 @@
 
             // Calculate the new row
             calculateRow(newRow);
+        });
+        
+        $(document).ready(function () {
+            console.log("Document is ready, calculating totals...");
+            $('.item-row').each(function () {
+                 calculateRow($(this));
+            });
+            calculateTotals();
         });
 
         // Initial calculation when the page loads

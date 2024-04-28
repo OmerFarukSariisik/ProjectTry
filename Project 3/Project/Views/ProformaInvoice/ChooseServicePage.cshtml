@@ -1,0 +1,475 @@
+@{
+    ViewData["Title"] = "Service Selection";
+}
+@model Project.Models.AllDocumentsModel
+
+
+<!DOCTYPE html>
+
+<html>
+
+<div id="top-bar">
+    <div id="selectedpanelitem">
+        <h3>
+            Customer Documents
+        </h3>
+    </div>
+</div>
+
+<br/><br/><br/>
+
+@using (Html.BeginForm("CreateProformaInvoicePage", "ProformaInvoice", FormMethod.Post))
+{
+    <h3 style="text-align: center">Document Attestation</h3>
+    <table class="styled-table">
+        <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentAttestationModels.First().CustomerId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentAttestationModels.First().FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentAttestationModels.First().Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentAttestationModels.First().Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentAttestationModels.First().MobileNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentAttestationModels.First().OriginalLanguage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentAttestationModels.First().AttestationPlace)
+            </th>
+            <th>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model.DocumentAttestationModels)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MobileNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OriginalLanguage)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AttestationPlace)
+                </td>
+                <td>
+                    <input type="checkbox" name="selectedDocuments" value="@item.DocumentAttestationId" />
+                    <input type="hidden" name="documentTypes" value="DocumentAttestation" />
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    
+    
+    <h3 style="text-align: center">Document Translation</h3>
+    <table class="styled-table">
+        <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentTranslationModels.First().CustomerId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentTranslationModels.First().FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentTranslationModels.First().Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentTranslationModels.First().Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentTranslationModels.First().MobileNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentTranslationModels.First().OriginalLanguage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentTranslationModels.First().TranslatedLanguage)
+            </th>
+            <th>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model.DocumentTranslationModels)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MobileNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OriginalLanguage)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TranslatedLanguage)
+                </td>
+                <td>
+                    <input type="checkbox" name="selectedDocuments" value="@item.DocumentTranslationId" />
+                    <input type="hidden" name="documentTypes" value="DocumentTranslation" />
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    
+    
+    <h3 style="text-align: center">Document Commitment Letter</h3>
+    <table class="styled-table">
+        <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentCommitmentLetterModels.First().CustomerId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentCommitmentLetterModels.First().FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentCommitmentLetterModels.First().Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentCommitmentLetterModels.First().Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentCommitmentLetterModels.First().MobileNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentCommitmentLetterModels.First().OriginalLanguage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentCommitmentLetterModels.First().Subject)
+            </th>
+            <th>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model.DocumentCommitmentLetterModels)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MobileNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OriginalLanguage)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Subject)
+                </td>
+                <td>
+                    <input type="checkbox" name="selectedDocuments" value="@item.DocumentCommitmentLetterId" />
+                    <input type="hidden" name="documentTypes" value="DocumentCommitmentLetter" />
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    
+    
+    <h3 style="text-align: center">Document Consent Letter</h3>
+    <table class="styled-table">
+        <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentConsentLetterModels.First().CustomerId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentConsentLetterModels.First().FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentConsentLetterModels.First().Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentConsentLetterModels.First().Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentConsentLetterModels.First().MobileNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentConsentLetterModels.First().OriginalLanguage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentConsentLetterModels.First().Subject)
+            </th>
+            <th>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model.DocumentConsentLetterModels)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MobileNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OriginalLanguage)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Subject)
+                </td>
+                <td>
+                    <input type="checkbox" name="selectedDocuments" value="@item.DocumentConsentLetterId" />
+                    <input type="hidden" name="documentTypes" value="DocumentConsentLetter" />
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    
+    
+    <h3 style="text-align: center">Document Invitation</h3>
+    <table class="styled-table">
+        <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentInvitationModels.First().CustomerId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentInvitationModels.First().FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentInvitationModels.First().Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentInvitationModels.First().Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentInvitationModels.First().MobileNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentInvitationModels.First().OriginalLanguage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentInvitationModels.First().Note)
+            </th>
+            <th>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model.DocumentInvitationModels)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MobileNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OriginalLanguage)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Note)
+                </td>
+                <td>
+                    <input type="checkbox" name="selectedDocuments" value="@item.DocumentInvitationId" />
+                    <input type="hidden" name="documentTypes" value="DocumentInvitation" />
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    
+    
+    <h3 style="text-align: center">Document POA</h3>
+    <table class="styled-table">
+        <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentPoaModels.First().CustomerId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentPoaModels.First().FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentPoaModels.First().Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentPoaModels.First().Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentPoaModels.First().MobileNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentPoaModels.First().OriginalLanguage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentPoaModels.First().Note)
+            </th>
+            <th>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model.DocumentPoaModels)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MobileNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OriginalLanguage)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Note)
+                </td>
+                <td>
+                    <input type="checkbox" name="selectedDocuments" value="@item.DocumentPoaId" />
+                    <input type="hidden" name="documentTypes" value="DocumentPoa" />
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    
+    
+    <h3 style="text-align: center">Document Sirculary</h3>
+    <table class="styled-table">
+        <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentSircularyModels.First().CustomerId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentSircularyModels.First().FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentSircularyModels.First().Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentSircularyModels.First().Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentSircularyModels.First().MobileNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentSircularyModels.First().OriginalLanguage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentSircularyModels.First().Note)
+            </th>
+            <th>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model.DocumentSircularyModels)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MobileNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OriginalLanguage)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Note)
+                </td>
+                <td>
+                    <input type="checkbox" name="selectedDocuments" value="@item.DocumentSircularyId" />
+                    <input type="hidden" name="documentTypes" value="DocumentSirculary" />
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    
+    
+    <input type="hidden" name="customerId" value="@Model.CustomerId" />
+    <button type="submit">Submit</button>
+}
+
+</html>

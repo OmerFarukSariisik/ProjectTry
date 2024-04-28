@@ -8,83 +8,17 @@ namespace Project.Controllers;
 public class DocumentTranslationController : Controller
 {
     private readonly ICustomerService _customerService;
-    public List<DocumentTranslationModel> AllDocumentTranslations { get; set; } = new();
+    private readonly IDocumentTranslationService _documentTranslationService;
+    
     private readonly string _connectionString;
     private bool _isInitialized;
 
-    public DocumentTranslationController(IConfiguration configuration, ICustomerService customerService)
+    public DocumentTranslationController(IConfiguration configuration, ICustomerService customerService,
+        IDocumentTranslationService documentTranslationService)
     {
+        _documentTranslationService = documentTranslationService;
         _customerService = customerService;
         _connectionString = configuration.GetConnectionString("DefaultConnection");
-    }
-
-    public void Initialize()
-    {
-        if (_isInitialized)
-            return;
-
-        using (SqlConnection connection = new SqlConnection(_connectionString))
-        {
-            connection.Open();
-
-            string tableExistsSql =
-                "IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'documentTranslations') CREATE TABLE documentTranslations " +
-                "(DocumentTranslationId INT PRIMARY KEY IDENTITY(1,1), OriginalLanguage NVARCHAR(20) NOT NULL, TranslatedLanguage NVARCHAR(20), RequiredCopies INT, Purpose NVARCHAR(25)" +
-                ", Signature VARBINARY(MAX), CreateDate DATE, DeliveryDate DATE, AttestationService NVARCHAR(10), CustomerId INT)";
-
-            using (SqlCommand checkTableCommand = new SqlCommand(tableExistsSql, connection))
-            {
-                checkTableCommand.ExecuteNonQuery();
-            }
-            
-            _customerService.Initialize();
-
-            string sql = "SELECT * FROM documentTranslations";
-            using (SqlCommand command = new SqlCommand(sql, connection))
-            {
-                using (SqlDataReader reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        DocumentTranslationModel documentTranslation = new DocumentTranslationModel();
-                        documentTranslation.DocumentTranslationId = reader.GetInt32(0);
-                        documentTranslation.OriginalLanguage = reader.GetString(1);
-                        documentTranslation.TranslatedLanguage = reader.GetString(2);
-                        documentTranslation.RequiredCopies = reader.GetInt32(3);
-                        documentTranslation.Purpose = reader.GetString(4);
-                        
-                        int columnIndex = reader.GetOrdinal("Signature");
-                        long byteLength = reader.GetBytes(columnIndex, 0, null, 0, 0);
-                        byte[] signatureData = new byte[byteLength];
-                        reader.GetBytes(columnIndex, 0, signatureData, 0, (int)byteLength);
-                        documentTranslation.Signature = signatureData;
-                        documentTranslation.SignatureString = "data:image/jpeg;base64," +
-                                                              Convert.ToBase64String(documentTranslation.Signature);
-
-                        documentTranslation.CreateDate = reader.GetDateTime(6);
-                        documentTranslation.DeliveryDate = reader.GetDateTime(7);
-                        documentTranslation.AttestationService = reader.GetString(8);
-                        
-                        documentTranslation.CustomerId = reader.GetInt32(9);
-                        var customer = _customerService.AllCustomers.Find(c =>
-                                c.CustomerId == documentTranslation.CustomerId);
-                        
-                        if(customer == null)
-                            continue;
-                        documentTranslation.FullName = customer.FullName;
-                        documentTranslation.Address = customer.Address;
-                        documentTranslation.Email = customer.Email;
-                        documentTranslation.MobileNumber = customer.MobileNumber;
-                        documentTranslation.WhatsAppNumber = customer.WhatsAppNumber;
-                        documentTranslation.TRNNumber = customer.TRNNumber;
-
-                        AllDocumentTranslations.Add(documentTranslation);
-                    }
-                }
-            }
-        }
-        
-        _isInitialized = true;
     }
     
     public IActionResult TranslationForm(DocumentTranslationModel documentTranslationModel)
@@ -109,7 +43,7 @@ public class DocumentTranslationController : Controller
         _customerService.Initialize();
         _customerService.CreateCustomer(customer);
         
-        Initialize();
+        _documentTranslationService.Initialize();
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
             connection.Open();
@@ -136,26 +70,26 @@ public class DocumentTranslationController : Controller
             }
         }
         
-        AllDocumentTranslations.Add(documentTranslationModel);
+        _documentTranslationService.AllDocumentTranslations.Add(documentTranslationModel);
         return RedirectToAction("Index", "Home");
     }
     
     public IActionResult DocumentTranslationTrackPage()
     {
-        Initialize();
-        return View(AllDocumentTranslations.ToArray());
+        _documentTranslationService.Initialize();
+        return View(_documentTranslationService.AllDocumentTranslations.ToArray());
     }
     
     public IActionResult DocumentTranslationShowPage(int id)
     {
-        Initialize();
-        var documentTranslation = AllDocumentTranslations.FirstOrDefault(c => c.DocumentTranslationId == id);
+        _documentTranslationService.Initialize();
+        var documentTranslation = _documentTranslationService.AllDocumentTranslations.FirstOrDefault(c => c.DocumentTranslationId == id);
         return View(documentTranslation);
     }
     
     public IActionResult Delete(int proformaInvoiceId)
     {
-        Initialize();
+        _documentTranslationService.Initialize();
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
             connection.Open();
@@ -169,8 +103,8 @@ public class DocumentTranslationController : Controller
                 command.ExecuteNonQuery();
             }
         }
-        var documentTranslation = AllDocumentTranslations.FirstOrDefault(c => c.DocumentTranslationId == proformaInvoiceId);
-        AllDocumentTranslations.Remove(documentTranslation);
+        var documentTranslation = _documentTranslationService.AllDocumentTranslations.FirstOrDefault(c => c.DocumentTranslationId == proformaInvoiceId);
+        _documentTranslationService.AllDocumentTranslations.Remove(documentTranslation);
         return RedirectToAction("DocumentTranslationTrackPage");
     }
 }

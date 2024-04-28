@@ -32,6 +32,7 @@
     <None Include="wwwroot\images\3.png" />
     <None Include="wwwroot\images\4.png" />
     <None Include="wwwroot\images\5.png" />
+    <None Include="wwwroot\images\background.webp" />
   </ItemGroup>
 
 </Project>

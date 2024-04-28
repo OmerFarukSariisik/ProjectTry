@@ -1,0 +1,88 @@
+@{
+    ViewData["Title"] = "Customer Selection";
+}
+
+@model Project.Models.Customer[]
+
+
+<div id="top-bar">
+    <div id="selectedpanelitem">
+        <h3>
+            Customer Selection
+        </h3>
+    </div>
+</div>
+
+<br/><br/><br/>
+
+<br/>
+
+<table class="styled-table">
+    <thead>
+    <tr>
+        <th>
+            Type
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().FullName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().MotherName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().MobileNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().WhatsAppNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().TRNNumber)
+        </th>
+
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Satisfaction)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MotherName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MobileNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WhatsAppNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TRNNumber)
+            </td>
+
+            <td>
+                <a class="tablebutton" href="@Url.Action("ChooseServicePage", "ProformaInvoice", new { id = item.CustomerId })">
+                    <span class="tablebutton_text">Select</span>
+                </a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

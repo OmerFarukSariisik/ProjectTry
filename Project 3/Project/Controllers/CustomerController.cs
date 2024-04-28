@@ -10,12 +10,15 @@ namespace Project.Controllers
     public class CustomerController : Controller
     {
         private readonly ICustomerService _customerService;
+        private readonly ISettingsService _settingsService;
 
         private readonly string _connectionString;
 
-        public CustomerController(IConfiguration configuration, ICustomerService customerService)
+        public CustomerController(IConfiguration configuration, ICustomerService customerService,
+            ISettingsService settingsService)
         {
             _customerService = customerService;
+            _settingsService = settingsService;
             _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
@@ -44,12 +47,15 @@ namespace Project.Controllers
 
         public IActionResult MailToCustomerPage(int id)
         {
+            _settingsService.Initialize();
             _customerService.Initialize();
             var retrievedCustomer = _customerService.AllCustomers.FirstOrDefault(customer => customer.CustomerId == id);
 
             var mailModel = new MailModel
             {
-                To = retrievedCustomer.Email
+                To = retrievedCustomer.Email,
+                From = _settingsService.AllSettings.First().Mail,
+                Password = _settingsService.AllSettings.First().Password
             };
             return View(mailModel);
         }

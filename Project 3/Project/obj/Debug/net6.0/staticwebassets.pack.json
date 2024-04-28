@@ -33,6 +33,10 @@
       "PackagePath": "staticwebassets/images/5.png"
     },
     {
+      "Id": "/Users/omerfaruk/Documents/omer/ProjectTry/Project 3/Project/wwwroot/images/background.webp",
+      "PackagePath": "staticwebassets/images/background.webp"
+    },
+    {
       "Id": "/Users/omerfaruk/Documents/omer/ProjectTry/Project 3/Project/wwwroot/js/site.js",
       "PackagePath": "staticwebassets/js/site.js"
     },

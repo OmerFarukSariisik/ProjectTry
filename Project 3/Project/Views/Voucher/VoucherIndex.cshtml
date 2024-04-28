@@ -4,42 +4,6 @@
 
 @model Project.Models.Voucher[]
 
-<style>
-    #top-bar {
-        position: fixed; /* Fix the top bar panel at the top of the viewport */
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 50px; /* Set the desired height for the top bar panel */
-        background-color: #333; /* Background color for the top bar panel */
-        color: #fff;
-        display: flex;
-        justify-content: center; /* Center the content horizontally */
-        align-items: center; /* Center the content vertically */
-    }
-    
-    #panelitem {
-        font-size: 23px; /* Decreased font size for better readability */
-        color: #fff;
-        cursor: pointer;
-        margin: 0 35px; /* Added some spacing between clickable items */
-        text-decoration: none; /* Removed underline */
-        transition: color 1s ease, transform 1s ease; /* Smooth color transition on hover */
-    }
-    #panelitem:hover {
-        color: #FFC107; /* Changed color on hover to a yellowish color */
-        transform: scale(1.1); /* Scale up by 10% on hover */
-    }
-    
-    .custom-link {
-        color: #fff; /* Set the desired color for the link */
-        text-decoration: none; /* Remove the underline */
-        transition: color 0.75s ease, transform 0.75s ease; /* Add transition for color and transform */
-    }
-    .custom-link:hover {
-        color: #FFC107; /* Set the desired color for the link on hover */
-    }
-</style>
 
 <div id="top-bar">
     <div id="panelitem">
@@ -63,26 +27,23 @@
         </h3>
     </div>
 
-    <div id="panelitem">
+    <div id="selectedpanelitem">
         <h3>
             <a> Vouchers</a>
         </h3>
     </div>
 </div>
 
-<h2><br/><br/>Vouchers</h2>
+<br/><br/><br/><br/>
 
-<table class="table">
+<table class="styled-table">
     <thead>
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.First().VoucherId)
+            Proforma RefNo
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.First().Customer.FullName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.First().ProformaInvoiceId)
+            Name
         </th>
         <th>
             @Html.DisplayNameFor(model => model.First().Amount)
@@ -99,13 +60,10 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.VoucherId)
+                @Html.DisplayFor(modelItem => item.ProformaInvoiceId)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Customer.FullName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProformaInvoiceId)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Amount)
@@ -115,9 +73,15 @@
             </td>
 
             <td>
-                <a href="@Url.Action("EditVoucherPage", "Voucher", new { id = item.VoucherId })">Edit</a>
-                <a href="@Url.Action("DeleteVoucher", "Voucher", new { id = item.VoucherId })">Delete</a>
-                <a href="@Url.Action("ShowVoucherPage", "Voucher", new { id = item.VoucherId })">Show</a>
+                <a class="tablebutton" href="@Url.Action("ShowVoucherPage", "Voucher", new { id = item.VoucherId })">
+                    <span class="tablebutton_text">Show</span>
+                </a>
+                <a class="tablebutton" href="@Url.Action("EditVoucherPage", "Voucher", new { id = item.VoucherId })">
+                    <span class="tablebutton_text">Edit</span>
+                </a>
+                <a class="tablebutton" href="@Url.Action("DeleteVoucher", "Voucher", new { id = item.VoucherId })">
+                    <span class="tablebutton_text">Delete</span>
+                </a>
             </td>
         </tr>
     }

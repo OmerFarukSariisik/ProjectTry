@@ -335,9 +335,9 @@
             </p>
         </td>
     </tr>
-    <tr style="height:25pt">
-        @for (var i = 0; i < Model.Items.Length; i++)
-        {
+    @for (var i = 0; i < Model.Items.Length; i++)
+    {
+        <tr style="height:25pt">
             <td style="width:48pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
                 <p class="s6" style="padding-top: 6pt;text-indent: 0pt;text-align: center;">@i</p>
             </td>
@@ -366,13 +366,14 @@
                     @Model.Items[i].TaxAmount
                 </p>
             </td>
-            <td style="width:83pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                <p class="s6" style="padding-top: 6pt;padding-right: 21pt;text-indent: 0pt;text-align: right;">
-                    @Model.Items[i].Total
-                </p>
-            </td>
-        }
-    </tr>
+        <td style="width:83pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p class="s6" style="padding-top: 6pt;padding-right: 21pt;text-indent: 0pt;text-align: right;">
+                @Model.Items[i].Total
+            </p>
+        </td>
+        </tr>
+    }
+    
     <tr style="height:29pt" class="items-finish">
         <td style="width:450pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
             colspan="6">

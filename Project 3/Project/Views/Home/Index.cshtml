@@ -6,25 +6,30 @@
 <!DOCTYPE html>
 <html>
 <style>
-    /* CSS for the top bar panel */
-    #top-bar {
-        position: fixed; /* Fix the top bar panel at the top of the viewport */
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 50px; /* Set the desired height for the top bar panel */
-        background-color: #333; /* Background color for the top bar panel */
-        color: #fff;
-        display: flex;
-        justify-content: center; /* Center the content horizontally */
-        align-items: center; /* Center the content vertically */
+    body {
+        background-image: linear-gradient(rgba(0, 0, 0, 0.82), rgba(0, 0, 0, 0)), url('images/background.webp');
+        margin: 0;
+        background-size: cover;
+        background-position: right;
+        background-repeat: no-repeat;
     }
-    
+    .settings-button {
+        font-size: 35px;
+        color: #fff;
+        cursor: pointer;
+        right: 16px;
+        position: absolute;
+        text-decoration: none;
+    }
+    .settings-button:hover {
+        transform: scale(1.04);
+    }
+        
     #notification-button {
         font-size: 35px;
         color: #fff;
         cursor: pointer;
-        right: 23px;
+        right: 75px;
         position: absolute;
     }
     
@@ -47,29 +52,6 @@
         line-height: 1;
     }
     
-    #panelitem {
-        font-size: 23px; /* Decreased font size for better readability */
-        color: #fff;
-        cursor: pointer;
-        margin: 0 35px; /* Added some spacing between clickable items */
-        text-decoration: none; /* Removed underline */
-        transition: color 1s ease, transform 1s ease; /* Smooth color transition on hover */
-    }
-    
-    #panelitem:hover {
-        color: #FFC107; /* Changed color on hover to a yellowish color */
-        transform: scale(1.1); /* Scale up by 10% on hover */
-    }
-    
-    .custom-link {
-        color: #fff; /* Set the desired color for the link */
-        text-decoration: none; /* Remove the underline */
-        transition: color 0.75s ease, transform 0.75s ease; /* Add transition for color and transform */
-    }
-    
-    .custom-link:hover {
-        color: #FFC107; /* Set the desired color for the link on hover */
-    }
     
     #leftpanelitem {
         cursor: pointer;
@@ -85,7 +67,7 @@
     }
     
     .leftcustom-link:hover {
-        color: #FFC107; /* Set the desired color for the link on hover */
+        color: #57f1ff; /* Set the desired color for the link on hover */
         transform: scale(1.04);
     }
     
@@ -142,7 +124,7 @@
     
     /* Style the dropdown links on hover */
     .dropdown-content a:hover {
-        color: #FFC107;
+        color: #57f1ff;
     }
 
 </style>
@@ -175,6 +157,9 @@
                 </div>
             }
         </div>
+        <a class="settings-button" href="@Url.Action("SettingsIndex", "Settings")">
+            <span>&#9881;</span>
+        </a>
         <div id="leftrightpanelitem"></div>
     </div>
 

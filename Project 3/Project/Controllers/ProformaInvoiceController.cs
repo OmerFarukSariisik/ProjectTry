@@ -1,5 +1,6 @@
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Globalization;
 using Microsoft.AspNetCore.Mvc;
 using Project.Models;
 using Project.Services;
@@ -10,21 +11,38 @@ public class ProformaInvoiceController : Controller
 {
     private readonly ICustomerService _customerService;
     private readonly IProformaInvoiceService _proformaInvoiceService;
+    private readonly ISettingsService _settingsService;
+    
+    private readonly IDocumentAttestationService _documentAttestationService;
+    private readonly IDocumentCommitmentLetterService _documentCommitmentLetterService;
+    private readonly IDocumentConsentLetterService _documentConsentLetterService;
+    private readonly IDocumentInvitationService _documentInvitationService;
+    private readonly IDocumentPoaService _documentPoaService;
+    private readonly IDocumentSircularyService _documentSircularyService;
+    private readonly IDocumentTranslationService _documentTranslationService;
+    
     private readonly string _connectionString;
 
     public ProformaInvoiceController(IConfiguration configuration,
-        ICustomerService customerService, IProformaInvoiceService proformaInvoiceService)
+        ICustomerService customerService, IProformaInvoiceService proformaInvoiceService, IDocumentAttestationService documentAttestationService, IDocumentCommitmentLetterService documentCommitmentLetterService, IDocumentConsentLetterService documentConsentLetterService, IDocumentInvitationService documentInvitationService, IDocumentPoaService documentPoaService, IDocumentSircularyService documentSircularyService, IDocumentTranslationService documentTranslationService, ISettingsService settingsService)
     {
         _customerService = customerService;
         _proformaInvoiceService = proformaInvoiceService;
+        _documentAttestationService = documentAttestationService;
+        _documentCommitmentLetterService = documentCommitmentLetterService;
+        _documentConsentLetterService = documentConsentLetterService;
+        _documentInvitationService = documentInvitationService;
+        _documentPoaService = documentPoaService;
+        _documentSircularyService = documentSircularyService;
+        _documentTranslationService = documentTranslationService;
+        _settingsService = settingsService;
         _connectionString = configuration.GetConnectionString("DefaultConnection");
     }
     
     public IActionResult ProformaInvoiceIndex(string str, bool first)
     {
         _proformaInvoiceService.Initialize();
-        Console.WriteLine("str: " + str);
-        Console.WriteLine("count: " + _proformaInvoiceService.AllProformaInvoices.Count);
+        
         if(string.IsNullOrEmpty(str))
             return View(_proformaInvoiceService.AllProformaInvoices.ToArray());
             
@@ -40,19 +58,103 @@ public class ProformaInvoiceController : Controller
         return View(proformaInvoiceModels.ToArray());
     }
 
-    public IActionResult CreateProformaInvoicePage()
+    public IActionResult ChooseCustomerForProformaInvoicePage()
+    {
+        _customerService.Initialize();
+        return View(_customerService.AllCustomers.ToArray());
+    }
+    
+    public IActionResult ChooseServicePage(int id)
+    {
+        _documentAttestationService.Initialize();
+        _documentCommitmentLetterService.Initialize();
+        _documentConsentLetterService.Initialize();
+        _documentInvitationService.Initialize();
+        _documentPoaService.Initialize();
+        _documentSircularyService.Initialize();
+        _documentTranslationService.Initialize();
+        
+        var allDocumentsModel = new AllDocumentsModel();
+        allDocumentsModel.DocumentAttestationModels = _documentAttestationService.AllDocumentAttestations
+            .Where(x => x.CustomerId == id).ToArray();
+        allDocumentsModel.DocumentCommitmentLetterModels = _documentCommitmentLetterService.AllDocumentCommitmentLetter
+            .Where(x => x.CustomerId == id).ToArray();
+        allDocumentsModel.DocumentConsentLetterModels = _documentConsentLetterService.AllDocumentConsentLetter
+            .Where(x => x.CustomerId == id).ToArray();
+        allDocumentsModel.DocumentInvitationModels = _documentInvitationService.AllDocumentInvitation
+            .Where(x => x.CustomerId == id).ToArray();
+        allDocumentsModel.DocumentPoaModels =
+            _documentPoaService.AllDocumentPoa.Where(x => x.CustomerId == id).ToArray();
+        allDocumentsModel.DocumentSircularyModels = _documentSircularyService.AllDocumentSirculary
+            .Where(x => x.CustomerId == id).ToArray();
+        allDocumentsModel.DocumentTranslationModels = _documentTranslationService.AllDocumentTranslations
+            .Where(x => x.CustomerId == id).ToArray();
+        allDocumentsModel.CustomerId = id;
+        
+        return View(allDocumentsModel);
+    }
+    
+    public IActionResult CreateProformaInvoicePage(int customerId, List<int> selectedDocuments, List<string> documentTypes)
     {
         _proformaInvoiceService.Initialize();
-        return View();
+        _settingsService.Initialize();
+        _customerService.Initialize();
+        var customer = _customerService.AllCustomers.FirstOrDefault(x => x.CustomerId == customerId);
+        
+        var items = new ProformaInvoiceItem[selectedDocuments.Count];
+        for( var i = 0; i < selectedDocuments.Count; i++)
+        {
+            var document = new ProformaInvoiceItem
+            {
+                Description = documentTypes[i],
+                UnitPrice = 0,
+                Qty = 1,
+                SubTotal = 0
+            };
+            
+            document.Vat = documentTypes[i] switch
+            {
+                "DocumentAttestation" => _settingsService.AllSettings.First().AttestationTax,
+                "DocumentCommitmentLetter" => _settingsService.AllSettings.First().CommitmentTax,
+                "DocumentConsentLetter" => _settingsService.AllSettings.First().ConsentTax,
+                "DocumentInvitation" => _settingsService.AllSettings.First().InvitationTax,
+                "DocumentPoa" => _settingsService.AllSettings.First().PoaTax,
+                "DocumentSirculary" => _settingsService.AllSettings.First().SircularyTax,
+                "DocumentTranslation" => _settingsService.AllSettings.First().TranslationTax,
+                _ => 0 // Default case, if documentTypes[i] doesn't match any case
+            };
+            document.VatString = document.Vat.ToString(CultureInfo.InvariantCulture);
+            
+            document.UnitPrice = documentTypes[i] switch
+            {
+                "DocumentAttestation" => _settingsService.AllSettings.First().AttestationPrice,
+                "DocumentCommitmentLetter" => _settingsService.AllSettings.First().CommitmentPrice,
+                "DocumentConsentLetter" => _settingsService.AllSettings.First().ConsentPrice,
+                "DocumentInvitation" => _settingsService.AllSettings.First().InvitationPrice,
+                "DocumentPoa" => _settingsService.AllSettings.First().PoaPrice,
+                "DocumentSirculary" => _settingsService.AllSettings.First().SircularyPrice,
+                "DocumentTranslation" => _settingsService.AllSettings.First().TranslationPrice,
+                _ => 0 // Default case, if documentTypes[i] doesn't match any case
+            };
+            document.Qty = 1;
+            document.UnitPriceString = document.UnitPrice.ToString(CultureInfo.InvariantCulture);
+            items[i] = document;
+        }
+        
+        var proformaInvoice = new ProformaInvoiceModel
+        {
+            Customer = customer,
+            CustomerId = customer.CustomerId,
+            Items =  items
+        };
+        return View(proformaInvoice);
     }
 
     public IActionResult EditProformaInvoicePage(int proformaInvoiceId)
     {
-        Console.WriteLine("id: " + proformaInvoiceId);
         _proformaInvoiceService.Initialize();
-        var retrievedProformaInvoice = _proformaInvoiceService.AllProformaInvoices.Find(b => b.ProformaInvoiceId == proformaInvoiceId);
-        Console.WriteLine("retrievedProformaInvoice: " + retrievedProformaInvoice.ProformaInvoiceId);
-        Console.WriteLine("retrievedProformaInvoice: " + retrievedProformaInvoice.Customer.FullName);
+        var retrievedProformaInvoice =
+            _proformaInvoiceService.AllProformaInvoices.Find(b => b.ProformaInvoiceId == proformaInvoiceId);
         return View(retrievedProformaInvoice);
     }
 
@@ -64,23 +166,22 @@ public class ProformaInvoiceController : Controller
         {
             ProformaInvoiceNo = proformaInvoice.ProformaInvoiceNo,
             Items = proformaInvoice.Items,
-
-            SubTotal = proformaInvoice.SubTotal,
-            TotalTaxAmount = proformaInvoice.TotalTaxAmount,
-            GrandTotal = proformaInvoice.GrandTotal,
+            SubTotal = double.Parse(proformaInvoice.SubTotalString, CultureInfo.InvariantCulture),
+            TotalTaxAmount = double.Parse(proformaInvoice.TotalTaxAmountString, CultureInfo.InvariantCulture),
+            GrandTotal = double.Parse(proformaInvoice.GrandTotalString, CultureInfo.InvariantCulture),
             CreatedBy = proformaInvoice.CreatedBy,
-            InvoiceDate = proformaInvoice.InvoiceDate,
-            Vat =  proformaInvoice.Vat
+            InvoiceDate = proformaInvoice.InvoiceDate
         };
 
         for (var i = 0; i < newProformaInvoice.Items.Length; i++)
         {
             newProformaInvoice.Descriptions += newProformaInvoice.Items[i].Description;
-            newProformaInvoice.UnitPrices += newProformaInvoice.Items[i].UnitPrice;
+            newProformaInvoice.UnitPrices += newProformaInvoice.Items[i].UnitPriceString;
             newProformaInvoice.Qtys += newProformaInvoice.Items[i].Qty;
-            newProformaInvoice.SubTotals += newProformaInvoice.Items[i].SubTotal;
-            newProformaInvoice.TaxAmounts += newProformaInvoice.Items[i].TaxAmount;
-            newProformaInvoice.Totals += newProformaInvoice.Items[i].Total;
+            newProformaInvoice.SubTotals += newProformaInvoice.Items[i].SubTotalString;
+            newProformaInvoice.TaxAmounts += newProformaInvoice.Items[i].TaxAmountString;
+            newProformaInvoice.Totals += newProformaInvoice.Items[i].TotalString;
+            newProformaInvoice.Vats += newProformaInvoice.Items[i].VatString;
             
             if (i != newProformaInvoice.Items.Length - 1)
             {
@@ -90,6 +191,7 @@ public class ProformaInvoiceController : Controller
                 newProformaInvoice.SubTotals += "|";
                 newProformaInvoice.TaxAmounts += "|";
                 newProformaInvoice.Totals += "|";
+                newProformaInvoice.Vats += "|";
             }
         }
 
@@ -103,8 +205,8 @@ public class ProformaInvoiceController : Controller
             connection.Open();
 
             string sql =
-                "INSERT INTO proformaInvoices (CustomerId, Descriptions, UnitPrices, Qtys, SubTotals, TaxAmounts, Totals, SubTotal, TotalTaxAmount, GrandTotal, CreatedBy, InvoiceDate, ProformaInvoiceNo, Vat) " +
-                "VALUES (@CustomerId, @Descriptions, @UnitPrices, @Qtys, @SubTotals, @TaxAmounts, @Totals, @SubTotal, @TotalTaxAmount, @GrandTotal, @CreatedBy, @InvoiceDate, @ProformaInvoiceNo, @Vat)";
+                "INSERT INTO proformaInvoices (CustomerId, Descriptions, UnitPrices, Qtys, SubTotals, TaxAmounts, Totals, SubTotal, TotalTaxAmount, GrandTotal, CreatedBy, InvoiceDate, ProformaInvoiceNo, Vats) " +
+                "VALUES (@CustomerId, @Descriptions, @UnitPrices, @Qtys, @SubTotals, @TaxAmounts, @Totals, @SubTotal, @TotalTaxAmount, @GrandTotal, @CreatedBy, @InvoiceDate, @ProformaInvoiceNo, @Vats)";
 
             using (SqlCommand command = new SqlCommand(sql, connection))
             {
@@ -121,7 +223,7 @@ public class ProformaInvoiceController : Controller
                 command.Parameters.AddWithValue("@GrandTotal", newProformaInvoice.GrandTotal);
                 command.Parameters.AddWithValue("@CreatedBy", newProformaInvoice.CreatedBy);
                 command.Parameters.AddWithValue("@InvoiceDate", newProformaInvoice.InvoiceDate);
-                command.Parameters.AddWithValue("@Vat", newProformaInvoice.Vat);
+                command.Parameters.AddWithValue("@Vats", newProformaInvoice.Vats);
                 command.ExecuteNonQuery();
             }
         }
@@ -144,8 +246,7 @@ public class ProformaInvoiceController : Controller
             TotalTaxAmount = proformaInvoice.TotalTaxAmount,
             GrandTotal = proformaInvoice.GrandTotal,
             CreatedBy = proformaInvoice.CreatedBy,
-            InvoiceDate = proformaInvoice.InvoiceDate,
-            Vat =  proformaInvoice.Vat
+            InvoiceDate = proformaInvoice.InvoiceDate
         };
 
         for (var i = 0; i < newProformaInvoice.Items.Length; i++)
@@ -156,6 +257,7 @@ public class ProformaInvoiceController : Controller
             newProformaInvoice.SubTotals += newProformaInvoice.Items[i].SubTotal;
             newProformaInvoice.TaxAmounts += newProformaInvoice.Items[i].TaxAmount;
             newProformaInvoice.Totals += newProformaInvoice.Items[i].Total;
+            newProformaInvoice.Vats += newProformaInvoice.Items[i].Vat;
             
             if (i != newProformaInvoice.Items.Length - 1)
             {
@@ -165,6 +267,7 @@ public class ProformaInvoiceController : Controller
                 newProformaInvoice.SubTotals += "|";
                 newProformaInvoice.TaxAmounts += "|";
                 newProformaInvoice.Totals += "|";
+                newProformaInvoice.Vats += "|";
             }
         }
 
@@ -173,9 +276,6 @@ public class ProformaInvoiceController : Controller
             _customerService.AllCustomers.First(x =>
                 x.MobileNumber == proformaInvoice.Customer.MobileNumber);
         newProformaInvoice.CustomerId = newProformaInvoice.Customer.CustomerId;
-        
-        Console.WriteLine("PROFORMAA.CustomerId: " + newProformaInvoice.Customer.CustomerId);
-        Console.WriteLine("PROFORMAA.FullName: " + newProformaInvoice.Customer.FullName);
 
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
@@ -193,7 +293,7 @@ public class ProformaInvoiceController : Controller
                          "CreatedBy = @CreatedBy, " +
                          "InvoiceDate = @InvoiceDate, " +
                          "ProformaInvoiceNo = @ProformaInvoiceNo, " +
-                         "Vat = @Vat " +
+                         "Vats = @Vats " +
                          "WHERE ProformaInvoiceId = @ProformaInvoiceId";
 
             using (SqlCommand command = new SqlCommand(sql, connection))
@@ -205,6 +305,7 @@ public class ProformaInvoiceController : Controller
                 command.Parameters.AddWithValue("@UnitPrices", newProformaInvoice.UnitPrices);
                 command.Parameters.AddWithValue("@Qtys", newProformaInvoice.Qtys);
                 command.Parameters.AddWithValue("@SubTotals", newProformaInvoice.SubTotals);
+                command.Parameters.AddWithValue("@Vats", newProformaInvoice.Vats);
                 command.Parameters.AddWithValue("@TaxAmounts", newProformaInvoice.TaxAmounts);
                 command.Parameters.AddWithValue("@Totals", newProformaInvoice.Totals);
                 command.Parameters.AddWithValue("@SubTotal", newProformaInvoice.SubTotal);
@@ -212,15 +313,11 @@ public class ProformaInvoiceController : Controller
                 command.Parameters.AddWithValue("@GrandTotal", newProformaInvoice.GrandTotal);
                 command.Parameters.AddWithValue("@CreatedBy", newProformaInvoice.CreatedBy);
                 command.Parameters.AddWithValue("@InvoiceDate", newProformaInvoice.InvoiceDate);
-                command.Parameters.AddWithValue("@Vat", newProformaInvoice.Vat);
                 command.ExecuteNonQuery();
             }
         }
         
-        Console.WriteLine("PROFORMAAA.coount1: " + _proformaInvoiceService.AllProformaInvoices.Count);
         _proformaInvoiceService.Initialize();
-        Console.WriteLine("PROFORMAAA.ProformaInvoiceIdd: " + newProformaInvoice.ProformaInvoiceId);
-        Console.WriteLine("PROFORMAAA.coount2: " + _proformaInvoiceService.AllProformaInvoices.Count);
         var retrievedProformaInvoice =
             _proformaInvoiceService.AllProformaInvoices.Find(b => b.ProformaInvoiceId == newProformaInvoice.ProformaInvoiceId);
         var index = _proformaInvoiceService.AllProformaInvoices.IndexOf(retrievedProformaInvoice);
@@ -264,22 +361,19 @@ public class ProformaInvoiceController : Controller
     public IActionResult ShowProformaInvoice(int proformaInvoiceId)
     {
         _proformaInvoiceService.Initialize();
-        var retrievedProformaInvoice = _proformaInvoiceService.AllProformaInvoices.Find(b => b.ProformaInvoiceId == proformaInvoiceId);
-        Console.WriteLine("retrievedProformaInvoice: " + retrievedProformaInvoice.Items.Length);
+        var retrievedProformaInvoice =
+            _proformaInvoiceService.AllProformaInvoices.Find(b => b.ProformaInvoiceId == proformaInvoiceId);
         return View(retrievedProformaInvoice);
     }
     
     [HttpGet]
     public IActionResult GetCustomerByMobileNumber(string mobileNumber)
     {
-        Console.WriteLine("aaaa");
         _customerService.Initialize();
         var customer = _customerService.AllCustomers.FirstOrDefault(x => x.MobileNumber == mobileNumber);
-
-        Console.WriteLine("mobile number:" + mobileNumber + "-");
+        
         if (customer != null)
         {
-            Console.WriteLine("yess " + customer.FullName);
             return Json(new
             {
                 fullName = customer.FullName,
@@ -297,11 +391,6 @@ public class ProformaInvoiceController : Controller
     {
         _proformaInvoiceService.Initialize();
         var retrievedProformaInvoice = _proformaInvoiceService.AllProformaInvoices.Find(b => b.ProformaInvoiceId == proformaInvoiceId);
-        if(retrievedProformaInvoice.Customer == null)
-            Console.WriteLine("CUSTOMER NULLLLLL: " + retrievedProformaInvoice.CustomerId);
-        else
-            Console.WriteLine("CUSTOMER FOUNDDDD: " + retrievedProformaInvoice.Customer.FullName);
-        
         return RedirectToAction("CreatePendingPage", "Pending", retrievedProformaInvoice);
     }
     public IActionResult RequestCreateInvoicePage(int proformaInvoiceId)
@@ -312,11 +401,6 @@ public class ProformaInvoiceController : Controller
     {
         _proformaInvoiceService.Initialize();
         var retrievedProformaInvoice = _proformaInvoiceService.AllProformaInvoices.Find(b => b.ProformaInvoiceId == proformaInvoiceId);
-        if(retrievedProformaInvoice.Customer == null)
-            Console.WriteLine("CUSTOMER NULLLLLL: " + retrievedProformaInvoice.CustomerId);
-        else
-            Console.WriteLine("CUSTOMER FOUNDDDD: " + retrievedProformaInvoice.Customer.FullName);
-        
         return RedirectToAction("CreateVoucherPage", "Voucher", retrievedProformaInvoice);
     }
     
