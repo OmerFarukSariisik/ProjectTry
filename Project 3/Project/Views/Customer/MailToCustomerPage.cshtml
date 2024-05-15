@@ -1,73 +1,74 @@
 @page
 @model Project.Models.MailModel
 
-@{
-    Layout = null;
-}
 
 <!DOCTYPE html>
 
 <style>
-    #top-bar {
-        position: fixed; /* Fix the top bar panel at the top of the viewport */
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 50px; /* Set the desired height for the top bar panel */
-        background-color: #333; /* Background color for the top bar panel */
-        color: #fff;
-        display: flex;
-        justify-content: center; /* Center the content horizontally */
-        align-items: center; /* Center the content vertically */
+    body {
+                background-color: #f8f9fa;
+                font-family: Arial, sans-serif;
+    }
+    .container {
+        margin-top: 50px;
     }
     
-    #panelitem {
-        font-size: 23px; /* Decreased font size for better readability */
-        color: #fff;
-        cursor: pointer;
-        margin: 0 35px; /* Added some spacing between clickable items */
-        text-decoration: none; /* Removed underline */
-        transition: color 1s ease, transform 1s ease; /* Smooth color transition on hover */
+    .form-group {
+         margin-bottom: 20px;
     }
 </style>
 
 <html>
 
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 <div id="top-bar">
-    <div id="panelitem">
+    <div id="selectedpanelitem">
         <h3>
             Send Mail
         </h3>
     </div>
 </div>
-<br/><br/><br/>
+<br/><br/>
 
 @using (Html.BeginForm("SendMail", "Customer", FormMethod.Post))
 {
-    <br/> <br/> <br/>
-    
-    <div class="form-group">
-        @Html.LabelFor(model => model.Subject)
-        @Html.TextBoxFor(model => model.Subject, new { @class = "form-control" })
+    <body>
+    <div class="container">
+        @using (Html.BeginForm("SendMail", "Customer", FormMethod.Post, new { @class = "mt-5" }))
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.Subject)
+                @Html.TextBoxFor(model => model.Subject, new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Body)
+                @Html.TextAreaFor(model => model.Body, new { @class = "form-control", rows = "6" })
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(model => model.From)
+                    @Html.TextBoxFor(model => model.From, new { @class = "form-control" })
+                </div>
+
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(model => model.Password)
+                    @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
+                </div>
+            </div>
+
+            @Html.HiddenFor(model => model.To)
+
+            <button type="submit" class="btn btn-primary">Send Email</button>
+        }
+
     </div>
-    
-    <div class="form-group">
-        @Html.LabelFor(model => model.Body)
-        @Html.TextAreaFor(model => model.Body, new { @class = "form-control" })
-    </div>
-    
-    <div class="form-group">
-        @Html.LabelFor(model => model.From)
-        @Html.TextBoxFor(model => model.From, new { @class = "form-control" })
-    </div>
-    
-    <div class="form-group">
-        @Html.LabelFor(model => model.Password)
-        @Html.TextBoxFor(model => model.Password, new { @class = "form-control", type = "password" })
-    </div>
-    
-    @Html.HiddenFor(model => model.To) <!-- Hidden field for 'To' field -->
-    
-    <button type="submit" class="btn btn-primary">Send Email</button>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </body>
 }
 </html>

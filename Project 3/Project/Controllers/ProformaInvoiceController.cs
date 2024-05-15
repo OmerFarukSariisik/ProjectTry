@@ -145,7 +145,8 @@ public class ProformaInvoiceController : Controller
         {
             Customer = customer,
             CustomerId = customer.CustomerId,
-            Items =  items
+            Items =  items,
+            InvoiceDate = DateTime.Today
         };
         return View(proformaInvoice);
     }

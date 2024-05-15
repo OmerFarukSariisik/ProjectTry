@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "mtQts9Q8KiRYa0eyAwOf6CYajBmVEFNDXxkXi6fXoxs=",
+  "Hash": "DR2SO158QBDAkrEaEV37j/77RrRi0jKM5/nZLzrHtCo=",
   "Source": "Project",
   "BasePath": "_content/Project",
   "Mode": "Default",
@@ -1069,6 +1069,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "/Users/omerfaruk/Documents/omer/ProjectTry/Project 3/Project/obj/Debug/net6.0/scopedcss/projectbundle/Project.bundle.scp.css"
+    },
+    {
+      "Identity": "/Users/omerfaruk/Documents/omer/ProjectTry/Project 3/Project/wwwroot/.DS_Store",
+      "SourceId": "Project",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/omerfaruk/Documents/omer/ProjectTry/Project 3/Project/wwwroot/",
+      "BasePath": "_content/Project",
+      "RelativePath": ".DS_Store",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/.DS_Store"
     },
     {
       "Identity": "/Users/omerfaruk/Documents/omer/ProjectTry/Project 3/Project/wwwroot/css/site.css",

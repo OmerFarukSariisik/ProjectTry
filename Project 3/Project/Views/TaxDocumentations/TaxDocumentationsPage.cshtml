@@ -1,12 +1,6 @@
 @model Project.Models.TaxDocumentationsModel
 @{
-    Layout = null;
-}
-
-<!DOCTYPE html>
-
-@{
-    // Create a dictionary to map month numbers to month names
+    ViewData["Title"] = "Tax Management";
     var monthNames = new Dictionary<int, string>();
     var cultureInfo = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat;
     for (int i = 1; i <= 12; i++)
@@ -14,14 +8,6 @@
         monthNames.Add(i, cultureInfo.GetMonthName(i));
     }
 }
-
-<div class="text-center">
-    <div class="d-inline-block mx-4">
-        <h3>
-            <a href="@Url.Action("Index", "Home")"> Home</a>
-        </h3>
-    </div>
-</div>
 
 <style>
     table {
@@ -38,22 +24,248 @@
     th {
         background-color: #f2f2f2;
     }
+    
+    .tabcontent {
+        margin: 0 auto; /* Center the content horizontally */
+        width: 50%; /* Optionally, set the width of the content */
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
 </style>
 
-<table>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<input type="hidden" id="serializedMonthsData" value="@Model.MonthTaxAmountsString">
+<input type="hidden" id="serializedYearsData" value="@Model.YearTaxAmountsString">
+<input type="hidden" id="serializedDaysData" value="@Model.DayTaxAmountsString">
+
+<div id="top-bar">
+    <div id="selectedpanelitem">
+        <h3>
+            <a>Tax Documentations</a>
+        </h3>
+    </div>
+</div>
+
+<br/><br/><br/><br/>
+
+<ul class="nav nav-tabs justify-content-center">
+    <li class="nav-item">
+        <a id="dailyButton" data-toggle="tab" class="nav-link" href="#dailyButton">Daily Tax Info</a>
+    </li>
+    <li class="nav-item">
+        <a id="monthlyButton" data-toggle="tab" class="nav-link" href="#monthlyButton">Monthly Tax Info</a>
+    </li>
+    <li class="nav-item">
+        <a id="yearlyButton" data-toggle="tab" class="nav-link" href="#yearlyButton">Yearly Tax Info</a>
+    </li>
+</ul>
+
+<br> <br>
+<div id="daily" class="tabcontent">
+    <h3>Daily Tax Information</h3>
+    <table id="dailyTable">
+        <thead>
+        <tr>
+            <th>Date</th>
+            <th>SubTotal</th>
+            <th>Total Tax Amount</th>
+            <th>Grand Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Daily tax information will be populated here -->
+        </tbody>
+    </table>
+</div>
+
+<div id="monthly" class="tabcontent">
+    <h3>Monthly Tax Information</h3>
+    <table id="monthlyTable">
+        <thead>
+        <tr>
+            <th>Month</th>
+            <th>SubTotal</th>
+            <th>Total Tax Amount</th>
+            <th>Grand Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Monthly tax information will be populated here -->
+        </tbody>
+    </table>
+</div>
+
+<div id="yearly" class="tabcontent">
+    <h3>Yearly Tax Information</h3>
+    <table id="yearlyTable">
+        <thead>
+        <tr>
+            <th>Year</th>
+            <th>SubTotal</th>
+            <th>Total Tax Amount</th>
+            <th>Grand Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Yearly tax information will be populated here -->
+        </tbody>
+    </table>
+</div>
+
+<br> <br> <br> <br>
+<label for="startDate">Start Date:</label>
+<input type="date" id="startDate" name="startDate">
+
+<label for="endDate">End Date:</label>
+<input type="date" id="endDate" name="endDate">
+
+<button onclick="showTotalTaxInfo()">Show Total Tax Info</button>
+
+<table id="taxInfoTable">
     <thead>
     <tr>
-        <th>Month</th>
-        <th>Tax Amount</th>
+        <th>SubTotal</th>
+        <th>Total Tax Amount</th>
+        <th>Grand Total</th>
     </tr>
     </thead>
-    <tbody>
-    @for (int i = 1; i <= 12; i++)
-    {
-        <tr>
-            <td>@monthNames[i]</td>
-            <td>@(Model.AllMonthsTaxAmounts.ContainsKey(i) ? Model.AllMonthsTaxAmounts[i].ToString() : "0")</td>
-        </tr>
-    }
+    <tbody id="taxInfoBody">
+    <!-- Total tax info row will be populated dynamically -->
     </tbody>
 </table>
+
+</html>
+
+
+<script>
+    var currentDate = new Date();
+    var year = currentDate.getFullYear();
+    var month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Month is zero-based, so add 1
+    var day = String(currentDate.getDate()).padStart(2, '0');
+
+    document.getElementById("startDate").value = year + "-" + month + "-" + day;
+    document.getElementById("endDate").value = year + "-" + month + "-" + day;
+    
+    var serializedMonthsData = document.getElementById("serializedMonthsData").value;
+    var serializedYearsData = document.getElementById("serializedYearsData").value;
+    var serializedDaysData = document.getElementById("serializedDaysData").value;
+
+    document.getElementById("dailyButton").addEventListener("click", function() {
+        openTab("daily");
+    });
+    document.getElementById("monthlyButton").addEventListener("click", function() {
+        openTab("monthly");
+    });
+    document.getElementById("yearlyButton").addEventListener("click", function() {
+        openTab("yearly");
+    });
+    
+    
+    function openTab(tabName) {
+        // Hide all tables
+        document.querySelectorAll(".tabcontent").forEach(function(tabcontent) {
+            tabcontent.style.display = "none";
+        });
+    
+        // Remove 'active' class from all buttons
+        document.querySelectorAll(".tablinks").forEach(function(tablink) {
+            tablink.classList.remove("active");
+        });
+    
+        // Show the selected tab content
+        document.getElementById(tabName).style.display = "inline";
+        console.log(document.getElementById(tabName).className);
+    
+        // Add 'active' class to the clicked button
+        //this.classList.add("active");
+    
+        // Populate the table for the selected tab
+        populateTable(tabName);
+    }
+
+    function populateTable(tabName) {
+        var serializedData;
+        console.log(tabName);
+        switch (tabName) {
+            case "daily":
+                serializedData = serializedDaysData;
+                break;
+            case "monthly":
+                serializedData = serializedMonthsData;
+                break;
+            case "yearly":
+                serializedData = serializedYearsData;
+                break;
+            default:
+                console.log("Invalid tab name");
+                return;
+        }
+    
+        console.log(serializedData);
+        var dataArray = serializedData.split("W");
+        var tableId = tabName + "Table";
+        console.log(tableId);
+        var tableBody = document.getElementById(tableId).querySelector('tbody'); // Get tbody element
+        console.log("Table Body: ", tableBody);
+        if (!tableBody) return; // Exit if tbody element is not found
+    
+        tableBody.innerHTML = ""; // Clear existing content
+        var monthNames = @Html.Raw(Json.Serialize(monthNames));
+        console.log(dataArray.length);
+        for (var i = 0; i < dataArray.length; i++) {
+            console.log(dataArray[i]);
+            var itemData = dataArray[i].split("Q");
+            var row = "<tr><td>" + itemData[0] + "</td><td>" + itemData[1] + "</td><td>" + itemData[2] + "</td><td>" + itemData[3] + "</td></tr>";
+            tableBody.innerHTML += row;
+        }
+    }
+    
+    function showTotalTaxInfo() {
+        var startDate = new Date(document.getElementById("startDate").value);
+        var endDate = new Date(document.getElementById("endDate").value);
+    
+        // Filter tax data between the selected dates
+        var jsonData = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.DayTaxData));
+        console.log(jsonData);
+        // Filter tax data between the selected dates
+        var filteredTaxData = jsonData.filter(function(item) {
+            var itemDate = new Date(item.Date);
+            return itemDate >= startDate && itemDate <= endDate;
+        });
+        
+        console.log(filteredTaxData.length);
+        console.log(filteredTaxData);
+    
+        // Calculate total tax amounts
+        var totalSubTotal = 0;
+        var totalTaxAmount = 0;
+        var totalGrandTotal = 0;
+    
+        filteredTaxData.forEach(function(item) {
+            totalSubTotal += item.SubTotal;
+            totalTaxAmount += item.TotalTaxAmount;
+            totalGrandTotal += item.GrandTotal;
+        });
+    
+        // Display total tax info in a single row
+        displayTotalTaxInfo(totalSubTotal, totalTaxAmount, totalGrandTotal);
+    }
+    
+    function displayTotalTaxInfo(subTotal, totalTaxAmount, grandTotal) {
+        var tableBody = document.getElementById("taxInfoBody");
+        tableBody.innerHTML = ""; // Clear existing content
+    
+        var row = "<tr><td>" + subTotal + "</td><td>" + totalTaxAmount + "</td><td>" + grandTotal + "</td></tr>";
+        tableBody.innerHTML += row;
+    }
+
+    // Populate the initial table when the page loads
+    openTab('daily');
+</script>
+

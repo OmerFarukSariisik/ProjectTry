@@ -25,7 +25,8 @@ namespace Project.Controllers
             {
                 var totalTaxAmountThisMonth = _taxManagementService.GetThisMonthTaxAmount();
                 notification = $"Incoming tax payment amount: {totalTaxAmountThisMonth} AED";
-                hasNotification = true;
+                if (totalTaxAmountThisMonth > 0)
+                    hasNotification = true;
             }
             
             var homeModel = new HomeModel

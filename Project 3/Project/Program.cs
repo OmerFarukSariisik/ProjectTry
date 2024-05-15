@@ -27,6 +27,7 @@ builder.Services.AddScoped<IDocumentConsentLetterService, DocumentConsentLetterS
 builder.Services.AddScoped<IDocumentInvitationService, DocumentInvitationService>();
 builder.Services.AddScoped<IDocumentSircularyService, DocumentSircularyService>();
 builder.Services.AddScoped<ISettingsService, SettingsService>();
+builder.Services.AddScoped<ILoginService, LoginService>();
 
 
 var app = builder.Build();
@@ -53,7 +54,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{proformaInvoiceId?}");
+    pattern: "{controller=Login}/{action=LoginIndex}");
 app.MapRazorPages();
 
 app.Run();

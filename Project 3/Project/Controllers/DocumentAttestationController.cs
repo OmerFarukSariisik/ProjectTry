@@ -24,6 +24,7 @@ public class DocumentAttestationController : Controller
     
     public IActionResult AttestationForm(DocumentAttestationModel documentAttestationModel)
     {
+        documentAttestationModel.DeliveryDate = DateTime.Now;
         documentAttestationModel.CreateDate = DateTime.Now;
         return View(documentAttestationModel);
     }
