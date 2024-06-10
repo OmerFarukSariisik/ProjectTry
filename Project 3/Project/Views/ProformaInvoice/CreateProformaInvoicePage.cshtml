@@ -228,7 +228,7 @@
     <span>
         <table border="0" cellspacing="0" cellpadding="0">
             <tr>
-                <td align="left" style="padding-right: 20px;">
+                <td align="left" style="padding-right: 340px;">
                     <p style="text-indent: 0pt;text-align: left;"/>
                     <h1 style="padding-top: 12pt;padding-left: 19pt;text-indent: 0pt;text-align: left;">
                         Proforma Invoice
@@ -249,20 +249,25 @@
                         Currency: AED
                     </p>
                 </td>
-                <td align="right" style="padding-left: 170px;">
-                    <h3 style="padding-top: 6pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">
+                <td align="right" style="border: 2px solid black; padding: 10px;">
+                    <h1 style="padding-top: 6pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">
                         Invoice To
-                    </h3>
+                    </h1>
                     <p style="padding-top: 1pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">
                         <input asp-for="Customer.FullName" class="form-control" readonly="readonly" id="Customer.FullName"/>
                     </p>
-                    <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">
+                    <p style="padding-left: 6pt; text-indent: 0pt; text-align: left;">
                         Contact No :
-                        <input asp-for="Customer.MobileNumber" id="Customer.MobileNumber" data-url="@Url.Action("GetCustomerByMobileNumber", "ProformaInvoice")"/>
+                    </p>
+                    <p style="padding-left: 6pt; text-indent: 0pt; text-align: left;">
+                        <input asp-for="Customer.MobileNumber" id="Customer.MobileNumber" data-url="@Url.Action("GetCustomerByMobileNumber", "ProformaInvoice")" class="form-control"/>
                         <span asp-validation-for="Customer.MobileNumber" class="text-danger"></span>
                     </p>
-                    <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">
-                        TRN : <input asp-for="Customer.TRNNumber" class="form-control" readonly="readonly" id="Customer.TRNNumber"/>
+                    <p style="padding-left: 6pt; text-indent: 0pt; text-align: left;">
+                        TRN :
+                    </p>
+                    <p style="padding-left: 6pt; text-indent: 0pt; text-align: left;">
+                        <input asp-for="Customer.TRNNumber" class="form-control" readonly="readonly" id="Customer.TRNNumber"/>
                     </p>
                     <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">
                         Address : <input asp-for="Customer.Address" class="form-control" readonly="readonly" id="Customer.Address"/>

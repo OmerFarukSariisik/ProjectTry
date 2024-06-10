@@ -235,7 +235,7 @@
     <span>
         <table border="0" cellspacing="0" cellpadding="0">
             <tr>
-                <td align="left" style="padding-right: 20px;">
+                <td align="left" style="padding-right: 340px;">
                     <p style="text-indent: 0pt;text-align: left;"/>
                     <h1 style="padding-top: 12pt;padding-left: 19pt;text-indent: 0pt;text-align: left;">
                         Proforma Invoice
@@ -256,21 +256,27 @@
                         Currency: AED
                     </p>
                 </td>
-                <td align="right" style="padding-left: 170px;">
-                    <h3 style="padding-top: 6pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">
-                        Invoice<span class="s1"> </span>To
-                    </h3>
+                <td align="right" style="border: 2px solid black; padding: 10px;">
+                    <h1 style="padding-top: 6pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">
+                        Invoice To
+                    </h1>
                     <p style="padding-top: 1pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">
                         <input asp-for="Customer.FullName" class="form-control" readonly="readonly" id="Customer.FullName"/>
                     </p>
-                    <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">
+                    <p style="padding-left: 6pt; text-indent: 0pt; text-align: left;">
                         Contact No :
-                        <input asp-for="Customer.MobileNumber" id="Customer.MobileNumber" data-url="@Url.Action("GetCustomerByMobileNumber", "ProformaInvoice")"/>
+                    </p>
+                    <p style="padding-left: 6pt; text-indent: 0pt; text-align: left;">
+                        <input asp-for="Customer.MobileNumber" id="Customer.MobileNumber" data-url="@Url.Action("GetCustomerByMobileNumber", "ProformaInvoice")" class="form-control"/>
                         <span asp-validation-for="Customer.MobileNumber" class="text-danger"></span>
                     </p>
-                    <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">
-                        TRN : <input asp-for="Customer.TRNNumber" class="form-control" readonly="readonly" id="Customer.TRNNumber"/>
+                    <p style="padding-left: 6pt; text-indent: 0pt; text-align: left;">
+                        TRN :
                     </p>
+                    <p style="padding-left: 6pt; text-indent: 0pt; text-align: left;">
+                        <input asp-for="Customer.TRNNumber" class="form-control" readonly="readonly" id="Customer.TRNNumber"/>
+                    </p>
+
                     <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">
                         Address : <input asp-for="Customer.Address" class="form-control" readonly="readonly" id="Customer.Address"/>
                     </p>
@@ -349,41 +355,45 @@
             </p>
         </td>
     </tr>
-    <tr style="height:25pt" class="item-row">
-        <td style="width:48pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s6" style="padding-top: 6pt;text-indent: 0pt;text-align: center;">1</p>
-        </td>
-        <td style="width:143pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s6" style="padding-top: 7pt;text-indent: 0pt;text-align: left;">
-                <input asp-for="Items[0].Description" class="form-control"/>
-            </p>
-        </td>
-        <td style="width:67pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s6" style="padding-top: 6pt;padding-left: 23pt;text-indent: 0pt;text-align: left;">
-                <input asp-for="Items[0].UnitPrice" class="form-control"/>
-            </p>
-        </td>
-        <td style="width:48pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s6" style="padding-top: 6pt;padding-left: 16pt;text-indent: 0pt;text-align: left;">
-                <input asp-for="Items[0].Qty" class="form-control"/>
-            </p>
-        </td>
-        <td style="width:72pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s6" style="padding-top: 6pt;padding-left: 22pt;text-indent: 0pt;text-align: left;">
-                <input asp-for="Items[0].SubTotal" class="form-control"/>
-            </p>
-        </td>
-        <td style="width:72pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s6" style="padding-top: 6pt;padding-left: 25pt;text-indent: 0pt;text-align: left;">
-                <input asp-for="Items[0].TaxAmount" class="form-control"/>
-            </p>
-        </td>
-        <td style="width:83pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s6" style="padding-top: 6pt;padding-right: 21pt;text-indent: 0pt;text-align: right;">
-                <input asp-for="Items[0].Total" class="form-control"/>
-            </p>
-        </td>
-    </tr>
+    @for (var i = 0; i < Model.Items.Length; i++)
+    {
+        <tr style="height:25pt" class="item-row">
+            <td style="width:48pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                <p class="s6" style="padding-top: 6pt;text-indent: 0pt;text-align: center;">@(i + 1)</p>
+            </td>
+            <td style="width:143pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                <p class="s6" style="padding-top: 7pt;text-indent: 0pt;text-align: left;">
+                    <input asp-for="Items[i].Description" class="form-control"/>
+                </p>
+            </td>
+            <td style="width:67pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                <p class="s6" style="padding-top: 6pt;padding-left: 23pt;text-indent: 0pt;text-align: left;">
+                    <input asp-for="Items[i].UnitPrice" class="form-control"/>
+                </p>
+            </td>
+            <td style="width:48pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                <p class="s6" style="padding-top: 6pt;padding-left: 16pt;text-indent: 0pt;text-align: left;">
+                    <input asp-for="Items[i].Qty" class="form-control"/>
+                </p>
+            </td>
+            <td style="width:72pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                <p class="s6" style="padding-top: 6pt;padding-left: 22pt;text-indent: 0pt;text-align: left;">
+                    <input asp-for="Items[i].SubTotal" class="form-control"/>
+                </p>
+            </td>
+            <td style="width:72pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                <p class="s6" style="padding-top: 6pt;padding-left: 25pt;text-indent: 0pt;text-align: left;">
+                    <input asp-for="Items[i].TaxAmount" class="form-control"/>
+                </p>
+            </td>
+            <td style="width:83pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                <p class="s6" style="padding-top: 6pt;padding-right: 21pt;text-indent: 0pt;text-align: right;">
+                    <input asp-for="Items[i].Total" class="form-control"/>
+                </p>
+            </td>
+        </tr>
+    }
+
     <tr style="height:25pt; display: none;" class="item-row-template">
         <td style="width:48pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
             <p class="s6" style="padding-top: 6pt;text-indent: 0pt;text-align: center;">1</p>

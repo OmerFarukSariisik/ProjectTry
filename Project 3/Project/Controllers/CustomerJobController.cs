@@ -145,7 +145,8 @@ public class CustomerJobController : Controller
                 motherName = customer.MotherName,
                 address = customer.Address,
                 whatsAppNumber = customer.WhatsAppNumber,
-                email = customer.Email
+                email = customer.Email,
+                satisfaction = customer.Satisfaction
             });
         }
 

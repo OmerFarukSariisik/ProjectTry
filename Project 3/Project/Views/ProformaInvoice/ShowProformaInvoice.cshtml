@@ -227,7 +227,7 @@
     <span>
         <table border="0" cellspacing="0" cellpadding="0">
             <tr>
-                <td align="left" style="padding-right: 20px;">
+                <td align="left" style="padding-right: 340px;">
                     <p style="text-indent: 0pt;text-align: left;"/>
                     <h1 style="padding-top: 12pt;padding-left: 19pt;text-indent: 0pt;text-align: left;">
                         Proforma Invoice
@@ -246,25 +246,26 @@
                         Currency: AED
                     </p>
                 </td>
-                <td align="right" style="padding-left: 170px;">
-                    <h3 style="padding-top: 6pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">
-                        InvoiceTo
-                    </h3>
-                    <p style="padding-top: 1pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">
+                <td align="right" style="border: 2px solid black; padding: 10px;">
+                    <h1 style="padding-top: 6pt; text-indent: 0pt; text-align: left;">
+                        Invoice To
+                    </h1>
+                    <p style="padding-top: 1pt; text-indent: 0pt; text-align: left;">
                         @Model.Customer.FullName
                     </p>
-                    <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">
+                    <p style="text-indent: 0pt; text-align: left;">
                         Contact No : @Model.Customer.MobileNumber
                     </p>
-                    <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">
+                    <p style="text-indent: 0pt; text-align: left;">
                         TRN : @Model.Customer.TRNNumber
                     </p>
-                    <p style="padding-left: 6pt;text-indent: 0pt;text-align: left;">
+                    <p style="text-indent: 0pt; text-align: left;">
                         Address : @Model.Customer.Address
                     </p>
                 </td>
             </tr>
         </table>
+
     </span>
 </p>
 
@@ -339,7 +340,7 @@
     {
         <tr style="height:25pt">
             <td style="width:48pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                <p class="s6" style="padding-top: 6pt;text-indent: 0pt;text-align: center;">@i</p>
+                <p class="s6" style="padding-top: 6pt;text-indent: 0pt;text-align: center;">@(i + 1)</p>
             </td>
             <td style="width:143pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
                 <p class="s6" style="padding-top: 7pt;text-indent: 0pt;text-align: left;">
@@ -366,14 +367,14 @@
                     @Model.Items[i].TaxAmount
                 </p>
             </td>
-        <td style="width:83pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p class="s6" style="padding-top: 6pt;padding-right: 21pt;text-indent: 0pt;text-align: right;">
-                @Model.Items[i].Total
-            </p>
-        </td>
+            <td style="width:83pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                <p class="s6" style="padding-top: 6pt;padding-right: 21pt;text-indent: 0pt;text-align: right;">
+                    @Model.Items[i].Total
+                </p>
+            </td>
         </tr>
     }
-    
+
     <tr style="height:29pt" class="items-finish">
         <td style="width:450pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
             colspan="6">
@@ -444,7 +445,7 @@
             <h3 style="padding-left: 10px;font-size: 17px;padding-top: 12px">
                 Bank Account Data <br/>
             </h3>
-                
+
             <h3 style="padding-left: 23px;font-size: 17px">
                 <span style="text-decoration: underline;">Emirates Islamic Bank</span><br/>
                 Account Name : Ankara Translation and Businessmen Services FZE<br/>
@@ -459,7 +460,6 @@
 </form>
 <button onclick="printForm()">Print Form</button>
 </html>
-
 
 
 @section scripts {

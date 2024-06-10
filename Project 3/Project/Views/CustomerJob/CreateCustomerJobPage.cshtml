@@ -22,7 +22,7 @@
 <form asp-action="CreateCustomer" method="post">
     
     <div class="form-group" id="satisfactionInput">
-        <label class="control-label"> Customer Type</label>
+        <label asp-for="Satisfaction" class="control-label"> Customer Type</label>
         <input asp-for="Satisfaction" class="form-control" maxlength="3"/>
         <span asp-validation-for="Satisfaction" class="text-danger"></span>
         <button type="button" onclick="toggleVisibility()">Hide</button>
@@ -89,6 +89,7 @@
                             $('#Address').val(data.address);
                             $('#WhatsAppNumber').val(data.whatsAppNumber);
                             $('#Email').val(data.email);
+                            $('#Satisfaction').val(data.satisfaction);
                             // Add more fields as needed
 
                             // Optionally, disable the MobileNumber field to prevent editing
